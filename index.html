@@ -1,12 +1,577 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="google-site-verification" content="oNo07YxNuX6TrEn6WGShTSwzk3CZrYrlExWmB7G1s98" />
-<title>Cove Gamerz</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="oNo07YxNuX6TrEn6WGShTSwzk3CZrYrlExWmB7G1s98">
+<meta name="description" content="Cove Gamerz - Gaming, creative video editing and digital content creator portfolio.">
+<meta name="theme-color" content="#080d18">
+<title>Cove Gamerz | Official Creator Portfolio</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #080d18;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  background: #0b1220;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid #1c3045;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: bold;
+  color: #22d3ee;
+}
+
+nav a {
+  color: #ddd;
+  text-decoration: none;
+  margin-left: 18px;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #22d3ee;
+}
+
+.hero {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  background:
+    radial-gradient(ellipse at top, #123b58 0%, #080d18 65%);
+}
+
+.hero h1 {
+  font-size: clamp(42px, 9vw, 76px);
+  letter-spacing: 3px;
+}
+
+.hero h1 span {
+  color: #22d3ee;
+}
+
+.hero h2 {
+  color: #22d3ee;
+  margin: 12px 0;
+  letter-spacing: 3px;
+}
+
+.hero p {
+  color: #b7c4d4;
+  max-width: 600px;
+  margin: 12px;
+}
+
+.btn {
+  display: inline-block;
+  background: #22d3ee;
+  color: #06101c;
+  padding: 12px 25px;
+  margin-top: 22px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+section {
+  padding: 75px 8%;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 35px;
+}
+
+.section-title span {
+  color: #22d3ee;
+}
+
+.about {
+  max-width: 850px;
+  margin: auto;
+  text-align: center;
+  color: #b7c4d4;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  background: #111d2d;
+  padding: 27px;
+  border: 1px solid #243c55;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: #22d3ee;
+}
+
+.card h3 {
+  color: #22d3ee;
+  margin-bottom: 12px;
+}
+
+.card p {
+  color: #b7c4d4;
+}
+
+.skills {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.skill {
+  border: 1px solid #22d3ee;
+  padding: 12px 22px;
+  border-radius: 30px;
+  color: #22d3ee;
+}
+
+.contact {
+  text-align: center;
+  background: #0c1726;
+}
+
+.socials {
+  margin-top: 25px;
+}
+
+.socials a {
+  display: inline-block;
+  color: #22d3ee;
+  text-decoration: none;
+  margin: 10px;
+  border: 1px solid #22d3ee;
+  padding: 10px 18px;
+  border-radius: 6px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #8192a7;
+  border-top: 1px solid #1c3045;
+}
+
+@media(max-width: 600px) {
+  header {
+    flex-direction: column;
+    gap: 12px;
+  }
+  nav a {
+    margin: 0 7px;
+    font-size: 12px;
+  }
+  section {
+    padding: 55px 6%;
+  }
+}
+</style>
 </head>
+
 <body>
-<h1>Cove Gamerz</h1>
-<p>Welcome to Cove Gamerz!</p>
+
+<header>
+  <div class="logo">COVE GAMERZ</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <h1>COVE <span>GAMERZ</span></h1>
+  <h2>CREATE. EDIT. INSPIRE.</h2>
+  <p>
+    Welcome to my creative world.
+    Gaming content, cinematic car edits
+    and digital creativity all in one place.
+  </p>
+  <a href="#work" class="btn">EXPLORE MY WORK</a>
+</section>
+
+<section id="about">
+  <h2 class="section-title">ABOUT <span>ME</span></h2>
+  <div class="about">
+    <p>
+      Welcome to Cove Gamerz!
+      I am a passionate digital creator interested
+      in gaming, video editing and creative content.
+      This is my official portfolio where I share
+      my creations, editing projects and ideas.
+    </p>
+  </div>
+</section>
+
+<section id="work">
+  <h2 class="section-title">MY <span>CREATIONS</span></h2>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Gaming Videos</h3>
+      <p>Gaming highlights, gameplay and exciting moments.</p>
+    </div>
+
+    <div class="card">
+      <h3>Car Edits</h3>
+      <p>Cinematic edits featuring supercars and luxury cars.</p>
+    </div>
+
+    <div class="card">
+      <h3>Creative Editing</h3>
+      <p>Creative transitions, visual effects and digital edits.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">MY <span>SKILLS</span></h2>
+  <div class="skills">
+    <div class="skill">Video Editing</div>
+    <div class="skill">Gaming Content</div>
+    <div class="skill">Creative Design</div>
+    <div class="skill">Content Creation</div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2 class="section-title">LET'S <span>CONNECT</span></h2>
+  <p>Follow my creative journey and explore my latest content.</p>
+
+  <div class="socials">
+    <a href="https://www.youtube.com/" target="_blank">YouTube</a>
+    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Cove Gamerz. All Rights Reserved.</p>
+  <p>Created with passion.</p>
+</footer>
+
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="oNo07YxNuX6TrEn6WGShTSwzk3CZrYrlExWmB7G1s98">
+<meta name="description" content="Cove Gamerz - Gaming, creative video editing and digital content creator portfolio.">
+<meta name="theme-color" content="#080d18">
+<title>Cove Gamerz | Official Creator Portfolio</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #080d18;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  background: #0b1220;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid #1c3045;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: bold;
+  color: #22d3ee;
+}
+
+nav a {
+  color: #ddd;
+  text-decoration: none;
+  margin-left: 18px;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #22d3ee;
+}
+
+.hero {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  background:
+    radial-gradient(ellipse at top, #123b58 0%, #080d18 65%);
+}
+
+.hero h1 {
+  font-size: clamp(42px, 9vw, 76px);
+  letter-spacing: 3px;
+}
+
+.hero h1 span {
+  color: #22d3ee;
+}
+
+.hero h2 {
+  color: #22d3ee;
+  margin: 12px 0;
+  letter-spacing: 3px;
+}
+
+.hero p {
+  color: #b7c4d4;
+  max-width: 600px;
+  margin: 12px;
+}
+
+.btn {
+  display: inline-block;
+  background: #22d3ee;
+  color: #06101c;
+  padding: 12px 25px;
+  margin-top: 22px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+section {
+  padding: 75px 8%;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 35px;
+}
+
+.section-title span {
+  color: #22d3ee;
+}
+
+.about {
+  max-width: 850px;
+  margin: auto;
+  text-align: center;
+  color: #b7c4d4;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  background: #111d2d;
+  padding: 27px;
+  border: 1px solid #243c55;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: #22d3ee;
+}
+
+.card h3 {
+  color: #22d3ee;
+  margin-bottom: 12px;
+}
+
+.card p {
+  color: #b7c4d4;
+}
+
+.skills {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.skill {
+  border: 1px solid #22d3ee;
+  padding: 12px 22px;
+  border-radius: 30px;
+  color: #22d3ee;
+}
+
+.contact {
+  text-align: center;
+  background: #0c1726;
+}
+
+.socials {
+  margin-top: 25px;
+}
+
+.socials a {
+  display: inline-block;
+  color: #22d3ee;
+  text-decoration: none;
+  margin: 10px;
+  border: 1px solid #22d3ee;
+  padding: 10px 18px;
+  border-radius: 6px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #8192a7;
+  border-top: 1px solid #1c3045;
+}
+
+@media(max-width: 600px) {
+  header {
+    flex-direction: column;
+    gap: 12px;
+  }
+  nav a {
+    margin: 0 7px;
+    font-size: 12px;
+  }
+  section {
+    padding: 55px 6%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">COVE GAMERZ</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <h1>COVE <span>GAMERZ</span></h1>
+  <h2>CREATE. EDIT. INSPIRE.</h2>
+  <p>
+    Welcome to my creative world.
+    Gaming content, cinematic car edits
+    and digital creativity all in one place.
+  </p>
+  <a href="#work" class="btn">EXPLORE MY WORK</a>
+</section>
+
+<section id="about">
+  <h2 class="section-title">ABOUT <span>ME</span></h2>
+  <div class="about">
+    <p>
+      Welcome to Cove Gamerz!
+      I am a passionate digital creator interested
+      in gaming, video editing and creative content.
+      This is my official portfolio where I share
+      my creations, editing projects and ideas.
+    </p>
+  </div>
+</section>
+
+<section id="work">
+  <h2 class="section-title">MY <span>CREATIONS</span></h2>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Gaming Videos</h3>
+      <p>Gaming highlights, gameplay and exciting moments.</p>
+    </div>
+
+    <div class="card">
+      <h3>Car Edits</h3>
+      <p>Cinematic edits featuring supercars and luxury cars.</p>
+    </div>
+
+    <div class="card">
+      <h3>Creative Editing</h3>
+      <p>Creative transitions, visual effects and digital edits.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">MY <span>SKILLS</span></h2>
+  <div class="skills">
+    <div class="skill">Video Editing</div>
+    <div class="skill">Gaming Content</div>
+    <div class="skill">Creative Design</div>
+    <div class="skill">Content Creation</div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2 class="section-title">LET'S <span>CONNECT</span></h2>
+  <p>Follow my creative journey and explore my latest content.</p>
+
+  <div class="socials">
+    <a href="https://www.youtube.com/" target="_blank">YouTube</a>
+    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Cove Gamerz. All Rights Reserved.</p>
+  <p>Created with passion.</p>
+</footer>
+
+</body>
+</html>
+
