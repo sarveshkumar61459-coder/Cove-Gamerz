@@ -1,60 +1,38 @@
-
+  
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Cove Gamerz - Gaming, game publishing, creators, editing and gaming community.">
 <meta name="theme-color" content="#080d18">
-<title>COVE GAMERZ | Gaming Universe</title>
+<meta name="description" content="Cove Gamerz - Gaming, editing, game publishing and creator collaborations.">
+<title>COVE GAMERZ | Official Gaming Platform</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
- --bg:#080d18;--card:#101b2c;--blue:#168cff;
- --cyan:#00e5ff;--white:#f4f8ff;--muted:#9aabc1;
+--bg:#080d18;--card:#101b2c;--blue:#168cff;
+--cyan:#00e5ff;--white:#f4f8ff;--muted:#9aabc1
 }
 html{scroll-behavior:smooth}
-body{
- font-family:Arial,sans-serif;background:var(--bg);
- color:var(--white);line-height:1.6;
-}
+body{font-family:Arial,sans-serif;background:var(--bg);color:var(--white);line-height:1.6}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer}
-header{
- position:sticky;top:0;z-index:100;
- background:rgba(8,13,24,.95);
- border-bottom:1px solid #203149;
- backdrop-filter:blur(12px);
-}
-.nav{
- max-width:1150px;margin:auto;padding:16px 20px;
- display:flex;justify-content:space-between;align-items:center;
-}
+header{position:sticky;top:0;z-index:100;background:rgba(8,13,24,.96);border-bottom:1px solid #203149}
+.nav{max-width:1150px;margin:auto;padding:15px 20px;display:flex;justify-content:space-between;align-items:center}
 .logo{font-size:24px;font-weight:900;letter-spacing:1px}
 .logo span{color:var(--cyan)}
 nav{display:flex;gap:20px;flex-wrap:wrap}
 nav a{font-size:13px;color:#c4d3e7}
 nav a:hover{color:var(--cyan)}
 .menu{display:none;background:none;border:0;color:white;font-size:25px}
-.hero{
- min-height:550px;display:flex;align-items:center;
- justify-content:center;text-align:center;padding:75px 20px;
- background:
- radial-gradient(ellipse at 50% 45%,#10345a 0%,transparent 60%),
- linear-gradient(135deg,#080d18,#0b192c);
-}
+.hero{min-height:540px;display:flex;align-items:center;justify-content:center;text-align:center;padding:75px 20px;background:radial-gradient(ellipse at 50% 45%,#10345a 0%,transparent 60%),linear-gradient(135deg,#080d18,#0b192c)}
 .hero-content{max-width:800px}
 .tag{color:var(--cyan);font-size:12px;letter-spacing:4px;font-weight:bold}
 h1{font-size:clamp(42px,8vw,78px);line-height:1.12;margin:18px 0}
 h1 span{color:var(--cyan)}
 .hero p{color:var(--muted);max-width:600px;margin:0 auto 28px}
-.btn{
- display:inline-block;border:0;border-radius:7px;
- background:linear-gradient(100deg,#0878ff,#00cfff);
- padding:13px 22px;color:white;font-weight:bold;
- margin:5px;transition:.2s;
-}
+.btn{display:inline-block;border:0;border-radius:7px;background:linear-gradient(100deg,#0878ff,#00cfff);padding:13px 22px;color:white;font-weight:bold;margin:5px;transition:.2s}
 .btn:hover{transform:translateY(-3px);filter:brightness(1.15)}
 .btn-outline{background:transparent;border:1px solid var(--cyan)}
 section{padding:75px 20px;scroll-margin-top:75px}
@@ -63,54 +41,31 @@ section{padding:75px 20px;scroll-margin-top:75px}
 .heading h2{font-size:34px}
 .heading p{color:var(--muted);margin-top:8px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
-.card{
- background:var(--card);border:1px solid #22364f;
- border-radius:13px;padding:23px;transition:.25s;
-}
+.card{background:var(--card);border:1px solid #22364f;border-radius:13px;padding:23px;transition:.25s}
 .card:hover{transform:translateY(-5px);border-color:var(--cyan)}
 .card .emoji{font-size:38px}
 .card h3{margin:12px 0 6px}
 .card p{color:var(--muted);font-size:14px}
 .card .btn{margin:17px 0 0}
 .dark{background:#0b1423}
-.game-area{
- background:#070d19;border:1px solid #23405c;
- border-radius:14px;padding:15px;text-align:center;
-}
-canvas{
- display:block;width:100%;max-width:700px;
- margin:15px auto;background:#101d30;
- border:1px solid #1c3a57;border-radius:8px;
- touch-action:none;
-}
+.game-area{background:#070d19;border:1px solid #23405c;border-radius:14px;padding:15px;text-align:center}
+canvas{display:block;width:100%;max-width:700px;margin:15px auto;background:#101d30;border:1px solid #1c3a57;border-radius:8px;touch-action:none}
 .game-info{display:flex;justify-content:center;gap:25px;flex-wrap:wrap;color:var(--cyan)}
 .controls{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-.controls button{
- width:55px;height:48px;background:#17304b;color:white;
- border:1px solid #2878aa;border-radius:9px;font-size:20px;
-}
-input,textarea,select{
- width:100%;padding:13px;margin:8px 0 15px;
- background:#091321;border:1px solid #29405a;
- color:white;border-radius:7px;font:inherit;
-}
+.controls button{width:55px;height:48px;background:#17304b;color:white;border:1px solid #2878aa;border-radius:9px;font-size:20px}
+input,textarea,select{width:100%;padding:13px;margin:8px 0 15px;background:#091321;border:1px solid #29405a;color:white;border-radius:7px;font:inherit}
 textarea{min-height:110px;resize:vertical}
 label{font-size:13px;color:#c5d5e8}
 .form-card{max-width:650px;margin:auto}
 .notice{font-size:12px;color:var(--muted);margin-top:12px}
-footer{
- padding:35px 20px;text-align:center;
- background:#050912;border-top:1px solid #203149;
- color:var(--muted);font-size:13px;
-}
+footer{padding:35px 20px;text-align:center;background:#050912;border-top:1px solid #203149;color:var(--muted);font-size:13px}
 .social{margin:15px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
 @media(max-width:700px){
- .menu{display:block}
- nav{display:none;position:absolute;top:60px;left:0;width:100%;
- background:#0b1423;padding:20px;flex-direction:column}
- nav.show{display:flex}
- .hero{min-height:480px}
- section{padding:55px 16px}
+.menu{display:block}
+nav{display:none;position:absolute;top:60px;left:0;width:100%;background:#0b1423;padding:20px;flex-direction:column}
+nav.show{display:flex}
+.hero{min-height:470px}
+section{padding:55px 16px}
 }
 </style>
 </head>
@@ -118,374 +73,420 @@ footer{
 <body>
 
 <header>
- <div class="nav">
-  <a href="#" class="logo">COVE <span>GAMERZ</span></a>
-  <button class="menu" onclick="toggleMenu()">☰</button>
-  <nav id="nav">
-   <a href="#home">Home</a>
-   <a href="#games">Games</a>
-   <a href="#editing">Editing</a>
-   <a href="#publish">Publish Game</a>
-   <a href="#partners">Partners</a>
-   <a href="#contact">Contact</a>
-  </nav>
- </div>
+<div class="nav">
+<a href="#home" class="logo">COVE <span>GAMERZ</span></a>
+<button class="menu" onclick="toggleMenu()">☰</button>
+<nav id="nav">
+<a href="#home">Home</a>
+<a href="#games">Games</a>
+<a href="#editing">Editing</a>
+<a href="#publish">Publish Game</a>
+<a href="#partners">Partners</a>
+<a href="#news">News</a>
+<a href="#contact">Contact</a>
+</nav>
+</div>
 </header>
 
 <main>
+
 <section class="hero" id="home">
- <div class="hero-content">
-  <div class="tag">WELCOME TO THE GAMING UNIVERSE</div>
-  <h1>LEVEL UP YOUR <span>GAMING</span></h1>
-  <p>
-   Discover games, explore gaming content, showcase your creativity
-   and connect with the gaming community at Cove Gamerz.
-  </p>
-  <a href="#games" class="btn">EXPLORE GAMES</a>
-  <a href="#partners" class="btn btn-outline">COLLABORATE WITH US</a>
- </div>
+<div class="hero-content">
+<div class="tag">WELCOME TO THE GAMING UNIVERSE</div>
+<h1>LEVEL UP YOUR <span>GAMING</span></h1>
+<p>Discover games, explore gaming content, showcase your creativity and connect with the gaming community at Cove Gamerz.</p>
+<a href="#games" class="btn">EXPLORE GAMES</a>
+<a href="#partners" class="btn btn-outline">COLLABORATE WITH US</a>
+</div>
 </section>
 
 <section id="games">
- <div class="container">
-  <div class="heading">
-   <h2>🎮 Gaming Zone</h2>
-   <p>Explore games and play our original browser mini-game.</p>
-  </div>
-  <div class="grid">
-   <div class="card">
-    <div class="emoji">🌌</div>
-    <h3>Neon Survival</h3>
-    <p>Collect energy crystals, avoid drones and survive in the arena.</p>
-    <a href="#play" class="btn">PLAY NOW</a>
-   </div>
-   <div class="card">
-    <div class="emoji">🏎️</div>
-    <h3>Racing Zone</h3>
-    <p>A space for racing games and future browser game releases.</p>
-    <span class="notice">More games coming soon</span>
-   </div>
-   <div class="card">
-    <div class="emoji">🧩</div>
-    <h3>Arcade Zone</h3>
-    <p>Discover casual games and fun gaming challenges.</p>
-    <span class="notice">More games coming soon</span>
-   </div>
-  </div>
- </div>
+<div class="container">
+<div class="heading">
+<h2>🎮 Gaming Zone</h2>
+<p>Explore games and play our original browser mini-game.</p>
+</div>
+<div class="grid">
+<div class="card">
+<div class="emoji">🌌</div>
+<h3>Neon Survival</h3>
+<p>Collect energy crystals, avoid drones and survive in the arena.</p>
+<a href="#play" class="btn">PLAY NOW</a>
+</div>
+<div class="card">
+<div class="emoji">🏎️</div>
+<h3>Racing Zone</h3>
+<p>A place for racing games and future browser game releases.</p>
+<p class="notice">More games coming soon.</p>
+</div>
+<div class="card">
+<div class="emoji">🧩</div>
+<h3>Arcade Zone</h3>
+<p>Discover casual games and fun gaming challenges.</p>
+<p class="notice">More games coming soon.</p>
+</div>
+</div>
+</div>
 </section>
 
 <section class="dark" id="play">
- <div class="container">
-  <div class="heading">
-   <h2>🌌 Neon Survival</h2>
-   <p>Collect 10 crystals and avoid the moving drones!</p>
-  </div>
-  <div class="game-area">
-   <div class="game-info">
-    <span>Crystals: <b id="score">0</b>/10</span>
-    <span>Time: <b id="time">0</b>s</span>
-    <span id="status">Ready to play</span>
-   </div>
-   <canvas id="game" width="700" height="390"></canvas>
-   <button class="btn" onclick="startGame()">START / RESTART</button>
-   <p class="notice">Computer: Arrow keys or WASD | Mobile: Use the buttons below</p>
-   <div class="controls">
-    <button onclick="move('up')">↑</button>
-    <button onclick="move('left')">←</button>
-    <button onclick="move('down')">↓</button>
-    <button onclick="move('right')">→</button>
-   </div>
-  </div>
- </div>
+<div class="container">
+<div class="heading">
+<h2>🌌 Neon Survival</h2>
+<p>Collect 10 crystals and avoid the moving drones!</p>
+</div>
+<div class="game-area">
+<div class="game-info">
+<span>Crystals: <b id="score">0</b>/10</span>
+<span>Time: <b id="time">0</b>s</span>
+<span id="status">Ready to play</span>
+</div>
+<canvas id="game" width="700" height="390"></canvas>
+<button class="btn" onclick="startGame()">START / RESTART</button>
+<p class="notice">Computer: Arrow keys or WASD | Mobile: Use the buttons below.</p>
+<div class="controls">
+<button onclick="move('up')">↑</button>
+<button onclick="move('left')">←</button>
+<button onclick="move('down')">↓</button>
+<button onclick="move('right')">→</button>
+</div>
+</div>
+</div>
 </section>
 
 <section id="editing">
- <div class="container">
-  <div class="heading">
-   <h2>🎬 Creator & Editing Zone</h2>
-   <p>A place for gaming creators and video editors.</p>
-  </div>
-  <div class="grid">
-   <div class="card">
-    <div class="emoji">🎞️</div>
-    <h3>Video Editing</h3>
-    <p>Showcase gaming edits, transitions and creative projects.</p>
-   </div>
-   <div class="card">
-    <div class="emoji">📺</div>
-    <h3>Creator Community</h3>
-    <p>Connect gaming creators and share their channels.</p>
-   </div>
-   <div class="card">
-    <div class="emoji">🎨</div>
-    <h3>Design Studio</h3>
-    <p>Gaming thumbnails, banners, logos and creative graphics.</p>
-   </div>
-  </div>
- </div>
+<div class="container">
+<div class="heading">
+<h2>🎬 Creator & Editing Zone</h2>
+<p>A place for gaming creators and video editors.</p>
+</div>
+<div class="grid">
+<div class="card">
+<div class="emoji">🎞️</div>
+<h3>Video Editing</h3>
+<p>Showcase gaming edits, transitions and creative projects.</p>
+</div>
+<div class="card">
+<div class="emoji">📺</div>
+<h3>Creator Community</h3>
+<p>Connect gaming creators and share their channels.</p>
+</div>
+<div class="card">
+<div class="emoji">🎨</div>
+<h3>Design Studio</h3>
+<p>Gaming thumbnails, banners, logos and creative graphics.</p>
+</div>
+</div>
+</div>
 </section>
 
 <section class="dark" id="publish">
- <div class="container">
-  <div class="heading">
-   <h2>🚀 Publish Your Game</h2>
-   <p>Game developers can contact Cove Gamerz to propose a game listing.</p>
-  </div>
-  <div class="card form-card">
-   <form onsubmit="sendForm(event,'Game Publishing Request')">
-    <label>Developer / Studio Name</label>
-    <input name="name" required placeholder="Your studio name">
-    <label>Email Address</label>
-    <input name="email" type="email" required placeholder="Your email">
-    <label>Game Name</label>
-    <input name="game" required placeholder="Your game title">
-    <label>Game Link</label>
-    <input name="link" type="url" placeholder="https://example.com">
-    <label>Tell us about your game</label>
-    <textarea name="message" required placeholder="Describe your game..."></textarea>
-    <button class="btn" type="submit">SUBMIT GAME PROPOSAL</button>
-   </form>
-   <p class="notice">Submitting opens your email app. Your game is not automatically published.</p>
-  </div>
- </div>
+<div class="container">
+<div class="heading">
+<h2>🚀 Publish Your Game</h2>
+<p>Developers can propose their games for a possible listing on Cove Gamerz.</p>
+</div>
+<div class="card form-card">
+<form onsubmit="sendForm(event,'Game Publishing Request')">
+<label>Developer / Studio Name</label>
+<input name="name" required placeholder="Your studio name">
+<label>Email Address</label>
+<input name="email" type="email" required placeholder="Your email">
+<label>Game Name</label>
+<input name="game" required placeholder="Your game title">
+<label>Game Link</label>
+<input name="link" type="url" placeholder="https://example.com">
+<label>Tell us about your game</label>
+<textarea name="message" required placeholder="Describe your game..."></textarea>
+<button class="btn" type="submit">SUBMIT GAME PROPOSAL</button>
+</form>
+<p class="notice">Your email app will open to send the proposal. Games are reviewed before any listing.</p>
+</div>
+</div>
 </section>
 
 <section id="partners">
- <div class="container">
-  <div class="heading">
-   <h2>🤝 Partner With Cove Gamerz</h2>
-   <p>Let's explore opportunities to work together.</p>
-  </div>
-  <div class="grid">
-   <div class="card">
-    <div class="emoji">🏢</div>
-    <h3>Game Companies</h3>
-    <p>Discuss game promotions, official integrations and partnerships.</p>
-   </div>
-   <div class="card">
-    <div class="emoji">👨‍💻</div>
-    <h3>Game Developers</h3>
-    <p>Showcase original games and reach new gaming audiences.</p>
-   </div>
-   <div class="card">
-    <div class="emoji">🎥</div>
-    <h3>Content Creators</h3>
-    <p>Explore creator collaborations and gaming projects.</p>
-   </div>
-  </div>
-  <div style="text-align:center;margin-top:25px">
-   <a href="#contact" class="btn">BECOME A PARTNER</a>
-  </div>
- </div>
+<div class="container">
+<div class="heading">
+<h2>🤝 Partner With Cove Gamerz</h2>
+<p>Let's explore opportunities to work together.</p>
+</div>
+<div class="grid">
+<div class="card">
+<div class="emoji">🏢</div>
+<h3>Game Companies</h3>
+<p>Discuss game promotions, official integrations and partnerships.</p>
+</div>
+<div class="card">
+<div class="emoji">👨‍💻</div>
+<h3>Game Developers</h3>
+<p>Showcase original games and reach new gaming audiences.</p>
+</div>
+<div class="card">
+<div class="emoji">🎥</div>
+<h3>Content Creators</h3>
+<p>Explore creator collaborations and gaming projects.</p>
+</div>
+</div>
+<div style="text-align:center;margin-top:25px">
+<a href="#contact" class="btn">BECOME A PARTNER</a>
+</div>
+</div>
 </section>
 
 <section class="dark" id="news">
- <div class="container">
-  <div class="heading">
-   <h2>📰 Gaming News</h2>
-   <p>Updates and announcements from Cove Gamerz.</p>
-  </div>
-  <div class="card" style="text-align:center">
-   <h3>Latest Updates Coming Soon</h3>
-   <p>New games, gaming news and community announcements will appear here.</p>
-  </div>
- </div>
+<div class="container">
+<div class="heading">
+<h2>📰 Gaming News</h2>
+<p>Updates and announcements from Cove Gamerz.</p>
+</div>
+<div class="card" style="text-align:center">
+<h3>Latest Updates Coming Soon</h3>
+<p>New games, gaming news and community announcements will appear here.</p>
+</div>
+</div>
 </section>
 
 <section id="contact">
- <div class="container">
-  <div class="heading">
-   <h2>📩 Contact Cove Gamerz</h2>
-   <p>For business enquiries, partnerships and general questions.</p>
-  </div>
-  <div class="card form-card">
-   <form onsubmit="sendForm(event,'Contact Message')">
-    <label>Your Name</label>
-    <input name="name" required placeholder="Enter your name">
-    <label>Your Email</label>
-    <input name="email" type="email" required placeholder="Enter your email">
-    <label>Subject</label>
-    <select name="subject">
-     <option>Business Collaboration</option>
-     <option>Game Publishing</option>
-     <option>Gaming Creator</option>
-     <option>General Enquiry</option>
-    </select>
-    <label>Message</label>
-    <textarea name="message" required placeholder="Write your message..."></textarea>
-    <button class="btn" type="submit">SEND MESSAGE</button>
-   </form>
-   <p class="notice">Set your business email in the JavaScript section before publishing.</p>
-  </div>
- </div>
+<div class="container">
+<div class="heading">
+<h2>📩 Contact Cove Gamerz</h2>
+<p>For business enquiries, partnerships and general questions.</p>
+</div>
+<div class="card form-card">
+<form onsubmit="sendForm(event,'Cove Gamerz Contact Message')">
+<label>Your Name</label>
+<input name="name" required placeholder="Enter your name">
+<label>Your Email</label>
+<input name="email" type="email" required placeholder="Enter your email">
+<label>Subject</label>
+<select name="subject">
+<option>Business Collaboration</option>
+<option>Game Publishing</option>
+<option>Gaming Creator</option>
+<option>General Enquiry</option>
+</select>
+<label>Message</label>
+<textarea name="message" required placeholder="Write your message..."></textarea>
+<button class="btn" type="submit">SEND MESSAGE</button>
+</form>
+<p class="notice">Business email: sarveshkumar01980198@gmail.com</p>
+</div>
+</div>
 </section>
+
 </main>
 
 <footer>
- <div class="logo">COVE <span>GAMERZ</span></div>
- <div class="social">
-  <a href="#home">Home</a>
-  <a href="#games">Games</a>
-  <a href="#partners">Partners</a>
-  <a href="#contact">Contact</a>
- </div>
- <p>© <span id="year"></span> Cove Gamerz. All rights reserved.</p>
- <p>Independent gaming and creator platform.</p>
+<div class="logo">COVE <span>GAMERZ</span></div>
+<div class="social">
+<a href="#home">Home</a>
+<a href="#games">Games</a>
+<a href="#partners">Partners</a>
+<a href="#contact">Contact</a>
+</div>
+<p>Business: sarveshkumar01980198@gmail.com</p>
+<p>© <span id="year"></span> Cove Gamerz. All rights reserved.</p>
+<p>Independent gaming and creator platform.</p>
 </footer>
 
 <script>
 function toggleMenu(){
- document.getElementById('nav').classList.toggle('show');
+document.getElementById('nav').classList.toggle('show');
 }
+
 document.querySelectorAll('nav a').forEach(a=>{
- a.addEventListener('click',()=>{
-  document.getElementById('nav').classList.remove('show');
- });
+a.addEventListener('click',()=>{
+document.getElementById('nav').classList.remove('show');
 });
+});
+
 document.getElementById('year').textContent=new Date().getFullYear();
 
-// Set your real business email here before publishing.
-const BUSINESS_EMAIL = "yourbusiness@email.com";
+// COVE GAMERZ BUSINESS EMAIL
+const BUSINESS_EMAIL = "sarveshkumar01980198@gmail.com";
 
 function sendForm(event,subject){
- event.preventDefault();
- const form=event.target;
- if(BUSINESS_EMAIL==="yourbusiness@email.com"){
-  alert("Please add your real business email in the website code first.");
-  return;
- }
- const data=new FormData(form);
- const body=[...data.entries()].map(([k,v])=>k+": "+v).join("\n");
- const url="mailto:"+BUSINESS_EMAIL+
- "?subject="+encodeURIComponent(subject)+
- "&body="+encodeURIComponent(body);
- window.location.href=url;
+event.preventDefault();
+const form=event.target;
+const data=new FormData(form);
+const body=[...data.entries()]
+.map(([key,value])=>key+": "+value)
+.join("\n");
+
+const url="mailto:"+BUSINESS_EMAIL+
+"?subject="+encodeURIComponent(subject)+
+"&body="+encodeURIComponent(body);
+
+window.location.href=url;
 }
 
 // NEON SURVIVAL GAME
 const canvas=document.getElementById("game");
 const ctx=canvas.getContext("2d");
+
 let player,crystals,drones,score,running,elapsed,last;
 let keys={};
 let touchDirection=null;
 
 function resetGame(){
- player={x:350,y:195,r:12,speed:3.5};
- score=0;elapsed=0;last=0;running=true;
- crystals=[];drones=[];
- for(let i=0;i<10;i++) spawnCrystal();
- for(let i=0;i<5;i++){
-  drones.push({
-   x:50+Math.random()*600,
-   y:40+Math.random()*300,
-   dx:(Math.random()-.5)*2.5,
-   dy:(Math.random()-.5)*2.5,
-   r:13
-  });
- }
- document.getElementById("score").textContent=score;
- document.getElementById("status").textContent="Playing!";
+player={x:350,y:195,r:12,speed:3.5};
+score=0;elapsed=0;last=0;running=true;
+crystals=[];drones=[];
+
+for(let i=0;i<10;i++)spawnCrystal();
+
+for(let i=0;i<5;i++){
+drones.push({
+x:50+Math.random()*600,
+y:40+Math.random()*300,
+dx:(Math.random()-.5)*2.5,
+dy:(Math.random()-.5)*2.5,
+r:13
+});
+}
+
+document.getElementById("score").textContent=score;
+document.getElementById("time").textContent=0;
+document.getElementById("status").textContent="Playing!";
 }
 
 function spawnCrystal(){
- crystals.push({
-  x:25+Math.random()*(canvas.width-50),
-  y:25+Math.random()*(canvas.height-50),
-  r:8
- });
+crystals.push({
+x:25+Math.random()*(canvas.width-50),
+y:25+Math.random()*(canvas.height-50),
+r:8
+});
 }
 
 function startGame(){
- resetGame();
- requestAnimationFrame(loop);
+resetGame();
+draw();
+requestAnimationFrame(loop);
 }
 
 function move(dir){
- touchDirection=dir;
- setTimeout(()=>{touchDirection=null},150);
+touchDirection=dir;
+setTimeout(()=>{
+if(touchDirection===dir)touchDirection=null;
+},150);
 }
 
 window.addEventListener("keydown",e=>{
- keys[e.key.toLowerCase()]=true;
- if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key))e.preventDefault();
+keys[e.key.toLowerCase()]=true;
+if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key))e.preventDefault();
 });
-window.addEventListener("keyup",e=>keys[e.key.toLowerCase()]=false);
+
+window.addEventListener("keyup",e=>{
+keys[e.key.toLowerCase()]=false;
+});
 
 function update(dt){
- if(keys["arrowup"]||keys["w"]||touchDirection==="up")player.y-=player.speed;
- if(keys["arrowdown"]||keys["s"]||touchDirection==="down")player.y+=player.speed;
- if(keys["arrowleft"]||keys["a"]||touchDirection==="left")player.x-=player.speed;
- if(keys["arrowright"]||keys["d"]||touchDirection==="right")player.x+=player.speed;
+if(keys["arrowup"]||keys["w"]||touchDirection==="up")player.y-=player.speed;
+if(keys["arrowdown"]||keys["s"]||touchDirection==="down")player.y+=player.speed;
+if(keys["arrowleft"]||keys["a"]||touchDirection==="left")player.x-=player.speed;
+if(keys["arrowright"]||keys["d"]||touchDirection==="right")player.x+=player.speed;
 
- player.x=Math.max(player.r,Math.min(canvas.width-player.r,player.x));
- player.y=Math.max(player.r,Math.min(canvas.height-player.r,player.y));
+player.x=Math.max(player.r,Math.min(canvas.width-player.r,player.x));
+player.y=Math.max(player.r,Math.min(canvas.height-player.r,player.y));
 
- drones.forEach(d=>{
-  d.x+=d.dx*dt*60;d.y+=d.dy*dt*60;
-  if(d.x<d.r||d.x>canvas.width-d.r)d.dx*=-1;
-  if(d.y<d.r||d.y>canvas.height-d.r)d.dy*=-1;
- });
+drones.forEach(d=>{
+d.x+=d.dx*dt*60;
+d.y+=d.dy*dt*60;
 
- for(let i=crystals.length-1;i>=0;i--){
-  let c=crystals[i];
-  if(Math.hypot(player.x-c.x,player.y-c.y)<player.r+c.r){
-   crystals.splice(i,1);score++;
-   document.getElementById("score").textContent=score;
-   if(score>=10){
-    running=false;
-    document.getElementById("status").textContent="YOU WIN! 🏆";
-    return;
-   }
-   spawnCrystal();
-  }
- }
+if(d.x<d.r||d.x>canvas.width-d.r)d.dx*=-1;
+if(d.y<d.r||d.y>canvas.height-d.r)d.dy*=-1;
+});
 
- for(let d of drones){
-  if(Math.hypot(player.x-d.x,player.y-d.y)<player.r+d.r){
-   running=false;
-   document.getElementById("status").textContent="GAME OVER";
-   return;
-  }
- }
- elapsed+=dt;
- document.getElementById("time").textContent=Math.floor(elapsed);
+for(let i=crystals.length-1;i>=0;i--){
+let c=crystals[i];
+
+if(Math.hypot(player.x-c.x,player.y-c.y)<player.r+c.r){
+crystals.splice(i,1);
+score++;
+document.getElementById("score").textContent=score;
+
+if(score>=10){
+running=false;
+document.getElementById("status").textContent="YOU WIN! 🏆";
+return;
+}
+spawnCrystal();
+}
+}
+
+for(let d of drones){
+if(Math.hypot(player.x-d.x,player.y-d.y)<player.r+d.r){
+running=false;
+document.getElementById("status").textContent="GAME OVER";
+return;
+}
+}
+
+elapsed+=dt;
+document.getElementById("time").textContent=Math.floor(elapsed);
 }
 
 function draw(){
- ctx.clearRect(0,0,canvas.width,canvas.height);
- ctx.strokeStyle="#1a3450";
- for(let x=0;x<canvas.width;x+=35){
-  ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,canvas.height);ctx.stroke();
- }
- for(let y=0;y<canvas.height;y+=35){
-  ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(canvas.width,y);ctx.stroke();
- }
- crystals.forEach(c=>{
-  ctx.fillStyle="#00e5ff";
-  ctx.shadowBlur=15;ctx.shadowColor="#00e5ff";
-  ctx.beginPath();ctx.arc(c.x,c.y,c.r,0,Math.PI*2);ctx.fill();
- });
- ctx.shadowBlur=0;
- drones.forEach(d=>{
-  ctx.fillStyle="#ff526c";
-  ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fill();
- });
- if(player){
-  ctx.fillStyle="#36a2ff";
-  ctx.shadowBlur=18;ctx.shadowColor="#168cff";
-  ctx.beginPath();ctx.arc(player.x,player.y,player.r,0,Math.PI*2);ctx.fill();
-  ctx.shadowBlur=0;
- }
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ctx.strokeStyle="#1a3450";
+
+for(let x=0;x<canvas.width;x+=35){
+ctx.beginPath();
+ctx.moveTo(x,0);
+ctx.lineTo(x,canvas.height);
+ctx.stroke();
+}
+
+for(let y=0;y<canvas.height;y+=35){
+ctx.beginPath();
+ctx.moveTo(0,y);
+ctx.lineTo(canvas.width,y);
+ctx.stroke();
+}
+
+crystals.forEach(c=>{
+ctx.fillStyle="#00e5ff";
+ctx.shadowBlur=15;
+ctx.shadowColor="#00e5ff";
+ctx.beginPath();
+ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+ctx.fill();
+});
+
+ctx.shadowBlur=0;
+
+drones.forEach(d=>{
+ctx.fillStyle="#ff526c";
+ctx.beginPath();
+ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+ctx.fill();
+});
+
+if(player){
+ctx.fillStyle="#36a2ff";
+ctx.shadowBlur=18;
+ctx.shadowColor="#168cff";
+ctx.beginPath();
+ctx.arc(player.x,player.y,player.r,0,Math.PI*2);
+ctx.fill();
+ctx.shadowBlur=0;
+}
 }
 
 function loop(timestamp){
- if(!running)return;
- const dt=Math.min((timestamp-last)/1000||0,0.04);
- last=timestamp;
- update(dt);draw();
- if(running)requestAnimationFrame(loop);
+if(!running)return;
+
+const dt=Math.min((timestamp-last)/1000||0,0.04);
+last=timestamp;
+
+update(dt);
+draw();
+
+if(running)requestAnimationFrame(loop);
 }
+
 draw();
 </script>
 
