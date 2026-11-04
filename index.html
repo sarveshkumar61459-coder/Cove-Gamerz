@@ -1,238 +1,401 @@
-body {
-  background:
-    radial-gradient(ellipse at 20% 20%, #102d4a 0%, transparent 45%),
-    radial-gradient(ellipse at 80% 70%, #10263d 0%, transparent 45%),
-    #080d18;
-  background-attachment: fixed;
-}
 
-.hero {
-  background:
-    radial-gradient(circle at 50% 40%,
-    rgba(34,211,238,0.15),
-    transparent 55%);
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  width: 350px;
-  height: 350px;
-  border-radius: 50%;
-  background: rgba(34,211,238,0.10);
-  filter: blur(90px);
-  animation: glow 5s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-
-@keyframes glow {
-  from {
-    transform: translate(-100px, -30px);
-  }
-  to {
-    transform: translate(100px, 30px);
-  }
-}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="oNo07YxNuX6TrEn6WGShTSwzk3CZrYrlExWmB7G1s98">
-<meta name="description" content="Cove Gamerz - Gaming, creative video editing and digital content creator portfolio.">
-<meta name="theme-color" content="#080d18">
-<title>Cove Gamerz | Official Creator Portfolio</title>
+
+<title>COVE GAMERZ | Gaming Hub</title>
+<meta name="description" content="Cove Gamerz - Gaming news, videos, online games and gaming entertainment.">
+<meta name="theme-color" content="#080e1b">
 
 <style>
+:root {
+  --bg:#080e1b;
+  --panel:#101d31;
+  --blue:#19baff;
+  --cyan:#00e5ff;
+  --white:#f3f8ff;
+  --muted:#9aabc0;
+  --border:#203954;
+}
+
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
 }
 
 body {
-  background: #080d18;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
+  background:
+    radial-gradient(ellipse at 15% 5%,#153c67 0%,transparent 35%),
+    radial-gradient(ellipse at 90% 50%,#10294b 0%,transparent 35%),
+    var(--bg);
+  color:var(--white);
+  font-family:Arial,sans-serif;
+}
+
+a {
+  color:inherit;
+  text-decoration:none;
+}
+
+button {
+  font-family:inherit;
+  cursor:pointer;
 }
 
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 8%;
-  background: #0b1220;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  border-bottom: 1px solid #1c3045;
+  height:auto;
+  min-height:75px;
+  padding:16px 7%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  background:rgba(5,12,24,.94);
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:100;
+  backdrop-filter:blur(15px);
 }
 
 .logo {
-  font-size: 23px;
-  font-weight: bold;
-  color: #22d3ee;
+  font-size:25px;
+  font-weight:900;
+  color:var(--blue);
+  letter-spacing:1px;
+  white-space:nowrap;
+}
+
+.logo span {
+  color:white;
+}
+
+nav {
+  display:flex;
+  gap:23px;
+  flex-wrap:wrap;
 }
 
 nav a {
-  color: #ddd;
-  text-decoration: none;
-  margin-left: 18px;
-  font-size: 14px;
+  color:#c4d1e2;
+  font-size:14px;
+  transition:.3s;
 }
 
 nav a:hover {
-  color: #22d3ee;
+  color:var(--cyan);
 }
 
 .hero {
-  min-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 40px 20px;
+  min-height:540px;
+  padding:90px 20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
   background:
-    radial-gradient(ellipse at top, #123b58 0%, #080d18 65%);
+    radial-gradient(ellipse at center,#07518a30,transparent 65%);
+}
+
+.hero-tag {
+  color:var(--cyan);
+  letter-spacing:5px;
+  font-size:12px;
+  font-weight:bold;
 }
 
 .hero h1 {
-  font-size: clamp(42px, 9vw, 76px);
-  letter-spacing: 3px;
+  font-size:clamp(45px,9vw,90px);
+  margin:25px 0;
+  font-weight:900;
 }
 
 .hero h1 span {
-  color: #22d3ee;
-}
-
-.hero h2 {
-  color: #22d3ee;
-  margin: 12px 0;
-  letter-spacing: 3px;
+  color:var(--blue);
+  text-shadow:0 0 30px #008cff;
 }
 
 .hero p {
-  color: #b7c4d4;
-  max-width: 600px;
-  margin: 12px;
+  max-width:650px;
+  color:var(--muted);
+  line-height:1.9;
 }
 
 .btn {
-  display: inline-block;
-  background: #22d3ee;
-  color: #06101c;
-  padding: 12px 25px;
-  margin-top: 22px;
-  border-radius: 6px;
-  font-weight: bold;
-  text-decoration: none;
+  display:inline-block;
+  padding:13px 25px;
+  margin:8px 5px;
+  background:linear-gradient(120deg,#087bd3,#08bce9);
+  border:0;
+  border-radius:7px;
+  color:white;
+  font-weight:bold;
+  transition:.3s;
+}
+
+.btn:hover {
+  transform:translateY(-4px);
+  box-shadow:0 0 22px #00aaff77;
+}
+
+.btn-outline {
+  background:transparent;
+  border:1px solid var(--blue);
 }
 
 section {
-  padding: 75px 8%;
+  padding:75px 7%;
+  scroll-margin-top:80px;
 }
 
 .section-title {
-  text-align: center;
-  font-size: 32px;
-  margin-bottom: 35px;
+  text-align:center;
+  font-size:34px;
+  margin-bottom:12px;
 }
 
 .section-title span {
-  color: #22d3ee;
+  color:var(--blue);
 }
 
-.about {
-  max-width: 850px;
-  margin: auto;
-  text-align: center;
-  color: #b7c4d4;
+.subtitle {
+  text-align:center;
+  color:var(--muted);
+  margin-bottom:35px;
+  line-height:1.7;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 22px;
+.search-area {
+  max-width:650px;
+  margin:0 auto 35px;
+}
+
+.search-area input {
+  width:100%;
+  padding:16px;
+  background:#0d192a;
+  color:white;
+  border:1px solid #24517a;
+  border-radius:9px;
+  outline:none;
+  font-size:15px;
+}
+
+.search-area input:focus {
+  border-color:var(--cyan);
+  box-shadow:0 0 15px #00aaff30;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(225px,1fr));
+  gap:22px;
 }
 
 .card {
-  background: #111d2d;
-  padding: 27px;
-  border: 1px solid #243c55;
-  border-radius: 12px;
-  transition: 0.3s;
+  background:linear-gradient(145deg,#142944,#0c1729);
+  border:1px solid var(--border);
+  border-radius:13px;
+  overflow:hidden;
+  transition:.3s;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  border-color: #22d3ee;
+  transform:translateY(-6px);
+  border-color:var(--blue);
+  box-shadow:0 10px 30px #008cff20;
+}
+
+.card-art {
+  height:145px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:65px;
+  background:
+    radial-gradient(circle at center,#1470a755,transparent 70%),
+    linear-gradient(135deg,#102e50,#101729);
+}
+
+.card-body {
+  padding:21px;
 }
 
 .card h3 {
-  color: #22d3ee;
-  margin-bottom: 12px;
+  font-size:19px;
+  margin-bottom:11px;
 }
 
 .card p {
-  color: #b7c4d4;
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.7;
 }
 
-.skills {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 14px;
+.category {
+  display:inline-block;
+  color:var(--cyan);
+  font-size:11px;
+  letter-spacing:1px;
+  margin-bottom:12px;
+  font-weight:bold;
 }
 
-.skill {
-  border: 1px solid #22d3ee;
-  padding: 12px 22px;
-  border-radius: 30px;
-  color: #22d3ee;
+.card .btn {
+  margin:16px 0 0;
 }
 
-.contact {
-  text-align: center;
-  background: #0c1726;
+.news-date {
+  color:#8195ad;
+  font-size:12px;
+  margin-top:12px;
 }
 
-.socials {
-  margin-top: 25px;
+.video-frame {
+  width:100%;
+  aspect-ratio:16/9;
+  background:#050a13;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:50px;
+  color:var(--blue);
 }
 
-.socials a {
-  display: inline-block;
-  color: #22d3ee;
-  text-decoration: none;
-  margin: 10px;
-  border: 1px solid #22d3ee;
-  padding: 10px 18px;
-  border-radius: 6px;
+.video-frame iframe {
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+.game-panel {
+  margin-top:30px;
+  padding:28px;
+  background:#0c192a;
+  border:1px solid var(--border);
+  border-radius:14px;
+  text-align:center;
+}
+
+.game-panel h3 {
+  margin-bottom:15px;
+}
+
+.game-area {
+  min-height:150px;
+  padding:20px 5px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:15px;
+}
+
+.game-result {
+  color:var(--cyan);
+  font-weight:bold;
+  font-size:19px;
+}
+
+.game-button {
+  padding:17px 30px;
+  border:0;
+  border-radius:10px;
+  color:white;
+  background:#087fc7;
+  font-size:18px;
+}
+
+.memory-grid {
+  display:grid;
+  grid-template-columns:repeat(4,65px);
+  gap:9px;
+  justify-content:center;
+}
+
+.memory-grid button {
+  width:65px;
+  height:65px;
+  border:1px solid var(--blue);
+  border-radius:9px;
+  background:#183653;
+  color:white;
+  font-size:24px;
+}
+
+.newsletter {
+  max-width:700px;
+  margin:auto;
+  text-align:center;
+  background:linear-gradient(135deg,#10375c,#0c192a);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:40px 20px;
 }
 
 footer {
-  text-align: center;
-  padding: 25px;
-  color: #8192a7;
-  border-top: 1px solid #1c3045;
+  background:#040811;
+  padding:40px 7%;
+  border-top:1px solid var(--border);
+  text-align:center;
+  color:var(--muted);
+  line-height:2;
 }
 
-@media(max-width: 600px) {
+footer span {
+  color:var(--blue);
+}
+
+.social-links {
+  margin:15px;
+}
+
+.social-links a {
+  display:inline-block;
+  margin:7px;
+  color:white;
+  padding:10px 18px;
+  border:1px solid var(--border);
+  border-radius:7px;
+}
+
+.empty {
+  grid-column:1/-1;
+  text-align:center;
+  padding:35px;
+  color:var(--muted);
+}
+
+@media(max-width:700px) {
   header {
-    flex-direction: column;
-    gap: 12px;
+    flex-direction:column;
+    padding:16px 8px;
   }
+
+  nav {
+    justify-content:center;
+    gap:15px;
+  }
+
   nav a {
-    margin: 0 7px;
-    font-size: 12px;
+    font-size:12px;
   }
+
   section {
-    padding: 55px 6%;
+    padding:55px 5%;
+  }
+
+  .section-title {
+    font-size:28px;
+  }
+
+  .hero {
+    min-height:460px;
   }
 }
 </style>
@@ -241,389 +404,403 @@ footer {
 <body>
 
 <header>
-  <div class="logo">COVE GAMERZ</div>
+  <a href="#home" class="logo">COVE <span>GAMERZ</span></a>
+
   <nav>
     <a href="#home">Home</a>
+    <a href="#games">Games</a>
+    <a href="#news">News</a>
+    <a href="#videos">Videos</a>
     <a href="#about">About</a>
-    <a href="#work">Work</a>
-    <a href="#contact">Contact</a>
   </nav>
 </header>
 
-<section class="hero" id="home">
-  <h1>COVE <span>GAMERZ</span></h1>
-  <h2>CREATE. EDIT. INSPIRE.</h2>
-  <p>
-    Welcome to my creative world.
-    Gaming content, cinematic car edits
-    and digital creativity all in one place.
-  </p>
-  <a href="#work" class="btn">EXPLORE MY WORK</a>
-</section>
+<!-- HERO -->
 
-<section id="about">
-  <h2 class="section-title">ABOUT <span>ME</span></h2>
-  <div class="about">
-    <p>
-      Welcome to Cove Gamerz!
-      I am a passionate digital creator interested
-      in gaming, video editing and creative content.
-      This is my official portfolio where I share
-      my creations, editing projects and ideas.
-    </p>
-  </div>
-</section>
-
-<section id="work">
-  <h2 class="section-title">MY <span>CREATIONS</span></h2>
-
-  <div class="cards">
-    <div class="card">
-      <h3>Gaming Videos</h3>
-      <p>Gaming highlights, gameplay and exciting moments.</p>
-    </div>
-
-    <div class="card">
-      <h3>Car Edits</h3>
-      <p>Cinematic edits featuring supercars and luxury cars.</p>
-    </div>
-
-    <div class="card">
-      <h3>Creative Editing</h3>
-      <p>Creative transitions, visual effects and digital edits.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">MY <span>SKILLS</span></h2>
-  <div class="skills">
-    <div class="skill">Video Editing</div>
-    <div class="skill">Gaming Content</div>
-    <div class="skill">Creative Design</div>
-    <div class="skill">Content Creation</div>
-  </div>
-</section>
-
-<section class="contact" id="contact">
-  <h2 class="section-title">LET'S <span>CONNECT</span></h2>
-  <p>Follow my creative journey and explore my latest content.</p>
-
-  <div class="socials">
-    <a href="https://www.youtube.com/" target="_blank">YouTube</a>
-    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
-  </div>
-</section>
-
-<footer>
-  <p>© 2026 Cove Gamerz. All Rights Reserved.</p>
-  <p>Created with passion.</p>
-</footer>
-
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="oNo07YxNuX6TrEn6WGShTSwzk3CZrYrlExWmB7G1s98">
-<meta name="description" content="Cove Gamerz - Gaming, creative video editing and digital content creator portfolio.">
-<meta name="theme-color" content="#080d18">
-<title>Cove Gamerz | Official Creator Portfolio</title>
-
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-}
-
-body {
-  background: #080d18;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 8%;
-  background: #0b1220;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  border-bottom: 1px solid #1c3045;
-}
-
-.logo {
-  font-size: 23px;
-  font-weight: bold;
-  color: #22d3ee;
-}
-
-nav a {
-  color: #ddd;
-  text-decoration: none;
-  margin-left: 18px;
-  font-size: 14px;
-}
-
-nav a:hover {
-  color: #22d3ee;
-}
-
-.hero {
-  min-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 40px 20px;
-  background:
-    radial-gradient(ellipse at top, #123b58 0%, #080d18 65%);
-}
-
-.hero h1 {
-  font-size: clamp(42px, 9vw, 76px);
-  letter-spacing: 3px;
-}
-
-.hero h1 span {
-  color: #22d3ee;
-}
-
-.hero h2 {
-  color: #22d3ee;
-  margin: 12px 0;
-  letter-spacing: 3px;
-}
-
-.hero p {
-  color: #b7c4d4;
-  max-width: 600px;
-  margin: 12px;
-}
-
-.btn {
-  display: inline-block;
-  background: #22d3ee;
-  color: #06101c;
-  padding: 12px 25px;
-  margin-top: 22px;
-  border-radius: 6px;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-section {
-  padding: 75px 8%;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 32px;
-  margin-bottom: 35px;
-}
-
-.section-title span {
-  color: #22d3ee;
-}
-
-.about {
-  max-width: 850px;
-  margin: auto;
-  text-align: center;
-  color: #b7c4d4;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 22px;
-}
-
-.card {
-  background: #111d2d;
-  padding: 27px;
-  border: 1px solid #243c55;
-  border-radius: 12px;
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  border-color: #22d3ee;
-}
-
-.card h3 {
-  color: #22d3ee;
-  margin-bottom: 12px;
-}
-
-.card p {
-  color: #b7c4d4;
-}
-
-.skills {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
-.skill {
-  border: 1px solid #22d3ee;
-  padding: 12px 22px;
-  border-radius: 30px;
-  color: #22d3ee;
-}
-
-.contact {
-  text-align: center;
-  background: #0c1726;
-}
-
-.socials {
-  margin-top: 25px;
-}
-
-.socials a {
-  display: inline-block;
-  color: #22d3ee;
-  text-decoration: none;
-  margin: 10px;
-  border: 1px solid #22d3ee;
-  padding: 10px 18px;
-  border-radius: 6px;
-}
-
-footer {
-  text-align: center;
-  padding: 25px;
-  color: #8192a7;
-  border-top: 1px solid #1c3045;
-}
-
-@media(max-width: 600px) {
-  header {
-    flex-direction: column;
-    gap: 12px;
-  }
-  nav a {
-    margin: 0 7px;
-    font-size: 12px;
-  }
-  section {
-    padding: 55px 6%;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <div class="logo">COVE GAMERZ</div>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#work">Work</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+<main>
 
 <section class="hero" id="home">
+
+  <div class="hero-tag">YOUR ULTIMATE GAMING DESTINATION</div>
+
   <h1>COVE <span>GAMERZ</span></h1>
-  <h2>CREATE. EDIT. INSPIRE.</h2>
+
   <p>
-    Welcome to my creative world.
-    Gaming content, cinematic car edits
-    and digital creativity all in one place.
+    Discover exciting games, explore gaming news,
+    watch amazing videos and experience the world
+    of gaming in one place.
   </p>
-  <a href="#work" class="btn">EXPLORE MY WORK</a>
+
+  <div style="margin-top:22px">
+    <a href="#games" class="btn">PLAY GAMES</a>
+    <a href="#news" class="btn btn-outline">LATEST NEWS</a>
+  </div>
+
 </section>
+
+<!-- SEARCH -->
+
+<div class="search-area">
+  <input
+    type="search"
+    id="siteSearch"
+    placeholder="Search games, news and videos..."
+    aria-label="Search website"
+  >
+</div>
+
+<!-- GAMES -->
+
+<section id="games">
+
+  <h2 class="section-title">ONLINE <span>GAMES</span></h2>
+
+  <p class="subtitle">
+    Choose your game and start playing.
+  </p>
+
+  <div class="grid searchable">
+
+    <article class="card search-item" data-search="reaction speed quick tap">
+      <div class="card-art">⚡</div>
+      <div class="card-body">
+        <span class="category">ARCADE</span>
+        <h3>Reaction Challenge</h3>
+        <p>Test your reaction speed and beat your best score.</p>
+        <button class="btn" onclick="reactionGame()">PLAY NOW</button>
+      </div>
+    </article>
+
+    <article class="card search-item" data-search="memory puzzle matching">
+      <div class="card-art">🧠</div>
+      <div class="card-body">
+        <span class="category">PUZZLE</span>
+        <h3>Memory Match</h3>
+        <p>Find matching cards and complete the puzzle.</p>
+        <button class="btn" onclick="memoryGame()">PLAY NOW</button>
+      </div>
+    </article>
+
+    <article class="card search-item" data-search="number guessing brain">
+      <div class="card-art">🎯</div>
+      <div class="card-body">
+        <span class="category">BRAIN GAME</span>
+        <h3>Number Guess</h3>
+        <p>Guess the secret number between 1 and 100.</p>
+        <button class="btn" onclick="numberGame()">PLAY NOW</button>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="game-panel" id="gamePanel">
+    <h3 id="gameTitle">🎮 GAME CENTER</h3>
+    <p id="gameIntro" style="color:var(--muted)">
+      Select a game above to start playing.
+    </p>
+    <div class="game-area" id="gameArea">
+      <div style="font-size:55px">🎮</div>
+    </div>
+    <button class="btn btn-outline" onclick="resetGame()">RESET GAME</button>
+  </div>
+
+</section>
+
+<!-- NEWS -->
+
+<section id="news">
+
+  <h2 class="section-title">GAMING <span>NEWS</span></h2>
+
+  <p class="subtitle">
+    Gaming updates and featured stories.
+  </p>
+
+  <div class="grid">
+
+    <article class="card search-item" data-search="gaming technology future">
+      <div class="card-art">🌐</div>
+      <div class="card-body">
+        <span class="category">GAMING WORLD</span>
+        <h3>The Future of Gaming</h3>
+        <p>Explore how gaming technology and new experiences are changing the industry.</p>
+        <div class="news-date">Featured story · Editorial</div>
+      </div>
+    </article>
+
+    <article class="card search-item" data-search="mobile gaming">
+      <div class="card-art">📱</div>
+      <div class="card-body">
+        <span class="category">MOBILE GAMING</span>
+        <h3>Mobile Gaming Trends</h3>
+        <p>Discover the latest trends in mobile gaming and portable entertainment.</p>
+        <div class="news-date">Featured story · Editorial</div>
+      </div>
+    </article>
+
+    <article class="card search-item" data-search="esports competition">
+      <div class="card-art">🏆</div>
+      <div class="card-body">
+        <span class="category">ESPORTS</span>
+        <h3>Inside Esports</h3>
+        <p>Learn about competitive gaming, esports tournaments and gaming communities.</p>
+        <div class="news-date">Featured story · Editorial</div>
+      </div>
+    </article>
+
+  </div>
+
+  <p class="subtitle" style="margin-top:22px">
+    These are sample editorial stories, not live breaking news.
+  </p>
+
+</section>
+
+<!-- VIDEOS -->
+
+<section id="videos">
+
+  <h2 class="section-title">GAMING <span>VIDEOS</span></h2>
+
+  <p class="subtitle">
+    Watch gaming videos and explore the video collection.
+  </p>
+
+  <div class="grid">
+
+    <article class="card search-item" data-search="gaming gameplay youtube">
+      <div class="video-frame">▶</div>
+      <div class="card-body">
+        <span class="category">GAMEPLAY</span>
+        <h3>Gaming Videos</h3>
+        <p>Explore gaming videos on YouTube.</p>
+        <a class="btn" href="https://www.youtube.com/results?search_query=gaming+gameplay" target="_blank" rel="noopener">WATCH VIDEOS</a>
+      </div>
+    </article>
+
+    <article class="card search-item" data-search="free fire highlights">
+      <div class="video-frame">🔥</div>
+      <div class="card-body">
+        <span class="category">HIGHLIGHTS</span>
+        <h3>Gaming Highlights</h3>
+        <p>Discover exciting gaming highlights and moments.</p>
+        <a class="btn" href="https://www.youtube.com/results?search_query=gaming+highlights" target="_blank" rel="noopener">WATCH NOW</a>
+      </div>
+    </article>
+
+    <article class="card search-item" data-search="car edits video">
+      <div class="video-frame">🏎️</div>
+      <div class="card-body">
+        <span class="category">EDITING</span>
+        <h3>Gaming & Car Edits</h3>
+        <p>Explore creative video edits and transitions.</p>
+        <a class="btn" href="https://www.youtube.com/results?search_query=car+edits" target="_blank" rel="noopener">EXPLORE</a>
+      </div>
+    </article>
+
+  </div>
+
+</section>
+
+<!-- ABOUT -->
 
 <section id="about">
-  <h2 class="section-title">ABOUT <span>ME</span></h2>
-  <div class="about">
-    <p>
-      Welcome to Cove Gamerz!
-      I am a passionate digital creator interested
-      in gaming, video editing and creative content.
-      This is my official portfolio where I share
-      my creations, editing projects and ideas.
+
+  <div class="newsletter">
+    <h2 class="section-title">ABOUT <span>COVE GAMERZ</span></h2>
+
+    <p style="color:var(--muted);line-height:1.9;margin-top:20px">
+      Cove Gamerz is a gaming entertainment platform
+      made for gaming lovers and creative communities.
+      Explore browser games, gaming stories and videos
+      all in one destination.
     </p>
+
+    <a href="#home" class="btn">EXPLORE WEBSITE</a>
   </div>
+
 </section>
 
-<section id="work">
-  <h2 class="section-title">MY <span>CREATIONS</span></h2>
+</main>
 
-  <div class="cards">
-    <div class="card">
-      <h3>Gaming Videos</h3>
-      <p>Gaming highlights, gameplay and exciting moments.</p>
-    </div>
-
-    <div class="card">
-      <h3>Car Edits</h3>
-      <p>Cinematic edits featuring supercars and luxury cars.</p>
-    </div>
-
-    <div class="card">
-      <h3>Creative Editing</h3>
-      <p>Creative transitions, visual effects and digital edits.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">MY <span>SKILLS</span></h2>
-  <div class="skills">
-    <div class="skill">Video Editing</div>
-    <div class="skill">Gaming Content</div>
-    <div class="skill">Creative Design</div>
-    <div class="skill">Content Creation</div>
-  </div>
-</section>
-
-<section class="contact" id="contact">
-  <h2 class="section-title">LET'S <span>CONNECT</span></h2>
-  <p>Follow my creative journey and explore my latest content.</p>
-
-  <div class="socials">
-    <a href="https://www.youtube.com/" target="_blank">YouTube</a>
-    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
-  </div>
-</section>
+<!-- FOOTER -->
 
 <footer>
-  <p>© 2026 Cove Gamerz. All Rights Reserved.</p>
-  <p>Created with passion.</p>
+
+  <div class="logo">COVE <span>GAMERZ</span></div>
+
+  <p>Gaming • News • Videos • Entertainment</p>
+
+  <div class="social-links">
+    <a href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+  </div>
+
+  <p>© 2026 <span>COVE GAMERZ</span>. All Rights Reserved.</p>
+
 </footer>
 
-</body>
-</html>
-<style>
-body {
-  background:
-    radial-gradient(circle at 20% 20%, #102d4a, transparent 45%),
-    radial-gradient(circle at 80% 70%, #10263d, transparent 45%),
-    #080d18;
-  background-attachment: fixed;
+<script>
+
+// WEBSITE SEARCH
+
+document.getElementById("siteSearch").addEventListener("input",function(){
+  const query=this.value.toLowerCase().trim();
+
+  document.querySelectorAll(".search-item").forEach(item=>{
+    const match=item.innerText.toLowerCase().includes(query) ||
+      (item.dataset.search || "").includes(query);
+
+    item.style.display=match ? "" : "none";
+  });
+});
+
+// GAME CENTER
+
+let currentGame="";
+let gameTimer=null;
+let tapCount=0;
+let memoryCards=[];
+let memorySelected=[];
+let memoryMatched=0;
+let secretNumber=0;
+let guesses=0;
+
+function showGame(title,intro,html){
+  clearInterval(gameTimer);
+  currentGame=title;
+  document.getElementById("gameTitle").textContent=title;
+  document.getElementById("gameIntro").textContent=intro;
+  document.getElementById("gameArea").innerHTML=html;
+  document.getElementById("gamePanel").scrollIntoView({behavior:"smooth"});
 }
 
-.hero {
-  background: radial-gradient(
-    circle,
-    rgba(34,211,238,0.15),
-    transparent 65%
-  );
+function resetGame(){
+  clearInterval(gameTimer);
+  showGame("🎮 GAME CENTER","Select a game above to start.",'<div style="font-size:55px">🎮</div>');
 }
-</style>
+
+// REACTION GAME
+
+function reactionGame(){
+  showGame("⚡ REACTION CHALLENGE",
+    "Click the button as many times as you can in 10 seconds.",
+    '<h2 id="tapScore">Score: 0</h2><h3 id="tapTime">Time: 10</h3><button class="game-button" id="tapButton">START</button>');
+
+  tapCount=0;
+  let time=10;
+  let started=false;
+  const btn=document.getElementById("tapButton");
+
+  btn.onclick=()=>{
+    if(!started){
+      started=true;
+      btn.textContent="TAP!";
+      gameTimer=setInterval(()=>{
+        time--;
+        document.getElementById("tapTime").textContent="Time: "+time;
+        if(time<=0){
+          clearInterval(gameTimer);
+          btn.disabled=true;
+          btn.textContent="FINISHED";
+          document.getElementById("gameArea").innerHTML+=
+            '<div class="game-result">Final score: '+tapCount+'</div>';
+        }
+      },1000);
+    }
+    if(time>0){
+      tapCount++;
+      document.getElementById("tapScore").textContent="Score: "+tapCount;
+    }
+  };
+}
+
+// MEMORY GAME
+
+function memoryGame(){
+  const symbols=["🎮","🚗","🔥","🏆","🎯","⚡","💎","🚀"];
+  memoryCards=[...symbols,...symbols].sort(()=>Math.random()-.5);
+  memorySelected=[];
+  memoryMatched=0;
+
+  showGame("🧠 MEMORY MATCH",
+    "Find all matching pairs.",
+    '<div class="memory-grid" id="memoryGrid"></div><div id="memoryStatus" class="game-result">Matched: 0 / 8</div>');
+
+  const grid=document.getElementById("memoryGrid");
+
+  memoryCards.forEach((symbol,index)=>{
+    const btn=document.createElement("button");
+    btn.textContent="?";
+
+    btn.onclick=()=>{
+      if(memorySelected.length===2 || btn.textContent!=="?")return;
+
+      btn.textContent=symbol;
+      memorySelected.push({btn,symbol});
+
+      if(memorySelected.length===2){
+        const [a,b]=memorySelected;
+
+        if(a.symbol===b.symbol){
+          memoryMatched++;
+          memorySelected=[];
+          document.getElementById("memoryStatus").textContent=
+            "Matched: "+memoryMatched+" / 8";
+          if(memoryMatched===8){
+            document.getElementById("memoryStatus").textContent="🏆 YOU WON!";
+          }
+        } else {
+          memorySelected=[a,b];
+          gameTimer=setTimeout(()=>{
+            a.btn.textContent="?";
+            b.btn.textContent="?";
+            memorySelected=[];
+          },800);
+        }
+      }
+    };
+
+    grid.appendChild(btn);
+  });
+}
+
+// NUMBER GUESS GAME
+
+function numberGame(){
+  secretNumber=Math.floor(Math.random()*100)+1;
+  guesses=0;
+
+  showGame("🎯 NUMBER GUESS",
+    "Guess a secret number between 1 and 100.",
+    '<input id="numberInput" type="number" min="1" max="100" placeholder="Enter your guess" style="max-width:240px"><button class="btn" onclick="checkNumber()">GUESS</button><div id="numberStatus" class="game-result">Start guessing!</div>');
+}
+
+function checkNumber(){
+  const input=document.getElementById("numberInput");
+  const guess=Number(input.value);
+  const status=document.getElementById("numberStatus");
+
+  if(!Number.isInteger(guess)||guess<1||guess>100){
+    status.textContent="Enter a number from 1 to 100.";
+    return;
+  }
+
+  guesses++;
+
+  if(guess===secretNumber){
+    status.textContent="🎉 Correct! Guesses: "+guesses;
+  } else if(guess<secretNumber){
+    status.textContent="Too low! Try a higher number.";
+  } else {
+    status.textContent="Too high! Try a lower number.";
+  }
+
+  input.value="";
+}
+
+</script>
+
+</body>
+  </html>
+  
