@@ -4,399 +4,113 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>COVE GAMERZ | Gaming Hub</title>
-<meta name="description" content="Cove Gamerz - Gaming news, videos, online games and gaming entertainment.">
-<meta name="theme-color" content="#080e1b">
+<meta name="description" content="Cove Gamerz - Gaming, game publishing, creators, editing and gaming community.">
+<meta name="theme-color" content="#080d18">
+<title>COVE GAMERZ | Gaming Universe</title>
 
 <style>
-:root {
-  --bg:#080e1b;
-  --panel:#101d31;
-  --blue:#19baff;
-  --cyan:#00e5ff;
-  --white:#f3f8ff;
-  --muted:#9aabc0;
-  --border:#203954;
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+ --bg:#080d18;--card:#101b2c;--blue:#168cff;
+ --cyan:#00e5ff;--white:#f4f8ff;--muted:#9aabc1;
 }
-
-* {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  scroll-behavior:smooth;
+html{scroll-behavior:smooth}
+body{
+ font-family:Arial,sans-serif;background:var(--bg);
+ color:var(--white);line-height:1.6;
 }
-
-body {
-  background:
-    radial-gradient(ellipse at 15% 5%,#153c67 0%,transparent 35%),
-    radial-gradient(ellipse at 90% 50%,#10294b 0%,transparent 35%),
-    var(--bg);
-  color:var(--white);
-  font-family:Arial,sans-serif;
+a{text-decoration:none;color:inherit}
+button{cursor:pointer}
+header{
+ position:sticky;top:0;z-index:100;
+ background:rgba(8,13,24,.95);
+ border-bottom:1px solid #203149;
+ backdrop-filter:blur(12px);
 }
-
-a {
-  color:inherit;
-  text-decoration:none;
+.nav{
+ max-width:1150px;margin:auto;padding:16px 20px;
+ display:flex;justify-content:space-between;align-items:center;
 }
-
-button {
-  font-family:inherit;
-  cursor:pointer;
+.logo{font-size:24px;font-weight:900;letter-spacing:1px}
+.logo span{color:var(--cyan)}
+nav{display:flex;gap:20px;flex-wrap:wrap}
+nav a{font-size:13px;color:#c4d3e7}
+nav a:hover{color:var(--cyan)}
+.menu{display:none;background:none;border:0;color:white;font-size:25px}
+.hero{
+ min-height:550px;display:flex;align-items:center;
+ justify-content:center;text-align:center;padding:75px 20px;
+ background:
+ radial-gradient(ellipse at 50% 45%,#10345a 0%,transparent 60%),
+ linear-gradient(135deg,#080d18,#0b192c);
 }
-
-header {
-  height:auto;
-  min-height:75px;
-  padding:16px 7%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  background:rgba(5,12,24,.94);
-  border-bottom:1px solid var(--border);
-  position:sticky;
-  top:0;
-  z-index:100;
-  backdrop-filter:blur(15px);
+.hero-content{max-width:800px}
+.tag{color:var(--cyan);font-size:12px;letter-spacing:4px;font-weight:bold}
+h1{font-size:clamp(42px,8vw,78px);line-height:1.12;margin:18px 0}
+h1 span{color:var(--cyan)}
+.hero p{color:var(--muted);max-width:600px;margin:0 auto 28px}
+.btn{
+ display:inline-block;border:0;border-radius:7px;
+ background:linear-gradient(100deg,#0878ff,#00cfff);
+ padding:13px 22px;color:white;font-weight:bold;
+ margin:5px;transition:.2s;
 }
-
-.logo {
-  font-size:25px;
-  font-weight:900;
-  color:var(--blue);
-  letter-spacing:1px;
-  white-space:nowrap;
+.btn:hover{transform:translateY(-3px);filter:brightness(1.15)}
+.btn-outline{background:transparent;border:1px solid var(--cyan)}
+section{padding:75px 20px;scroll-margin-top:75px}
+.container{max-width:1150px;margin:auto}
+.heading{text-align:center;margin-bottom:38px}
+.heading h2{font-size:34px}
+.heading p{color:var(--muted);margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.card{
+ background:var(--card);border:1px solid #22364f;
+ border-radius:13px;padding:23px;transition:.25s;
 }
-
-.logo span {
-  color:white;
+.card:hover{transform:translateY(-5px);border-color:var(--cyan)}
+.card .emoji{font-size:38px}
+.card h3{margin:12px 0 6px}
+.card p{color:var(--muted);font-size:14px}
+.card .btn{margin:17px 0 0}
+.dark{background:#0b1423}
+.game-area{
+ background:#070d19;border:1px solid #23405c;
+ border-radius:14px;padding:15px;text-align:center;
 }
-
-nav {
-  display:flex;
-  gap:23px;
-  flex-wrap:wrap;
+canvas{
+ display:block;width:100%;max-width:700px;
+ margin:15px auto;background:#101d30;
+ border:1px solid #1c3a57;border-radius:8px;
+ touch-action:none;
 }
-
-nav a {
-  color:#c4d1e2;
-  font-size:14px;
-  transition:.3s;
+.game-info{display:flex;justify-content:center;gap:25px;flex-wrap:wrap;color:var(--cyan)}
+.controls{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.controls button{
+ width:55px;height:48px;background:#17304b;color:white;
+ border:1px solid #2878aa;border-radius:9px;font-size:20px;
 }
-
-nav a:hover {
-  color:var(--cyan);
+input,textarea,select{
+ width:100%;padding:13px;margin:8px 0 15px;
+ background:#091321;border:1px solid #29405a;
+ color:white;border-radius:7px;font:inherit;
 }
-
-.hero {
-  min-height:540px;
-  padding:90px 20px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  background:
-    radial-gradient(ellipse at center,#07518a30,transparent 65%);
+textarea{min-height:110px;resize:vertical}
+label{font-size:13px;color:#c5d5e8}
+.form-card{max-width:650px;margin:auto}
+.notice{font-size:12px;color:var(--muted);margin-top:12px}
+footer{
+ padding:35px 20px;text-align:center;
+ background:#050912;border-top:1px solid #203149;
+ color:var(--muted);font-size:13px;
 }
-
-.hero-tag {
-  color:var(--cyan);
-  letter-spacing:5px;
-  font-size:12px;
-  font-weight:bold;
-}
-
-.hero h1 {
-  font-size:clamp(45px,9vw,90px);
-  margin:25px 0;
-  font-weight:900;
-}
-
-.hero h1 span {
-  color:var(--blue);
-  text-shadow:0 0 30px #008cff;
-}
-
-.hero p {
-  max-width:650px;
-  color:var(--muted);
-  line-height:1.9;
-}
-
-.btn {
-  display:inline-block;
-  padding:13px 25px;
-  margin:8px 5px;
-  background:linear-gradient(120deg,#087bd3,#08bce9);
-  border:0;
-  border-radius:7px;
-  color:white;
-  font-weight:bold;
-  transition:.3s;
-}
-
-.btn:hover {
-  transform:translateY(-4px);
-  box-shadow:0 0 22px #00aaff77;
-}
-
-.btn-outline {
-  background:transparent;
-  border:1px solid var(--blue);
-}
-
-section {
-  padding:75px 7%;
-  scroll-margin-top:80px;
-}
-
-.section-title {
-  text-align:center;
-  font-size:34px;
-  margin-bottom:12px;
-}
-
-.section-title span {
-  color:var(--blue);
-}
-
-.subtitle {
-  text-align:center;
-  color:var(--muted);
-  margin-bottom:35px;
-  line-height:1.7;
-}
-
-.search-area {
-  max-width:650px;
-  margin:0 auto 35px;
-}
-
-.search-area input {
-  width:100%;
-  padding:16px;
-  background:#0d192a;
-  color:white;
-  border:1px solid #24517a;
-  border-radius:9px;
-  outline:none;
-  font-size:15px;
-}
-
-.search-area input:focus {
-  border-color:var(--cyan);
-  box-shadow:0 0 15px #00aaff30;
-}
-
-.grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(225px,1fr));
-  gap:22px;
-}
-
-.card {
-  background:linear-gradient(145deg,#142944,#0c1729);
-  border:1px solid var(--border);
-  border-radius:13px;
-  overflow:hidden;
-  transition:.3s;
-}
-
-.card:hover {
-  transform:translateY(-6px);
-  border-color:var(--blue);
-  box-shadow:0 10px 30px #008cff20;
-}
-
-.card-art {
-  height:145px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:65px;
-  background:
-    radial-gradient(circle at center,#1470a755,transparent 70%),
-    linear-gradient(135deg,#102e50,#101729);
-}
-
-.card-body {
-  padding:21px;
-}
-
-.card h3 {
-  font-size:19px;
-  margin-bottom:11px;
-}
-
-.card p {
-  font-size:14px;
-  color:var(--muted);
-  line-height:1.7;
-}
-
-.category {
-  display:inline-block;
-  color:var(--cyan);
-  font-size:11px;
-  letter-spacing:1px;
-  margin-bottom:12px;
-  font-weight:bold;
-}
-
-.card .btn {
-  margin:16px 0 0;
-}
-
-.news-date {
-  color:#8195ad;
-  font-size:12px;
-  margin-top:12px;
-}
-
-.video-frame {
-  width:100%;
-  aspect-ratio:16/9;
-  background:#050a13;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:50px;
-  color:var(--blue);
-}
-
-.video-frame iframe {
-  width:100%;
-  height:100%;
-  border:0;
-}
-
-.game-panel {
-  margin-top:30px;
-  padding:28px;
-  background:#0c192a;
-  border:1px solid var(--border);
-  border-radius:14px;
-  text-align:center;
-}
-
-.game-panel h3 {
-  margin-bottom:15px;
-}
-
-.game-area {
-  min-height:150px;
-  padding:20px 5px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:15px;
-}
-
-.game-result {
-  color:var(--cyan);
-  font-weight:bold;
-  font-size:19px;
-}
-
-.game-button {
-  padding:17px 30px;
-  border:0;
-  border-radius:10px;
-  color:white;
-  background:#087fc7;
-  font-size:18px;
-}
-
-.memory-grid {
-  display:grid;
-  grid-template-columns:repeat(4,65px);
-  gap:9px;
-  justify-content:center;
-}
-
-.memory-grid button {
-  width:65px;
-  height:65px;
-  border:1px solid var(--blue);
-  border-radius:9px;
-  background:#183653;
-  color:white;
-  font-size:24px;
-}
-
-.newsletter {
-  max-width:700px;
-  margin:auto;
-  text-align:center;
-  background:linear-gradient(135deg,#10375c,#0c192a);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:40px 20px;
-}
-
-footer {
-  background:#040811;
-  padding:40px 7%;
-  border-top:1px solid var(--border);
-  text-align:center;
-  color:var(--muted);
-  line-height:2;
-}
-
-footer span {
-  color:var(--blue);
-}
-
-.social-links {
-  margin:15px;
-}
-
-.social-links a {
-  display:inline-block;
-  margin:7px;
-  color:white;
-  padding:10px 18px;
-  border:1px solid var(--border);
-  border-radius:7px;
-}
-
-.empty {
-  grid-column:1/-1;
-  text-align:center;
-  padding:35px;
-  color:var(--muted);
-}
-
-@media(max-width:700px) {
-  header {
-    flex-direction:column;
-    padding:16px 8px;
-  }
-
-  nav {
-    justify-content:center;
-    gap:15px;
-  }
-
-  nav a {
-    font-size:12px;
-  }
-
-  section {
-    padding:55px 5%;
-  }
-
-  .section-title {
-    font-size:28px;
-  }
-
-  .hero {
-    min-height:460px;
-  }
+.social{margin:15px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+@media(max-width:700px){
+ .menu{display:block}
+ nav{display:none;position:absolute;top:60px;left:0;width:100%;
+ background:#0b1423;padding:20px;flex-direction:column}
+ nav.show{display:flex}
+ .hero{min-height:480px}
+ section{padding:55px 16px}
 }
 </style>
 </head>
@@ -404,403 +118,376 @@ footer span {
 <body>
 
 <header>
-  <a href="#home" class="logo">COVE <span>GAMERZ</span></a>
-
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#games">Games</a>
-    <a href="#news">News</a>
-    <a href="#videos">Videos</a>
-    <a href="#about">About</a>
+ <div class="nav">
+  <a href="#" class="logo">COVE <span>GAMERZ</span></a>
+  <button class="menu" onclick="toggleMenu()">☰</button>
+  <nav id="nav">
+   <a href="#home">Home</a>
+   <a href="#games">Games</a>
+   <a href="#editing">Editing</a>
+   <a href="#publish">Publish Game</a>
+   <a href="#partners">Partners</a>
+   <a href="#contact">Contact</a>
   </nav>
+ </div>
 </header>
 
-<!-- HERO -->
-
 <main>
-
 <section class="hero" id="home">
-
-  <div class="hero-tag">YOUR ULTIMATE GAMING DESTINATION</div>
-
-  <h1>COVE <span>GAMERZ</span></h1>
-
+ <div class="hero-content">
+  <div class="tag">WELCOME TO THE GAMING UNIVERSE</div>
+  <h1>LEVEL UP YOUR <span>GAMING</span></h1>
   <p>
-    Discover exciting games, explore gaming news,
-    watch amazing videos and experience the world
-    of gaming in one place.
+   Discover games, explore gaming content, showcase your creativity
+   and connect with the gaming community at Cove Gamerz.
   </p>
-
-  <div style="margin-top:22px">
-    <a href="#games" class="btn">PLAY GAMES</a>
-    <a href="#news" class="btn btn-outline">LATEST NEWS</a>
-  </div>
-
+  <a href="#games" class="btn">EXPLORE GAMES</a>
+  <a href="#partners" class="btn btn-outline">COLLABORATE WITH US</a>
+ </div>
 </section>
-
-<!-- SEARCH -->
-
-<div class="search-area">
-  <input
-    type="search"
-    id="siteSearch"
-    placeholder="Search games, news and videos..."
-    aria-label="Search website"
-  >
-</div>
-
-<!-- GAMES -->
 
 <section id="games">
-
-  <h2 class="section-title">ONLINE <span>GAMES</span></h2>
-
-  <p class="subtitle">
-    Choose your game and start playing.
-  </p>
-
-  <div class="grid searchable">
-
-    <article class="card search-item" data-search="reaction speed quick tap">
-      <div class="card-art">⚡</div>
-      <div class="card-body">
-        <span class="category">ARCADE</span>
-        <h3>Reaction Challenge</h3>
-        <p>Test your reaction speed and beat your best score.</p>
-        <button class="btn" onclick="reactionGame()">PLAY NOW</button>
-      </div>
-    </article>
-
-    <article class="card search-item" data-search="memory puzzle matching">
-      <div class="card-art">🧠</div>
-      <div class="card-body">
-        <span class="category">PUZZLE</span>
-        <h3>Memory Match</h3>
-        <p>Find matching cards and complete the puzzle.</p>
-        <button class="btn" onclick="memoryGame()">PLAY NOW</button>
-      </div>
-    </article>
-
-    <article class="card search-item" data-search="number guessing brain">
-      <div class="card-art">🎯</div>
-      <div class="card-body">
-        <span class="category">BRAIN GAME</span>
-        <h3>Number Guess</h3>
-        <p>Guess the secret number between 1 and 100.</p>
-        <button class="btn" onclick="numberGame()">PLAY NOW</button>
-      </div>
-    </article>
-
+ <div class="container">
+  <div class="heading">
+   <h2>🎮 Gaming Zone</h2>
+   <p>Explore games and play our original browser mini-game.</p>
   </div>
-
-  <div class="game-panel" id="gamePanel">
-    <h3 id="gameTitle">🎮 GAME CENTER</h3>
-    <p id="gameIntro" style="color:var(--muted)">
-      Select a game above to start playing.
-    </p>
-    <div class="game-area" id="gameArea">
-      <div style="font-size:55px">🎮</div>
-    </div>
-    <button class="btn btn-outline" onclick="resetGame()">RESET GAME</button>
-  </div>
-
-</section>
-
-<!-- NEWS -->
-
-<section id="news">
-
-  <h2 class="section-title">GAMING <span>NEWS</span></h2>
-
-  <p class="subtitle">
-    Gaming updates and featured stories.
-  </p>
-
   <div class="grid">
-
-    <article class="card search-item" data-search="gaming technology future">
-      <div class="card-art">🌐</div>
-      <div class="card-body">
-        <span class="category">GAMING WORLD</span>
-        <h3>The Future of Gaming</h3>
-        <p>Explore how gaming technology and new experiences are changing the industry.</p>
-        <div class="news-date">Featured story · Editorial</div>
-      </div>
-    </article>
-
-    <article class="card search-item" data-search="mobile gaming">
-      <div class="card-art">📱</div>
-      <div class="card-body">
-        <span class="category">MOBILE GAMING</span>
-        <h3>Mobile Gaming Trends</h3>
-        <p>Discover the latest trends in mobile gaming and portable entertainment.</p>
-        <div class="news-date">Featured story · Editorial</div>
-      </div>
-    </article>
-
-    <article class="card search-item" data-search="esports competition">
-      <div class="card-art">🏆</div>
-      <div class="card-body">
-        <span class="category">ESPORTS</span>
-        <h3>Inside Esports</h3>
-        <p>Learn about competitive gaming, esports tournaments and gaming communities.</p>
-        <div class="news-date">Featured story · Editorial</div>
-      </div>
-    </article>
-
+   <div class="card">
+    <div class="emoji">🌌</div>
+    <h3>Neon Survival</h3>
+    <p>Collect energy crystals, avoid drones and survive in the arena.</p>
+    <a href="#play" class="btn">PLAY NOW</a>
+   </div>
+   <div class="card">
+    <div class="emoji">🏎️</div>
+    <h3>Racing Zone</h3>
+    <p>A space for racing games and future browser game releases.</p>
+    <span class="notice">More games coming soon</span>
+   </div>
+   <div class="card">
+    <div class="emoji">🧩</div>
+    <h3>Arcade Zone</h3>
+    <p>Discover casual games and fun gaming challenges.</p>
+    <span class="notice">More games coming soon</span>
+   </div>
   </div>
-
-  <p class="subtitle" style="margin-top:22px">
-    These are sample editorial stories, not live breaking news.
-  </p>
-
+ </div>
 </section>
 
-<!-- VIDEOS -->
+<section class="dark" id="play">
+ <div class="container">
+  <div class="heading">
+   <h2>🌌 Neon Survival</h2>
+   <p>Collect 10 crystals and avoid the moving drones!</p>
+  </div>
+  <div class="game-area">
+   <div class="game-info">
+    <span>Crystals: <b id="score">0</b>/10</span>
+    <span>Time: <b id="time">0</b>s</span>
+    <span id="status">Ready to play</span>
+   </div>
+   <canvas id="game" width="700" height="390"></canvas>
+   <button class="btn" onclick="startGame()">START / RESTART</button>
+   <p class="notice">Computer: Arrow keys or WASD | Mobile: Use the buttons below</p>
+   <div class="controls">
+    <button onclick="move('up')">↑</button>
+    <button onclick="move('left')">←</button>
+    <button onclick="move('down')">↓</button>
+    <button onclick="move('right')">→</button>
+   </div>
+  </div>
+ </div>
+</section>
 
-<section id="videos">
-
-  <h2 class="section-title">GAMING <span>VIDEOS</span></h2>
-
-  <p class="subtitle">
-    Watch gaming videos and explore the video collection.
-  </p>
-
+<section id="editing">
+ <div class="container">
+  <div class="heading">
+   <h2>🎬 Creator & Editing Zone</h2>
+   <p>A place for gaming creators and video editors.</p>
+  </div>
   <div class="grid">
-
-    <article class="card search-item" data-search="gaming gameplay youtube">
-      <div class="video-frame">▶</div>
-      <div class="card-body">
-        <span class="category">GAMEPLAY</span>
-        <h3>Gaming Videos</h3>
-        <p>Explore gaming videos on YouTube.</p>
-        <a class="btn" href="https://www.youtube.com/results?search_query=gaming+gameplay" target="_blank" rel="noopener">WATCH VIDEOS</a>
-      </div>
-    </article>
-
-    <article class="card search-item" data-search="free fire highlights">
-      <div class="video-frame">🔥</div>
-      <div class="card-body">
-        <span class="category">HIGHLIGHTS</span>
-        <h3>Gaming Highlights</h3>
-        <p>Discover exciting gaming highlights and moments.</p>
-        <a class="btn" href="https://www.youtube.com/results?search_query=gaming+highlights" target="_blank" rel="noopener">WATCH NOW</a>
-      </div>
-    </article>
-
-    <article class="card search-item" data-search="car edits video">
-      <div class="video-frame">🏎️</div>
-      <div class="card-body">
-        <span class="category">EDITING</span>
-        <h3>Gaming & Car Edits</h3>
-        <p>Explore creative video edits and transitions.</p>
-        <a class="btn" href="https://www.youtube.com/results?search_query=car+edits" target="_blank" rel="noopener">EXPLORE</a>
-      </div>
-    </article>
-
+   <div class="card">
+    <div class="emoji">🎞️</div>
+    <h3>Video Editing</h3>
+    <p>Showcase gaming edits, transitions and creative projects.</p>
+   </div>
+   <div class="card">
+    <div class="emoji">📺</div>
+    <h3>Creator Community</h3>
+    <p>Connect gaming creators and share their channels.</p>
+   </div>
+   <div class="card">
+    <div class="emoji">🎨</div>
+    <h3>Design Studio</h3>
+    <p>Gaming thumbnails, banners, logos and creative graphics.</p>
+   </div>
   </div>
-
+ </div>
 </section>
 
-<!-- ABOUT -->
-
-<section id="about">
-
-  <div class="newsletter">
-    <h2 class="section-title">ABOUT <span>COVE GAMERZ</span></h2>
-
-    <p style="color:var(--muted);line-height:1.9;margin-top:20px">
-      Cove Gamerz is a gaming entertainment platform
-      made for gaming lovers and creative communities.
-      Explore browser games, gaming stories and videos
-      all in one destination.
-    </p>
-
-    <a href="#home" class="btn">EXPLORE WEBSITE</a>
+<section class="dark" id="publish">
+ <div class="container">
+  <div class="heading">
+   <h2>🚀 Publish Your Game</h2>
+   <p>Game developers can contact Cove Gamerz to propose a game listing.</p>
   </div>
-
+  <div class="card form-card">
+   <form onsubmit="sendForm(event,'Game Publishing Request')">
+    <label>Developer / Studio Name</label>
+    <input name="name" required placeholder="Your studio name">
+    <label>Email Address</label>
+    <input name="email" type="email" required placeholder="Your email">
+    <label>Game Name</label>
+    <input name="game" required placeholder="Your game title">
+    <label>Game Link</label>
+    <input name="link" type="url" placeholder="https://example.com">
+    <label>Tell us about your game</label>
+    <textarea name="message" required placeholder="Describe your game..."></textarea>
+    <button class="btn" type="submit">SUBMIT GAME PROPOSAL</button>
+   </form>
+   <p class="notice">Submitting opens your email app. Your game is not automatically published.</p>
+  </div>
+ </div>
 </section>
 
+<section id="partners">
+ <div class="container">
+  <div class="heading">
+   <h2>🤝 Partner With Cove Gamerz</h2>
+   <p>Let's explore opportunities to work together.</p>
+  </div>
+  <div class="grid">
+   <div class="card">
+    <div class="emoji">🏢</div>
+    <h3>Game Companies</h3>
+    <p>Discuss game promotions, official integrations and partnerships.</p>
+   </div>
+   <div class="card">
+    <div class="emoji">👨‍💻</div>
+    <h3>Game Developers</h3>
+    <p>Showcase original games and reach new gaming audiences.</p>
+   </div>
+   <div class="card">
+    <div class="emoji">🎥</div>
+    <h3>Content Creators</h3>
+    <p>Explore creator collaborations and gaming projects.</p>
+   </div>
+  </div>
+  <div style="text-align:center;margin-top:25px">
+   <a href="#contact" class="btn">BECOME A PARTNER</a>
+  </div>
+ </div>
+</section>
+
+<section class="dark" id="news">
+ <div class="container">
+  <div class="heading">
+   <h2>📰 Gaming News</h2>
+   <p>Updates and announcements from Cove Gamerz.</p>
+  </div>
+  <div class="card" style="text-align:center">
+   <h3>Latest Updates Coming Soon</h3>
+   <p>New games, gaming news and community announcements will appear here.</p>
+  </div>
+ </div>
+</section>
+
+<section id="contact">
+ <div class="container">
+  <div class="heading">
+   <h2>📩 Contact Cove Gamerz</h2>
+   <p>For business enquiries, partnerships and general questions.</p>
+  </div>
+  <div class="card form-card">
+   <form onsubmit="sendForm(event,'Contact Message')">
+    <label>Your Name</label>
+    <input name="name" required placeholder="Enter your name">
+    <label>Your Email</label>
+    <input name="email" type="email" required placeholder="Enter your email">
+    <label>Subject</label>
+    <select name="subject">
+     <option>Business Collaboration</option>
+     <option>Game Publishing</option>
+     <option>Gaming Creator</option>
+     <option>General Enquiry</option>
+    </select>
+    <label>Message</label>
+    <textarea name="message" required placeholder="Write your message..."></textarea>
+    <button class="btn" type="submit">SEND MESSAGE</button>
+   </form>
+   <p class="notice">Set your business email in the JavaScript section before publishing.</p>
+  </div>
+ </div>
+</section>
 </main>
 
-<!-- FOOTER -->
-
 <footer>
-
-  <div class="logo">COVE <span>GAMERZ</span></div>
-
-  <p>Gaming • News • Videos • Entertainment</p>
-
-  <div class="social-links">
-    <a href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
-    <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
-  </div>
-
-  <p>© 2026 <span>COVE GAMERZ</span>. All Rights Reserved.</p>
-
+ <div class="logo">COVE <span>GAMERZ</span></div>
+ <div class="social">
+  <a href="#home">Home</a>
+  <a href="#games">Games</a>
+  <a href="#partners">Partners</a>
+  <a href="#contact">Contact</a>
+ </div>
+ <p>© <span id="year"></span> Cove Gamerz. All rights reserved.</p>
+ <p>Independent gaming and creator platform.</p>
 </footer>
 
 <script>
-
-// WEBSITE SEARCH
-
-document.getElementById("siteSearch").addEventListener("input",function(){
-  const query=this.value.toLowerCase().trim();
-
-  document.querySelectorAll(".search-item").forEach(item=>{
-    const match=item.innerText.toLowerCase().includes(query) ||
-      (item.dataset.search || "").includes(query);
-
-    item.style.display=match ? "" : "none";
-  });
-});
-
-// GAME CENTER
-
-let currentGame="";
-let gameTimer=null;
-let tapCount=0;
-let memoryCards=[];
-let memorySelected=[];
-let memoryMatched=0;
-let secretNumber=0;
-let guesses=0;
-
-function showGame(title,intro,html){
-  clearInterval(gameTimer);
-  currentGame=title;
-  document.getElementById("gameTitle").textContent=title;
-  document.getElementById("gameIntro").textContent=intro;
-  document.getElementById("gameArea").innerHTML=html;
-  document.getElementById("gamePanel").scrollIntoView({behavior:"smooth"});
+function toggleMenu(){
+ document.getElementById('nav').classList.toggle('show');
 }
+document.querySelectorAll('nav a').forEach(a=>{
+ a.addEventListener('click',()=>{
+  document.getElementById('nav').classList.remove('show');
+ });
+});
+document.getElementById('year').textContent=new Date().getFullYear();
+
+// Set your real business email here before publishing.
+const BUSINESS_EMAIL = "yourbusiness@email.com";
+
+function sendForm(event,subject){
+ event.preventDefault();
+ const form=event.target;
+ if(BUSINESS_EMAIL==="yourbusiness@email.com"){
+  alert("Please add your real business email in the website code first.");
+  return;
+ }
+ const data=new FormData(form);
+ const body=[...data.entries()].map(([k,v])=>k+": "+v).join("\n");
+ const url="mailto:"+BUSINESS_EMAIL+
+ "?subject="+encodeURIComponent(subject)+
+ "&body="+encodeURIComponent(body);
+ window.location.href=url;
+}
+
+// NEON SURVIVAL GAME
+const canvas=document.getElementById("game");
+const ctx=canvas.getContext("2d");
+let player,crystals,drones,score,running,elapsed,last;
+let keys={};
+let touchDirection=null;
 
 function resetGame(){
-  clearInterval(gameTimer);
-  showGame("🎮 GAME CENTER","Select a game above to start.",'<div style="font-size:55px">🎮</div>');
-}
-
-// REACTION GAME
-
-function reactionGame(){
-  showGame("⚡ REACTION CHALLENGE",
-    "Click the button as many times as you can in 10 seconds.",
-    '<h2 id="tapScore">Score: 0</h2><h3 id="tapTime">Time: 10</h3><button class="game-button" id="tapButton">START</button>');
-
-  tapCount=0;
-  let time=10;
-  let started=false;
-  const btn=document.getElementById("tapButton");
-
-  btn.onclick=()=>{
-    if(!started){
-      started=true;
-      btn.textContent="TAP!";
-      gameTimer=setInterval(()=>{
-        time--;
-        document.getElementById("tapTime").textContent="Time: "+time;
-        if(time<=0){
-          clearInterval(gameTimer);
-          btn.disabled=true;
-          btn.textContent="FINISHED";
-          document.getElementById("gameArea").innerHTML+=
-            '<div class="game-result">Final score: '+tapCount+'</div>';
-        }
-      },1000);
-    }
-    if(time>0){
-      tapCount++;
-      document.getElementById("tapScore").textContent="Score: "+tapCount;
-    }
-  };
-}
-
-// MEMORY GAME
-
-function memoryGame(){
-  const symbols=["🎮","🚗","🔥","🏆","🎯","⚡","💎","🚀"];
-  memoryCards=[...symbols,...symbols].sort(()=>Math.random()-.5);
-  memorySelected=[];
-  memoryMatched=0;
-
-  showGame("🧠 MEMORY MATCH",
-    "Find all matching pairs.",
-    '<div class="memory-grid" id="memoryGrid"></div><div id="memoryStatus" class="game-result">Matched: 0 / 8</div>');
-
-  const grid=document.getElementById("memoryGrid");
-
-  memoryCards.forEach((symbol,index)=>{
-    const btn=document.createElement("button");
-    btn.textContent="?";
-
-    btn.onclick=()=>{
-      if(memorySelected.length===2 || btn.textContent!=="?")return;
-
-      btn.textContent=symbol;
-      memorySelected.push({btn,symbol});
-
-      if(memorySelected.length===2){
-        const [a,b]=memorySelected;
-
-        if(a.symbol===b.symbol){
-          memoryMatched++;
-          memorySelected=[];
-          document.getElementById("memoryStatus").textContent=
-            "Matched: "+memoryMatched+" / 8";
-          if(memoryMatched===8){
-            document.getElementById("memoryStatus").textContent="🏆 YOU WON!";
-          }
-        } else {
-          memorySelected=[a,b];
-          gameTimer=setTimeout(()=>{
-            a.btn.textContent="?";
-            b.btn.textContent="?";
-            memorySelected=[];
-          },800);
-        }
-      }
-    };
-
-    grid.appendChild(btn);
+ player={x:350,y:195,r:12,speed:3.5};
+ score=0;elapsed=0;last=0;running=true;
+ crystals=[];drones=[];
+ for(let i=0;i<10;i++) spawnCrystal();
+ for(let i=0;i<5;i++){
+  drones.push({
+   x:50+Math.random()*600,
+   y:40+Math.random()*300,
+   dx:(Math.random()-.5)*2.5,
+   dy:(Math.random()-.5)*2.5,
+   r:13
   });
+ }
+ document.getElementById("score").textContent=score;
+ document.getElementById("status").textContent="Playing!";
 }
 
-// NUMBER GUESS GAME
-
-function numberGame(){
-  secretNumber=Math.floor(Math.random()*100)+1;
-  guesses=0;
-
-  showGame("🎯 NUMBER GUESS",
-    "Guess a secret number between 1 and 100.",
-    '<input id="numberInput" type="number" min="1" max="100" placeholder="Enter your guess" style="max-width:240px"><button class="btn" onclick="checkNumber()">GUESS</button><div id="numberStatus" class="game-result">Start guessing!</div>');
+function spawnCrystal(){
+ crystals.push({
+  x:25+Math.random()*(canvas.width-50),
+  y:25+Math.random()*(canvas.height-50),
+  r:8
+ });
 }
 
-function checkNumber(){
-  const input=document.getElementById("numberInput");
-  const guess=Number(input.value);
-  const status=document.getElementById("numberStatus");
+function startGame(){
+ resetGame();
+ requestAnimationFrame(loop);
+}
 
-  if(!Number.isInteger(guess)||guess<1||guess>100){
-    status.textContent="Enter a number from 1 to 100.";
+function move(dir){
+ touchDirection=dir;
+ setTimeout(()=>{touchDirection=null},150);
+}
+
+window.addEventListener("keydown",e=>{
+ keys[e.key.toLowerCase()]=true;
+ if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key))e.preventDefault();
+});
+window.addEventListener("keyup",e=>keys[e.key.toLowerCase()]=false);
+
+function update(dt){
+ if(keys["arrowup"]||keys["w"]||touchDirection==="up")player.y-=player.speed;
+ if(keys["arrowdown"]||keys["s"]||touchDirection==="down")player.y+=player.speed;
+ if(keys["arrowleft"]||keys["a"]||touchDirection==="left")player.x-=player.speed;
+ if(keys["arrowright"]||keys["d"]||touchDirection==="right")player.x+=player.speed;
+
+ player.x=Math.max(player.r,Math.min(canvas.width-player.r,player.x));
+ player.y=Math.max(player.r,Math.min(canvas.height-player.r,player.y));
+
+ drones.forEach(d=>{
+  d.x+=d.dx*dt*60;d.y+=d.dy*dt*60;
+  if(d.x<d.r||d.x>canvas.width-d.r)d.dx*=-1;
+  if(d.y<d.r||d.y>canvas.height-d.r)d.dy*=-1;
+ });
+
+ for(let i=crystals.length-1;i>=0;i--){
+  let c=crystals[i];
+  if(Math.hypot(player.x-c.x,player.y-c.y)<player.r+c.r){
+   crystals.splice(i,1);score++;
+   document.getElementById("score").textContent=score;
+   if(score>=10){
+    running=false;
+    document.getElementById("status").textContent="YOU WIN! 🏆";
     return;
+   }
+   spawnCrystal();
   }
+ }
 
-  guesses++;
-
-  if(guess===secretNumber){
-    status.textContent="🎉 Correct! Guesses: "+guesses;
-  } else if(guess<secretNumber){
-    status.textContent="Too low! Try a higher number.";
-  } else {
-    status.textContent="Too high! Try a lower number.";
+ for(let d of drones){
+  if(Math.hypot(player.x-d.x,player.y-d.y)<player.r+d.r){
+   running=false;
+   document.getElementById("status").textContent="GAME OVER";
+   return;
   }
-
-  input.value="";
+ }
+ elapsed+=dt;
+ document.getElementById("time").textContent=Math.floor(elapsed);
 }
 
+function draw(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ ctx.strokeStyle="#1a3450";
+ for(let x=0;x<canvas.width;x+=35){
+  ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,canvas.height);ctx.stroke();
+ }
+ for(let y=0;y<canvas.height;y+=35){
+  ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(canvas.width,y);ctx.stroke();
+ }
+ crystals.forEach(c=>{
+  ctx.fillStyle="#00e5ff";
+  ctx.shadowBlur=15;ctx.shadowColor="#00e5ff";
+  ctx.beginPath();ctx.arc(c.x,c.y,c.r,0,Math.PI*2);ctx.fill();
+ });
+ ctx.shadowBlur=0;
+ drones.forEach(d=>{
+  ctx.fillStyle="#ff526c";
+  ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fill();
+ });
+ if(player){
+  ctx.fillStyle="#36a2ff";
+  ctx.shadowBlur=18;ctx.shadowColor="#168cff";
+  ctx.beginPath();ctx.arc(player.x,player.y,player.r,0,Math.PI*2);ctx.fill();
+  ctx.shadowBlur=0;
+ }
+}
+
+function loop(timestamp){
+ if(!running)return;
+ const dt=Math.min((timestamp-last)/1000||0,0.04);
+ last=timestamp;
+ update(dt);draw();
+ if(running)requestAnimationFrame(loop);
+}
+draw();
 </script>
 
 </body>
-  </html>
-  
+</html>
