@@ -1,525 +1,515 @@
-  
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="eBDq-2G-L2hWg76ZO6cXrPeWpO4SRLJ6_1yCybVyHk0">
-<meta name="description" content="Cove Gamerz - Play games, explore gaming, editing and creator collaborations.">
-<meta name="theme-color" content="#080d18">
-<title>Cove Gamerz | Play Create Explore</title>
-
-<style>
-:root {
-  --bg:#070c17;
-  --panel:#101c30;
-  --blue:#12c8ff;
-  --cyan:#5cecff;
-  --white:#f4f8ff;
-  --muted:#9eb0c7;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  color:var(--white);
-  font-family:Arial,sans-serif;
-  line-height:1.6;
-}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-a{color:inherit;text-decoration:none}
-.container{width:min(1150px,92%);margin:auto}
-
-/* INTRO */
-#intro{
-  position:fixed;inset:0;z-index:9999;
-  background:radial-gradient(circle,#102d4b,#030710 70%);
-  display:flex;align-items:center;justify-content:center;
-  text-align:center;overflow:hidden;
-}
-#intro.hide{animation:introOut .7s forwards;pointer-events:none}
-.intro-content{position:relative;z-index:2;animation:introIn 1.2s ease}
-.intro-logo{
-  font-size:clamp(38px,9vw,76px);
-  font-weight:1000;letter-spacing:3px;
-  text-shadow:0 0 15px #12c8ff,0 0 45px #0879c5;
-  animation:glow 1.5s infinite alternate;
-}
-.intro-logo span{color:var(--blue)}
-.intro-tag{letter-spacing:5px;color:var(--cyan);margin-top:10px}
-.intro-line{
-  width:180px;height:3px;background:#173c55;
-  margin:25px auto;overflow:hidden;border-radius:10px;
-}
-.intro-line:after{
-  content:"";display:block;width:45%;height:100%;
-  background:var(--cyan);animation:loading 2.5s ease forwards;
-  box-shadow:0 0 15px var(--cyan);
-}
-.particle{
-  position:absolute;width:4px;height:4px;border-radius:50%;
-  background:var(--cyan);box-shadow:0 0 12px var(--cyan);
-  animation:float 4s infinite ease-in-out;
-}
-@keyframes glow{to{text-shadow:0 0 30px #12c8ff,0 0 75px #0879c5}}
-@keyframes introIn{from{opacity:0;transform:scale(.65)}to{opacity:1;transform:scale(1)}}
-@keyframes introOut{to{opacity:0;visibility:hidden}}
-@keyframes loading{to{width:100%}}
-@keyframes float{50%{transform:translate(35px,-70px);opacity:.3}}
-
-/* NAV */
-header{
-  position:sticky;top:0;z-index:100;
-  background:rgba(5,11,22,.94);
-  border-bottom:1px solid #15334c;
-  backdrop-filter:blur(12px);
-}
-nav{height:72px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:23px;font-weight:1000;letter-spacing:1px}
-.logo span{color:var(--blue)}
-.nav-links{display:flex;gap:21px;list-style:none}
-.nav-links a{font-size:14px;color:#d2e1f2}
-.nav-links a:hover{color:var(--cyan)}
-.menu-btn{display:none;background:none;border:1px solid #31516c;color:white;padding:8px 12px;border-radius:8px}
-
-/* BUTTONS */
-.btn{
-  display:inline-block;padding:12px 22px;border:0;border-radius:9px;
-  background:linear-gradient(100deg,#087bb9,#24d5ff);
-  color:#00121e;font-weight:bold;margin:5px;
-  transition:.2s;
-}
-.btn:hover{transform:translateY(-3px);box-shadow:0 8px 24px #12c8ff35}
-.btn-outline{background:transparent;color:var(--cyan);border:1px solid var(--blue)}
-.small-btn{padding:9px 15px;font-size:13px}
-
-/* HERO */
-.hero{
-  min-height:550px;display:grid;place-items:center;text-align:center;
-  background:
-    radial-gradient(ellipse at 20% 30%,#123d5d 0%,transparent 45%),
-    radial-gradient(ellipse at 80% 70%,#102b4a 0%,transparent 45%),
-    #080d18;
-  padding:80px 0;
-}
-.tag{
-  display:inline-block;color:var(--cyan);border:1px solid #1d789a;
-  border-radius:30px;padding:7px 15px;font-size:12px;
-  letter-spacing:2px;margin-bottom:20px;
-}
-.hero h1{font-size:clamp(44px,9vw,82px);line-height:1.1;font-weight:1000}
-.hero h1 span{color:var(--blue);text-shadow:0 0 30px #12c8ff66}
-.hero p{max-width:650px;margin:22px auto;color:#bacce0;font-size:17px}
-
-/* SECTIONS */
-section{padding:75px 0}
-.section-head{text-align:center;margin-bottom:35px}
-.section-head h2{font-size:clamp(28px,5vw,40px)}
-.section-head h2 span{color:var(--blue)}
-.section-head p{color:var(--muted);margin-top:7px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.card{
-  background:linear-gradient(145deg,#13233a,#0b1424);
-  border:1px solid #203c57;border-radius:16px;
-  padding:23px;transition:.25s;
-}
-.card:hover{transform:translateY(-5px);border-color:var(--blue);box-shadow:0 10px 30px #009ee51c}
-.card-icon{font-size:35px;margin-bottom:10px}
-.card h3{margin-bottom:7px}
-.card p{color:var(--muted);font-size:14px}
-.card .btn{margin:15px 0 0}
-.game-card{display:flex;flex-direction:column}
-.game-card .btn{margin-top:auto;align-self:flex-start}
-
-/* GAME SEARCH */
-.game-tools{
-  display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:25px
-}
-.game-tools input,.game-tools select{
-  background:#101c30;border:1px solid #31516c;color:white;
-  border-radius:9px;padding:12px;min-width:200px
-}
-.filters{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:25px}
-.filters button{
-  background:#12243a;color:#d8e9fa;border:1px solid #294b68;
-  border-radius:25px;padding:8px 15px
-}
-.filters button.active{background:#087eb8;color:white;border-color:var(--cyan)}
-
-/* GAME MODAL */
-#gameModal{
-  display:none;position:fixed;inset:0;z-index:500;
-  background:#020610ed;overflow:auto;padding:25px 12px;
-}
-#gameModal.show{display:block}
-.game-window{
-  max-width:650px;margin:30px auto;background:#101d31;
-  border:1px solid #1b83ad;border-radius:17px;padding:22px;
-}
-.game-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.close-btn{background:#253a52;color:white;border:0;padding:8px 13px;border-radius:8px}
-#gameContent{margin-top:20px;text-align:center}
-.game-board{display:grid;gap:7px;max-width:350px;margin:15px auto}
-.game-board button{
-  min-height:65px;background:#1b3450;border:1px solid #315c7d;
-  border-radius:8px;color:white;font-size:25px;font-weight:bold
-}
-.game-action{margin:12px}
-.game-message{color:var(--cyan);font-weight:bold;margin:12px}
-.game-input{
-  padding:12px;border:1px solid #31516c;background:#081321;
-  color:white;border-radius:8px;margin:6px
-}
-.game-canvas{
-  display:block;max-width:100%;margin:15px auto;
-  background:#07101e;border:1px solid #1d6586;border-radius:10px;
-  touch-action:manipulation
-}
-.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:340px;margin:15px auto}
-.memory-card{
-  height:65px;background:#1a3855;border:1px solid #38769a;
-  border-radius:8px;color:white;font-size:25px
-}
-.tile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:330px;margin:15px auto}
-.tile{
-  aspect-ratio:1;background:#203b55;border-radius:7px;
-  display:grid;place-items:center;font-weight:bold;font-size:20px
-}
-.tile.filled{background:#087eaa;color:white}
-
-/* FORMS */
-.form-box{
-  max-width:650px;margin:auto;padding:26px;
-  border-radius:16px;background:#101c30;border:1px solid #234967
-}
-.form-box label{display:block;color:#dceafa;font-size:14px;margin-top:10px}
-.form-box input,.form-box textarea,.form-box select{
-  width:100%;padding:13px;margin:6px 0 12px;
-  border:1px solid #31516c;border-radius:8px;
-  color:white;background:#081321;outline:none
-}
-.form-box textarea{min-height:110px;resize:vertical}
-.form-note{font-size:12px;color:var(--muted);margin-top:10px}
-.contact-info{text-align:center;color:var(--muted);margin-top:20px}
-.contact-info a{color:var(--cyan)}
-.premium{border-color:#b58a37;background:linear-gradient(145deg,#2a2417,#101b2c)}
-.premium h3{color:#ffcf70}
-
-/* FOOTER */
-footer{background:#040912;border-top:1px solid #17334b;padding:35px 0;text-align:center;color:#91a4ba}
-footer .logo{margin-bottom:8px}
-.footer-links{margin:12px}
-.footer-links a{margin:0 9px;font-size:13px}
-.hidden{display:none!important}
-
-@media(max-width:800px){
-  .grid{grid-template-columns:repeat(2,1fr)}
-  .menu-btn{display:block}
-  .nav-links{
-    display:none;position:absolute;top:72px;left:0;width:100%;
-    background:#07101e;padding:20px;flex-direction:column
-  }
-  .nav-links.show{display:flex}
-}
-@media(max-width:550px){
-  .grid{grid-template-columns:1fr}
-  .hero{min-height:480px}
-  section{padding:58px 0}
-  .form-box{padding:17px}
-  .game-window{padding:15px}
-}
-</style>
-</head>
-
-<body>
-
-<!-- INTRO -->
-<div id="intro">
-  <div class="particle" style="top:20%;left:15%"></div>
-  <div class="particle" style="top:70%;left:80%"></div>
-  <div class="particle" style="top:35%;left:90%"></div>
-  <div class="particle" style="top:80%;left:25%"></div>
-  <div class="intro-content">
-    <div class="intro-logo">COVE <span>GAMERZ</span></div>
-    <div class="intro-tag">PLAY • CREATE • EXPLORE</div>
-    <div class="intro-line"></div>
-    <p style="color:#a9c8dc;letter-spacing:3px;font-size:12px">ENTER THE NEXT LEVEL</p>
-  </div>
-</div>
-
-<header>
-  <div class="container">
-    <nav>
-      <a href="#home" class="logo">COVE <span>GAMERZ</span></a>
-      <button class="menu-btn" id="menuBtn">☰</button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#games">Games</a></li>
-        <li><a href="#leaderboard">Scores</a></li>
-        <li><a href="#editing">Editing</a></li>
-        <li><a href="#collab">Collab</a></li>
-        <li><a href="#membership">Membership</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<main>
-<section class="hero" id="home">
-  <div class="container">
-    <div class="tag">WELCOME TO THE NEXT LEVEL</div>
-    <h1>COVE <span>GAMERZ</span></h1>
-    <p>Play exciting mini games, explore gaming, discover creative editing and connect with creators.</p>
-    <a href="#games" class="btn">PLAY GAMES</a>
-    <a href="#collab" class="btn btn-outline">COLLABORATE</a>
-  </div>
-</section>
-
-<section id="games">
-  <div class="container">
-    <div class="section-head">
-      <h2>THE <span>GAME ZONE</span></h2>
-      <p>Choose your challenge. Beat your best score.</p>
-    </div>
-
-    <div class="game-tools">
-      <input type="search" id="gameSearch" placeholder="Search games...">
-      <select id="gameCategory">
-        <option value="all">All Categories</option>
-        <option value="arcade">Arcade</option>
-        <option value="puzzle">Puzzle</option>
-        <option value="skill">Skill</option>
-      </select>
-    </div>
-
-    <div class="grid" id="gameGrid">
-      <div class="card game-card" data-name="neon snake" data-category="arcade">
-        <div class="card-icon">🐍</div><h3>Neon Snake</h3>
-        <p>Eat the crystals, grow your snake and beat your record.</p>
-        <button class="btn small-btn" onclick="launchGame('snake')">Play Now</button>
-      </div>
-      <div class="card game-card" data-name="tic tac toe" data-category="puzzle">
-        <div class="card-icon">❎</div><h3>Tic Tac Toe</h3>
-        <p>Challenge yourself in this classic strategy game.</p>
-        <button class="btn small-btn" onclick="launchGame('tic')">Play Now</button>
-      </div>
-      <div class="card game-card" data-name="2048 puzzle" data-category="puzzle">
-        <div class="card-icon">🔢</div><h3>2048 Puzzle</h3>
-        <p>Combine matching numbers and reach the highest tile.</p>
-        <button class="btn small-btn" onclick="launchGame('2048')">Play Now</button>
-      </div>
-      <div class="card game-card" data-name="memory match" data-category="puzzle">
-        <div class="card-icon">🧠</div><h3>Memory Match</h3>
-        <p>Find matching pairs and test your memory.</p>
-        <button class="btn small-btn" onclick="launchGame('memory')">Play Now</button>
-      </div>
-      <div class="card game-card" data-name="brick breaker" data-category="arcade">
-        <div class="card-icon">🧱</div><h3>Brick Breaker</h3>
-        <p>Clear the blocks by tapping them before time runs out.</p>
-        <button class="btn small-btn" onclick="launchGame('brick')">Play Now</button>
-      </div>
-      <div class="card game-card" data-name="neon runner" data-category="arcade">
-        <div class="card-icon">🏃</div><h3>Neon Runner</h3>
-        <p>Jump over obstacles and keep running.</p>
-        <button class="btn small-btn" onclick="launchGame('runner')">Play Now</button>
-      </div>
-      <div class="card game-card" data-name="speed tap" data-category="skill">
-        <div class="card-icon">⚡</div><h3>Speed Tap</h3>
-        <p>Tap as fast as possible before the timer ends.</p>
-        <button class="btn small-btn" onclick="launchGame('speed')">Play Now</button>
-      </div>
-      <div class="card game-card" data-name="crystal hunt" data-category="skill">
-        <div class="card-icon">💎</div><h3>Crystal Hunt</h3>
-        <p>Find and collect the crystals before time runs out.</p>
-        <button class="btn small-btn" onclick="launchGame('crystal')">Play Now</button>
-      </div>
-    </div>
-    <p id="noGames" class="game-message hidden">No games found. Try another search.</p>
-  </div>
-</section>
-
-<section id="leaderboard">
-  <div class="container">
-    <div class="section-head">
-      <h2>YOUR <span>RECORDS</span></h2>
-      <p>Your personal best scores on this device.</p>
-    </div>
-    <div class="form-box">
-      <div id="scoresList">Play a game to start creating your records!</div>
-      <p class="form-note">Records are stored on this device. Online player rankings need a shared database.</p>
-    </div>
-  </div>
-</section>
-
-<section id="editing">
-  <div class="container">
-    <div class="section-head">
-      <h2>CREATOR <span>ZONE</span></h2>
-      <p>Gaming and creativity together.</p>
-    </div>
-    <div class="grid">
-      <div class="card"><div class="card-icon">🎬</div><h3>Video Editing</h3><p>Editing ideas, transitions and creative effects for creators.</p></div>
-      <div class="card"><div class="card-icon">✨</div><h3>Visual Effects</h3><p>Discover effects and creative inspiration for your videos.</p></div>
-      <div class="card"><div class="card-icon">🎨</div><h3>Creator Studio</h3><p>Build your creator identity and explore new ideas.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="collab">
-  <div class="container">
-    <div class="section-head">
-      <h2>CREATOR <span>COLLABORATION</span></h2>
-      <p>Want to work with Cove Gamerz? Send us your idea.</p>
-    </div>
-    <form class="form-box" id="collabForm">
-      <label>Your Name / Creator Name</label>
-      <input id="collabName" required placeholder="Your name">
-      <label>Your Channel or Portfolio Link</label>
-      <input id="collabLink" type="url" placeholder="https://...">
-      <label>What would you like to collaborate on?</label>
-      <select id="collabType">
-        <option>Gaming Content</option>
-        <option>Video Editing</option>
-        <option>Game Development</option>
-        <option>Promotion Partnership</option>
-        <option>Other</option>
-      </select>
-      <label>Your Idea</label>
-      <textarea id="collabIdea" required placeholder="Tell us your collaboration idea"></textarea>
-      <button class="btn" type="submit">Send Collaboration Request</button>
-      <p class="form-note">Your email app will open. Review and send your request there.</p>
-    </form>
-  </div>
-</section>
-
-<section id="membership">
-  <div class="container">
-    <div class="section-head">
-      <h2>MEMBERSHIP <span>ZONE</span></h2>
-      <p>Explore membership options as the community grows.</p>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <div class="card-icon">🎮</div>
-        <h3>Free Member</h3>
-        <p>Play available games and explore the creator zone.</p>
-        <p style="color:#5cecff;margin-top:12px;font-weight:bold">FREE</p>
-      </div>
-      <div class="card premium">
-        <div class="card-icon">👑</div>
-        <h3>Premium Interest</h3>
-        <p>Get updates about future bonus themes, extra levels and member features.</p>
-        <p style="color:#ffcf70;margin-top:12px;font-weight:bold">COMING SOON</p>
-        <button class="btn" onclick="membershipRequest()">Join Interest List</button>
-      </div>
-      <div class="card">
-        <div class="card-icon">🤝</div>
-        <h3>Creator Partner</h3>
-        <p>Send a collaboration request to discuss possible projects.</p>
-        <a href="#collab" class="btn small-btn">Explore Collaboration</a>
-      </div>
-    </div>
-    <p class="form-note" style="text-align:center;margin-top:18px">Premium payments are not enabled yet. No payment is collected on this website.</p>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="container">
-    <div class="section-head">
-      <h2>CONTACT <span>US</span></h2>
-      <p>Questions, feedback or ideas? Send a message.</p>
-    </div>
-    <form class="form-box" id="contactForm">
-      <label>Your Name</label>
-      <input id="contactName" required placeholder="Your name">
-      <label>Your Email</label>
-      <input id="contactEmail" type="email" required placeholder="Your email">
-      <label>Message</label>
-      <textarea id="contactMessage" required placeholder="Write your message"></textarea>
-      <button class="btn" type="submit">Send Message</button>
-      <p class="form-note">Your email app will open with a prepared message. You must press Send there.</p>
-    </form>
-    <div class="contact-info">
-      Business Email: <a href="mailto:covegamerz959@gmail.com">covegamerz959@gmail.com</a>
-    </div>
-  </div>
-</section>
-</main>
-
-<footer>
-  <div class="container">
-    <div class="logo">COVE <span>GAMERZ</span></div>
-    <p>PLAY • CREATE • EXPLORE</p>
-    <div class="footer-links">
-      <a href="#home">Home</a><a href="#games">Games</a>
-      <a href="#collab">Collaboration</a><a href="#contact">Contact</a>
-    </div>
-    <p>© <span id="year"></span> Cove Gamerz. All Rights Reserved.</p>
-  </div>
-</footer>
-
-<!-- GAME WINDOW -->
-<div id="gameModal">
-  <div class="game-window">
-    <div class="game-top">
-      <h2 id="gameTitle">Game</h2>
-      <button class="close-btn" onclick="closeGame()">✕ Close</button>
-    </div>
-    <div id="gameContent"></div>
-  </div>
-</div>
-
+ 
 <script>
 const BUSINESS_EMAIL = "covegamerz959@gmail.com";
 
-/* INTRO: once per tab session, not on refresh */
 const intro = document.getElementById("intro");
 if (sessionStorage.getItem("coveIntroSeen")) {
   intro.remove();
 } else {
-  sessionStorage.setItem("coveIntroSeen","yes");
+  sessionStorage.setItem("coveIntroSeen", "yes");
   setTimeout(() => {
     intro.classList.add("hide");
-    setTimeout(() => intro.remove(),750);
-  },3000);
+    setTimeout(() => intro.remove(), 750);
+  }, 3000);
 }
 
-/* MOBILE MENU */
 document.getElementById("menuBtn").onclick = () => {
   document.getElementById("navLinks").classList.toggle("show");
 };
+
 document.querySelectorAll(".nav-links a").forEach(a => {
   a.onclick = () => document.getElementById("navLinks").classList.remove("show");
 });
+
 document.getElementById("year").textContent = new Date().getFullYear();
 
-/* GAME SEARCH AND FILTER */
-function filterGames(){
-  const query=document.getElementById("gameSearch").value.toLowerCase();
-  const category=document.getElementById("gameCategory").value;
-  let visible=0;
-  document.querySelectorAll(".game-card").forEach(card=>{
-    const matchName=card.dataset.name.includes(query);
-    const matchCat=category==="all" || card.dataset.category===category;
-    card.classList.toggle("hidden",!(matchName && matchCat));
-    if(matchName && matchCat) visible++;
-  });
-  document.getElementById("noGames").classList.toggle("hidden",visible>0);
-}
-document.getElementById("gameSearch").addEventListener("input",filterGames);
-document.getElementById("gameCategory").addEventListener("change",filterGames);
+function filterGames() {
+  const query = document.getElementById("gameSearch").value.toLowerCase();
+  const category = document.getElementById("gameCategory").value;
+  let visible = 0;
 
-/* PERSONAL RECORDS */
-function saveRecord(name,score){
-  const key="coveRecords";
-  let records=JSON.parse(localStorage.getItem(key)||"{}");
-  records[name]=Math.max(Number(records[name]||0),Number(score||0));
-  localStorage.setItem(key,JSON.stringify(records));
-  showRecords();
+  document.querySelectorAll(".game-card").forEach(card => {
+    const match = card.dataset.name.includes(query) &&
+      (category === "all" || card.dataset.category === category);
+    card.classList.toggle("hidden", !match);
+    if (match) visible++;
+  });
+
+  document.getElementById("noGames").classList.toggle("hidden", visible > 0);
 }
-function showRecords(){
-  const records=JSON.parse(localStorage.getItem("coveRecords")||"{}");
-  const entries=Object.entries(records).sort((a,b)=>b[1]-a[1]);
-  document.getElementById("scoresList").inner
+
+document.getElementById("gameSearch").addEventListener("input", filterGames);
+document.getElementById("gameCategory").addEventListener("change", filterGames);
+
+function saveRecord(name, score) {
+  try {
+    const records = JSON.parse(localStorage.getItem("coveRecords") || "{}");
+    records[name] = Math.max(Number(records[name] || 0), Number(score || 0));
+    localStorage.setItem("coveRecords", JSON.stringify(records));
+    showRecords();
+  } catch(e) {}
+}
+
+function showRecords() {
+  const records = JSON.parse(localStorage.getItem("coveRecords") || "{}");
+  const entries = Object.entries(records).sort((a,b) => b[1] - a[1]);
+  document.getElementById("scoresList").innerHTML =
+    entries.length
+      ? entries.map(([name,score]) =>
+        `<p style="padding:8px;border-bottom:1px solid #29445d">${name}: <b>${score}</b></p>`
+      ).join("")
+      : "Play a game to start creating your records!";
+}
+showRecords();
+
+const modal = document.getElementById("gameModal");
+const content = document.getElementById("gameContent");
+const title = document.getElementById("gameTitle");
+let gameTimer = null;
+let gameCleanup = null;
+
+function closeGame() {
+  clearInterval(gameTimer);
+  clearTimeout(gameTimer);
+  if (gameCleanup) gameCleanup();
+  gameTimer = null;
+  gameCleanup = null;
+  modal.classList.remove("show");
+  content.innerHTML = "";
+}
+
+function launchGame(name) {
+  closeGame();
+  modal.classList.add("show");
+  const games = {
+    snake: "Neon Snake",
+    tic: "Tic Tac Toe",
+    "2048": "2048 Puzzle",
+    memory: "Memory Match",
+    brick: "Brick Breaker",
+    runner: "Neon Runner",
+    speed: "Speed Tap",
+    crystal: "Crystal Hunt"
+  };
+  title.textContent = games[name] || "Game";
+  const starts = {
+    snake: startSnake,
+    tic: startTic,
+    "2048": start2048,
+    memory: startMemory,
+    brick: startBrick,
+    runner: startRunner,
+    speed: startSpeed,
+    crystal: startCrystal
+  };
+  if (starts[name]) starts[name]();
+}
+
+function message(text) {
+  const p = document.createElement("p");
+  p.className = "game-message";
+  p.textContent = text;
+  content.appendChild(p);
+}
+
+function button(text, action) {
+  const b = document.createElement("button");
+  b.className = "btn";
+  b.textContent = text;
+  b.onclick = action;
+  content.appendChild(b);
+  return b;
+}
+
+/* TIC TAC TOE */
+function startTic() {
+  let board = Array(9).fill("");
+  let ended = false;
+  const grid = document.createElement("div");
+  grid.className = "game-board";
+  grid.style.gridTemplateColumns = "repeat(3,1fr)";
+  content.appendChild(grid);
+  const status = document.createElement("p");
+  status.className = "game-message";
+  content.appendChild(status);
+
+  function winner() {
+    const lines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    for (const line of lines) {
+      const [a,b,c] = line;
+      if (board[a] && board[a] === board[b] && board[a] === board[c]) return board[a];
+    }
+    return board.every(Boolean) ? "draw" : null;
+  }
+
+  function render() {
+    grid.innerHTML = "";
+    board.forEach((v,i) => {
+      const b = document.createElement("button");
+      b.textContent = v || " ";
+      b.onclick = () => {
+        if (ended || board[i]) return;
+        board[i] = "X";
+        let result = winner();
+        if (!result) {
+          const free = board.map((v,i) => v ? -1 : i).filter(i => i >= 0);
+          if (free.length) board[free[Math.floor(Math.random()*free.length)]] = "O";
+          result = winner();
+        }
+        if (result) {
+          ended = true;
+          status.textContent = result === "draw" ? "Draw!" : result + " wins!";
+          if (result === "X") saveRecord("Tic Tac Toe", 1);
+        } else status.textContent = "Your turn: X";
+        render();
+      };
+      grid.appendChild(b);
+    });
+  }
+  status.textContent = "You are X. Play against the computer!";
+  render();
+  button("Restart", startTic);
+}
+
+/* MEMORY MATCH */
+function startMemory() {
+  const symbols = ["🎮","🚀","⚡","💎","👑","🔥","🎯","🏆"];
+  const cards = [...symbols,...symbols].sort(() => Math.random()-.5);
+  let first = null, lock = false, pairs = 0, moves = 0;
+  const grid = document.createElement("div");
+  grid.className = "memory-grid";
+  content.appendChild(grid);
+  const info = document.createElement("p");
+  info.className = "game-message";
+  content.appendChild(info);
+  const matched = [];
+
+  cards.forEach((symbol,i) => {
+    const b = document.createElement("button");
+    b.className = "memory-card";
+    b.textContent = "?";
+    b.onclick = () => {
+      if (lock || matched.includes(i) || first === i) return;
+      b.textContent = symbol;
+      if (first === null) first = i;
+      else {
+        moves++;
+        const previous = grid.children[first];
+        if (cards[first] === symbol) {
+          matched.push(first,i);
+          pairs++;
+          first = null;
+          if (pairs === 8) {
+            info.textContent = "You won in " + moves + " moves!";
+            saveRecord("Memory Match", Math.max(1, 100-moves));
+          }
+        } else {
+          lock = true;
+          const old = first;
+          first = null;
+          setTimeout(() => {
+            grid.children[old].textContent = "?";
+            b.textContent = "?";
+            lock = false;
+          }, 700);
+        }
+      }
+      info.textContent = "Pairs: " + pairs + "/8 • Moves: " + moves;
+    };
+    grid.appendChild(b);
+  });
+  button("Restart", startMemory);
+}
+
+/* SPEED TAP */
+function startSpeed() {
+  let score = 0, time = 15, running = false;
+  const info = document.createElement("p");
+  info.className = "game-message";
+  content.appendChild(info);
+  const tap = button("START", () => {
+    if (running) {
+      score++;
+      info.textContent = "Taps: " + score + " | Time: " + time;
+      return;
+    }
+    running = true;
+    score = 0;
+    time = 15;
+    tap.textContent = "TAP FAST!";
+    info.textContent = "Taps: 0 | Time: 15";
+    gameTimer = setInterval(() => {
+      time--;
+      info.textContent = "Taps: " + score + " | Time: " + time;
+      if (time <= 0) {
+        clearInterval(gameTimer);
+        running = false;
+        tap.textContent = "PLAY AGAIN";
+        info.textContent = "Time up! Your score: " + score;
+        saveRecord("Speed Tap", score);
+      }
+    },1000);
+  });
+}
+
+/* CRYSTAL HUNT */
+function startCrystal() {
+  let score = 0, time = 20;
+  const grid = document.createElement("div");
+  grid.className = "memory-grid";
+  content.appendChild(grid);
+  const info = document.createElement("p");
+  info.className = "game-message";
+  content.appendChild(info);
+
+  const cells = [];
+  for (let i=0;i<16;i++) {
+    const b = document.createElement("button");
+    b.className = "memory-card";
+    b.textContent = "⬛";
+    b.onclick = () => {
+      if (b.disabled) return;
+      b.disabled = true;
+      if (b.dataset.crystal === "yes") {
+        b.textContent = "💎";
+        score++;
+      } else b.textContent = "·";
+      info.textContent = "Crystals: " + score + " | Time: " + time;
+    };
+    cells.push(b);
+    grid.appendChild(b);
+  }
+  const positions = [...Array(16).keys()].sort(() => Math.random()-.5).slice(0,5);
+  positions.forEach(i => cells[i].dataset.crystal = "yes");
+  info.textContent = "Find the 5 hidden crystals!";
+  gameTimer = setInterval(() => {
+    time--;
+    info.textContent = "Crystals: " + score + " | Time: " + time;
+    if (time <= 0) {
+      clearInterval(gameTimer);
+      cells.forEach(b => {
+        if (b.dataset.crystal === "yes" && b.textContent === "⬛") b.textContent = "💎";
+        b.disabled = true;
+      });
+      info.textContent = "Time up! You found " + score + " crystals.";
+      saveRecord("Crystal Hunt", score);
+    }
+  },1000);
+  button("Restart", startCrystal);
+}
+
+/* BRICK BREAKER: TAP BLOCKS */
+function startBrick() {
+  let score = 0, time = 25;
+  const grid = document.createElement("div");
+  grid.className = "memory-grid";
+  content.appendChild(grid);
+  const info = document.createElement("p");
+  info.className = "game-message";
+  content.appendChild(info);
+
+  for (let i=0;i<16;i++) {
+    const b = document.createElement("button");
+    b.className = "memory-card";
+    b.textContent = "🧱";
+    b.onclick = () => {
+      if (b.disabled) return;
+      b.disabled = true;
+      b.textContent = "💥";
+      score++;
+      info.textContent = "Blocks cleared: " + score + " | Time: " + time;
+    };
+    grid.appendChild(b);
+  }
+  info.textContent = "Tap the blocks to clear them!";
+  gameTimer = setInterval(() => {
+    time--;
+    if (time <= 0) {
+      clearInterval(gameTimer);
+      info.textContent = "Time up! Blocks cleared: " + score;
+      saveRecord("Brick Breaker", score);
+      [...grid.children].forEach(b => b.disabled = true);
+    }
+  },1000);
+  button("Restart", startBrick);
+}
+
+/* NEON RUNNER */
+function startRunner() {
+  let score = 0, over = false;
+  const area = document.createElement("div");
+  area.style.cssText = "background:#07101e;padding:30px;border-radius:12px;font-size:40px";
+  area.innerHTML = "🏃　　🧱";
+  content.appendChild(area);
+  const info = document.createElement("p");
+  info.className = "game-message";
+  content.appendChild(info);
+  const jump = button("JUMP", () => {
+    if (over) return;
+    score++;
+    area.innerHTML = "🏃　　✨";
+    info.textContent = "Distance: " + score;
+    setTimeout(() => { if (!over) area.innerHTML = "🏃　　🧱"; },250);
+  });
+  button("Finish Run", () => {
+    over = true;
+    info.textContent = "Run finished! Distance: " + score;
+    saveRecord("Neon Runner", score);
+  });
+  info.textContent = "Tap JUMP to dodge obstacles and score points!";
+}
+
+/* 2048 PUZZLE */
+function start2048() {
+  let board = Array(16).fill(0);
+  let score = 0;
+  function addTile() {
+    const empty = board.map((v,i) => v ? -1 : i).filter(i => i >= 0);
+    if (empty.length) board[empty[Math.floor(Math.random()*empty.length)]] = Math.random() < .9 ? 2 : 4;
+  }
+  addTile(); addTile();
+  const grid = document.createElement("div");
+  grid.className = "tile-grid";
+  content.appendChild(grid);
+  const info = document.createElement("p");
+  info.className = "game-message";
+  content.appendChild(info);
+
+  function render() {
+    grid.innerHTML = "";
+    board.forEach(v => {
+      const cell = document.createElement("div");
+      cell.className = "tile" + (v ? " filled" : "");
+      cell.textContent = v || "";
+      grid.appendChild(cell);
+    });
+    info.textContent = "Score: " + score;
+  }
+
+  function move(direction) {
+    let changed = false;
+    for (let line=0;line<4;line++) {
+      let indices = [];
+      for (let j=0;j<4;j++) {
+        const r = direction === "up" ? j : direction === "down" ? 3-j : line;
+        const c = direction === "left" ? j : direction === "right" ? 3-j : line;
+        indices.push(r*4+c);
+      }
+      if (direction === "up" || direction === "down") indices = indices.map((_,j) => (direction === "up" ? j*4+line : (3-j)*4+line));
+      const old = indices.map(i => board[i]);
+      let vals = old.filter(Boolean);
+      for (let j=0;j<vals.length-1;j++) {
+        if (vals[j] === vals[j+1]) {
+          vals[j] *= 2;
+          score += vals[j];
+          vals.splice(j+1,1);
+        }
+      }
+      while (vals.length<4) vals.push(0);
+      indices.forEach((idx,j) => {
+        if (board[idx] !== vals[j]) changed = true;
+        board[idx] = vals[j];
+      });
+    }
+    if (changed) addTile();
+    render();
+    if (board.includes(2048)) {
+      info.textContent = "You reached 2048! Score: " + score;
+      saveRecord("2048 Puzzle", score);
+    }
+  }
+
+  ["up","down","left","right"].forEach(dir => button(dir.toUpperCase(), () => move(dir)));
+  render();
+  button("Restart", start2048);
+}
+
+/* NEON SNAKE */
+function startSnake() {
+  let snake = [42,41,40], dir = 1, food = 55, score = 0, over = false;
+  const grid = document.createElement("div");
+  grid.className = "tile-grid";
+  grid.style.gridTemplateColumns = "repeat(10,1fr)";
+  content.appendChild(grid);
+  const cells = [];
+  for (let i=0;i<100;i++) {
+    const cell = document.createElement("div");
+    cell.className = "tile";
+    cell.style.aspectRatio = "1";
+    cells.push(cell);
+    grid.appendChild(cell);
+  }
+  const info = document.createElement("p");
+  info.className = "game-message";
+  content.appendChild(info);
+
+  function render() {
+    cells.forEach(c => c.textContent = "");
+    snake.forEach(i => { if(cells[i]) cells[i].textContent = "🟦"; });
+    cells[food].textContent = "💎";
+    info.textContent = "Score: " + score;
+  }
+  function step() {
+    if (over) return;
+    const head = snake[0];
+    let next = head + dir;
+    if (next < 0 || next >= 100 ||
+        (dir === 1 && head%10 === 9) ||
+        (dir === -1 && head%10 === 0) ||
+        snake.includes(next)) {
+      over = true;
+      clearInterval(gameTimer);
+      info.textContent = "Game over! Score: " + score;
+      saveRecord("Neon Snake", score);
+      return;
+    }
+    snake.unshift(next);
+    if (next === food) {
+      score++;
+      food = Math.floor(Math.random()*100);
+      while(snake.includes(food)) food = Math.floor(Math.random()*100);
+    } else snake.pop();
+    render();
+  }
+  [["⬆", -10],["⬅",-1],["⬇",10],["➡",1]].forEach(([label,d]) => {
+    button(label, () => {
+      if (d === -dir) return;
+      dir = d;
+    });
+  });
+  render();
+  gameTimer = setInterval(step,350);
+}
+
+function membershipRequest() {
+  const subject = encodeURIComponent("Cove Gamerz Membership Interest");
+  const body = encodeURIComponent("Hello Cove Gamerz, I would like to receive updates about future membership features.");
+  location.href = `mailto:${BUSINESS_EMAIL}?subject=${subject}&body=${body}`;
+}
+
+document.getElementById("collabForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = document.getElementById("collabName").value;
+  const link = document.getElementById("collabLink").value;
+  const type = document.getElementById("collabType").value;
+  const idea = document.getElementById("collabIdea").value;
+  const subject = encodeURIComponent("Cove Gamerz Collaboration Request");
+  const body = encodeURIComponent(`Name: ${name}\nLink: ${link}\nType: ${type}\nIdea: ${idea}`);
+  location.href = `mailto:${BUSINESS_EMAIL}?subject=${subject}&body=${body}`;
+});
+
+document.getElementById("contactForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = document.getElementById("contactName").value;
+  const email = document.getElementById("contactEmail").value;
+  const msg = document.getElementById("contactMessage").value;
+  const subject = encodeURIComponent("Cove Gamerz Website Message");
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nMessage: ${msg}`);
+  location.href = `mailto:${BUSINESS_EMAIL}?subject=${subject}&body=${body}`;
+});
+
+modal.addEventListener("click", e => {
+  if (e.target === modal) closeGame();
+});
+        </script>
+        
