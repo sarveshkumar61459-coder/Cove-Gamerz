@@ -1,1 +1,303 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080d18">
+<meta name="description" content="Cove Gamerz Editing Studio - Video editing, creative projects, gaming edits and collaborations.">
+<title>Cove Gamerz | Editing Studio</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  color:#eef6ff;
+  background:
+  radial-gradient(circle at 15% 10%,#12314a 0,transparent 35%),
+  radial-gradient(circle at 85% 55%,#10243d 0,transparent 35%),
+  #070b14;
+  line-height:1.6;
+}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit}
+.container{width:min(1100px,92%);margin:auto}
+header{
+  position:sticky;top:0;z-index:10;
+  background:rgba(5,10,20,.88);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid #18364c;
+}
+.nav{
+  min-height:70px;display:flex;align-items:center;
+  justify-content:space-between;gap:15px;flex-wrap:wrap;
+}
+.logo{font-size:23px;font-weight:900;color:#fff}
+.logo span{color:#22d3ee}
+nav{display:flex;gap:20px;flex-wrap:wrap}
+nav a{font-size:14px;color:#c5d5e5}
+nav a:hover{color:#22d3ee}
+.hero{
+  min-height:520px;display:flex;align-items:center;
+  text-align:center;padding:90px 0;
+}
+.hero-content{max-width:800px;margin:auto}
+.tag{
+  display:inline-block;padding:7px 15px;border:1px solid #22d3ee;
+  border-radius:30px;color:#67e8f9;font-size:12px;
+  letter-spacing:2px;margin-bottom:22px;
+}
+h1{font-size:clamp(38px,7vw,70px);line-height:1.08}
+h1 span,.gradient{color:#22d3ee}
+.hero p{color:#a9bacd;max-width:620px;margin:22px auto;font-size:17px}
+.btn{
+  display:inline-block;padding:12px 22px;border-radius:9px;
+  background:#22d3ee;color:#06111d;font-weight:800;
+  margin:7px;transition:.25s;border:1px solid #22d3ee;
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 0 25px #22d3ee55}
+.btn.secondary{background:transparent;color:#22d3ee}
+section{padding:75px 0}
+.section-title{text-align:center;margin-bottom:38px}
+.section-title h2{font-size:32px}
+.section-title p{color:#9aadc0;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.card{
+  background:linear-gradient(145deg,#101d2d,#0b1421);
+  border:1px solid #1d3b50;border-radius:16px;
+  padding:24px;transition:.25s;
+}
+.card:hover{transform:translateY(-5px);border-color:#22d3ee;box-shadow:0 10px 35px #0005}
+.card .icon{font-size:32px;margin-bottom:12px}
+.card h3{margin-bottom:8px;color:#eafaff}
+.card p{font-size:14px;color:#9eb2c6}
+.card a.link{display:inline-block;margin-top:15px;color:#22d3ee;font-weight:bold}
+.showcase{
+  min-height:150px;border:1px dashed #28617a;
+  border-radius:12px;display:flex;align-items:center;
+  justify-content:center;text-align:center;padding:20px;
+  color:#9db8ca;background:#0a1725;
+}
+.showcase strong{display:block;color:#22d3ee;font-size:20px}
+.steps{counter-reset:step}
+.step{position:relative;padding-left:55px;margin:22px 0}
+.step:before{
+  counter-increment:step;content:counter(step);
+  position:absolute;left:0;top:0;width:38px;height:38px;
+  display:grid;place-items:center;border-radius:50%;
+  background:#22d3ee;color:#06111d;font-weight:bold;
+}
+.contact-box{
+  max-width:650px;margin:auto;text-align:center;
+  padding:35px;border:1px solid #1d5268;border-radius:18px;
+  background:#0c1928;
+}
+footer{padding:25px;text-align:center;color:#8398ad;border-top:1px solid #18364c}
+footer a{color:#22d3ee}
+@media(max-width:600px){
+  .nav{justify-content:center;padding:14px 0}
+  nav{justify-content:center;gap:13px}
+  .hero{min-height:450px;padding:65px 0}
+  section{padding:55px 0}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="logo" href="index.html">COVE <span>GAMERZ</span></a>
+    <nav>
+      <a href="index.html">Gaming</a>
+      <a href="#about">About</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#tools">AI Tools</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="container hero-content">
+    <div class="tag">CREATIVE EDITING STUDIO</div>
+    <h1>CREATE. EDIT. <span>INSPIRE.</span></h1>
+    <p>
+      Welcome to Cove Gamerz Editing Studio.
+      Explore creative video edits, gaming visuals,
+      editing resources and collaboration opportunities.
+    </p>
+    <a class="btn" href="#portfolio">Explore Portfolio</a>
+    <a class="btn secondary" href="#contact">Collaborate</a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="section-title">
+      <h2>About <span class="gradient">Studio</span></h2>
+      <p>A creative space for gaming and video editing.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🎬</div>
+        <h3>Video Editing</h3>
+        <p>Creative edits, transitions, effects and engaging video presentations.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🎮</div>
+        <h3>Gaming Edits</h3>
+        <p>Gaming highlights, montages, shorts and cinematic gaming content.</p>
+      </div>
+      <div class="card">
+        <div class="icon">✨</div>
+        <h3>Creative Designs</h3>
+        <p>Thumbnails, channel graphics and social media visual concepts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <div class="container">
+    <div class="section-title">
+      <h2>Our <span class="gradient">Portfolio</span></h2>
+      <p>Show your best creative work here.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🏎️</div>
+        <h3>Car Edits</h3>
+        <p>Supercars, cinematic shots and powerful transitions.</p>
+        <div class="showcase"><div><strong>CAR EDITS</strong>Add your video link here</div></div>
+      </div>
+      <div class="card">
+        <div class="icon">🔥</div>
+        <h3>Gaming Montages</h3>
+        <p>Gameplay highlights and energetic gaming edits.</p>
+        <div class="showcase"><div><strong>GAMING</strong>Add your video link here</div></div>
+      </div>
+      <div class="card">
+        <div class="icon">📱</div>
+        <h3>Short Form Videos</h3>
+        <p>Reels, YouTube Shorts and vertical video projects.</p>
+        <div class="showcase"><div><strong>SHORTS</strong>Add your video link here</div></div>
+      </div>
+    </div>
+    <p style="text-align:center;color:#8fa8bb;margin-top:20px;font-size:13px">
+      Replace these portfolio placeholders with your own video links.
+    </p>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="container">
+    <div class="section-title">
+      <h2>Useful <span class="gradient">Creative Tools</span></h2>
+      <p>Explore editing and design platforms.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🎥</div>
+        <h3>CapCut</h3>
+        <p>Video editing and creative effects.</p>
+        <a class="link" href="https://www.capcut.com/" target="_blank" rel="noopener">Visit CapCut ↗</a>
+      </div>
+      <div class="card">
+        <div class="icon">🎨</div>
+        <h3>Canva</h3>
+        <p>Thumbnails, graphics and visual designs.</p>
+        <a class="link" href="https://www.canva.com/" target="_blank" rel="noopener">Visit Canva ↗</a>
+      </div>
+      <div class="card">
+        <div class="icon">✨</div>
+        <h3>Adobe Express</h3>
+        <p>Creative content and design tools.</p>
+        <a class="link" href="https://www.adobe.com/express/" target="_blank" rel="noopener">Visit Adobe ↗</a>
+      </div>
+      <div class="card">
+        <div class="icon">💻</div>
+        <h3>Clipchamp</h3>
+        <p>Browser-based video editing platform.</p>
+        <a class="link" href="https://clipchamp.com/" target="_blank" rel="noopener">Visit Clipchamp ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="collab">
+  <div class="container">
+    <div class="section-title">
+      <h2>Let's <span class="gradient">Collaborate</span></h2>
+      <p>Creative ideas become better when we work together.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🤝</div>
+        <h3>Creator Collaboration</h3>
+        <p>Connect for creative projects and content collaborations.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📢</div>
+        <h3>Brand Enquiries</h3>
+        <p>Discuss suitable promotional and creative opportunities.</p>
+      </div>
+      <div class="card">
+        <div class="icon">💡</div>
+        <h3>Project Ideas</h3>
+        <p>Share your ideas and discuss possible projects.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title">
+      <h2>How It <span class="gradient">Works</span></h2>
+    </div>
+    <div class="contact-box" style="text-align:left">
+      <div class="step"><h3>Send your idea</h3><p>Tell us what kind of creative project you have in mind.</p></div>
+      <div class="step"><h3>Discuss the details</h3><p>We can discuss the project, timeline and expectations.</p></div>
+      <div class="step"><h3>Plan together</h3><p>Agree on the project details before starting any work.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="contact-box">
+      <div class="icon">📩</div>
+      <h2>Get In <span class="gradient">Touch</span></h2>
+      <p style="color:#a9bacd;margin:12px 0 22px">
+        Have a creative idea or collaboration proposal?
+        Send us an email.
+      </p>
+      <a class="btn" href="mailto:covegamerz959@gmail.com?subject=Cove%20Gamerz%20Collaboration">
+        Email Cove Gamerz
+      </a>
+      <p style="color:#8fa8bb;margin-top:15px;font-size:13px">
+        covegamerz959@gmail.com
+      </p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p>© <span id="year"></span> Cove Gamerz. All Rights Reserved.</p>
+  <p style="margin-top:8px">
+    <a href="index.html">Gaming Website</a> |
+    <a href="#portfolio">Editing Studio</a>
+  </p>
+</footer>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+  </html>
+
