@@ -1,793 +1,316 @@
- 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="google-site-verification" content="eBDq-2G-L2hWg76ZO6cXrPeWpO4SRLJ6_1yCybVyHk0">
-<meta name="description" content="Cove Gamerz - Play free online games, explore gaming news, videos and editing studio.">
+<meta name="description" content="Cove Gamerz - Play, compete, create and earn.">
 <meta name="theme-color" content="#080d18">
 <title>Cove Gamerz | Gaming Universe</title>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root {
-  --bg:#080d18;
-  --panel:#101b2d;
-  --panel2:#14243a;
-  --cyan:#22d3ee;
-  --blue:#387bff;
-  --text:#f4f8ff;
-  --muted:#a8b6ca;
-}
-* { box-sizing:border-box; margin:0; padding:0; }
-html { scroll-behavior:smooth; }
-body {
-  font-family:Arial, sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(ellipse at 15% 10%,#102d4a 0%,transparent 40%),
-    radial-gradient(ellipse at 85% 65%,#10263d 0%,transparent 40%),
-    var(--bg);
-  min-height:100vh;
-}
-button,input { font:inherit; }
-button { cursor:pointer; }
-a { color:inherit; text-decoration:none; }
-
-header {
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:rgba(8,13,24,.92);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid #20344e;
-}
-.nav {
-  max-width:1200px;
-  margin:auto;
-  padding:16px 20px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  flex-wrap:wrap;
-}
-.logo {
-  font-size:25px;
-  font-weight:900;
-  letter-spacing:1px;
-}
-.logo span { color:var(--cyan); }
-nav { display:flex; gap:18px; flex-wrap:wrap; }
-nav a { color:#c7d5e8; font-size:14px; }
-nav a:hover { color:var(--cyan); }
-
-.hero {
-  max-width:1200px;
-  margin:auto;
-  padding:85px 20px 65px;
-  text-align:center;
-}
-.tag {
-  display:inline-block;
-  border:1px solid #245d77;
-  background:#10283a;
-  color:var(--cyan);
-  padding:8px 14px;
-  border-radius:30px;
-  font-size:12px;
-  letter-spacing:2px;
-}
-.hero h1 {
-  font-size:clamp(38px,8vw,76px);
-  margin:22px 0 15px;
-  line-height:1.05;
-}
-.hero h1 span {
-  color:var(--cyan);
-  text-shadow:0 0 30px #22d3ee66;
-}
-.hero p {
-  color:var(--muted);
-  max-width:650px;
-  margin:auto;
-  line-height:1.7;
-}
-.hero-buttons {
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:28px;
-}
-.btn {
-  display:inline-block;
-  border:0;
-  border-radius:10px;
-  padding:13px 20px;
-  font-weight:bold;
-  background:linear-gradient(110deg,var(--cyan),#3985ff);
-  color:#06111d;
-  transition:.2s;
-}
-.btn:hover { transform:translateY(-3px); box-shadow:0 8px 25px #22d3ee33; }
-.btn.secondary {
-  color:white;
-  background:#172940;
-  border:1px solid #31516f;
-}
-
-.section {
-  max-width:1200px;
-  margin:auto;
-  padding:48px 20px;
-}
-.section-heading {
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:15px;
-  flex-wrap:wrap;
-  margin-bottom:25px;
-}
-.section-heading h2 { font-size:30px; }
-.section-heading p { color:var(--muted); margin-top:8px; }
-
-.stats {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  margin-top:35px;
-}
-.stat {
-  padding:20px;
-  background:#101d30;
-  border:1px solid #203b57;
-  border-radius:15px;
-}
-.stat strong {
-  display:block;
-  color:var(--cyan);
-  font-size:25px;
-  margin-bottom:5px;
-}
-.stat span { color:var(--muted); font-size:13px; }
-
-.toolbar {
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:22px;
-}
-#search {
-  flex:1;
-  min-width:190px;
-  padding:13px 15px;
-  border-radius:10px;
-  border:1px solid #2b4561;
-  background:#101b2d;
-  color:white;
-  outline:none;
-}
-#search:focus { border-color:var(--cyan); }
-.filter {
-  border:1px solid #2b4561;
-  background:#101b2d;
-  color:white;
-  padding:11px 15px;
-  border-radius:10px;
-}
-.filter.active {
-  background:#123c50;
-  border-color:var(--cyan);
-  color:var(--cyan);
-}
-
-.game-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(235px,1fr));
-  gap:18px;
-}
-.game-card {
-  background:linear-gradient(145deg,#14243a,#0d1727);
-  border:1px solid #233d59;
-  border-radius:16px;
-  overflow:hidden;
-  transition:.25s;
-}
-.game-card:hover {
-  transform:translateY(-6px);
-  border-color:var(--cyan);
-  box-shadow:0 12px 30px #0005;
-}
-.game-art {
-  height:135px;
-  display:grid;
-  place-items:center;
-  font-size:65px;
-  background:radial-gradient(circle,#214b69,#101b2d 70%);
-}
-.game-info { padding:17px; }
-.game-info h3 { margin-bottom:8px; }
-.game-info p {
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
-  min-height:39px;
-}
-.game-meta {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:15px;
-  gap:10px;
-}
-.category { color:var(--cyan); font-size:12px; }
-.play {
-  background:var(--cyan);
-  color:#06111d;
-  border:0;
-  border-radius:8px;
-  padding:9px 14px;
-  font-weight:bold;
-}
-
-.feature-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:18px;
-}
-.feature {
-  padding:25px;
-  background:linear-gradient(145deg,#14243a,#0d1727);
-  border:1px solid #233d59;
-  border-radius:16px;
-}
-.feature .emoji { font-size:35px; }
-.feature h3 { margin:13px 0 9px; }
-.feature p { color:var(--muted); line-height:1.6; font-size:14px; }
-
-.score-box {
-  background:#101b2d;
-  border:1px solid #233d59;
-  border-radius:15px;
-  overflow:hidden;
-}
-.score-row {
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  padding:15px 18px;
-  border-bottom:1px solid #233d59;
-}
-.score-row:last-child { border:0; }
-.score-row span:last-child { color:var(--cyan); font-weight:bold; }
-
-footer {
-  border-top:1px solid #20344e;
-  padding:30px 20px;
-  text-align:center;
-  color:var(--muted);
-  line-height:1.8;
-}
-footer strong { color:var(--cyan); }
-
-.modal {
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:50;
-  background:#000c;
-  padding:15px;
-  align-items:center;
-  justify-content:center;
-}
-.modal.show { display:flex; }
-.modal-box {
-  width:min(600px,100%);
-  max-height:90vh;
-  overflow:auto;
-  background:#101b2d;
-  border:1px solid #2a5874;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 0 50px #0009;
-}
-.modal-head {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  margin-bottom:20px;
-}
-.close {
-  background:#26384d;
-  border:0;
-  color:white;
-  border-radius:8px;
-  padding:8px 12px;
-}
-#gameContent { text-align:center; }
-.game-message {
-  color:var(--cyan);
-  margin:12px 0;
-  min-height:25px;
-  line-height:1.5;
-}
-.controls {
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:9px;
-  margin-top:17px;
-}
-.controls button,.game-action {
-  background:#1b3c55;
-  color:white;
-  border:1px solid #34708c;
-  padding:11px 16px;
-  border-radius:9px;
-}
-.controls button:hover,.game-action:hover { border-color:var(--cyan); }
-
-.ttt-grid {
-  display:grid;
-  grid-template-columns:repeat(3,75px);
-  justify-content:center;
-  gap:8px;
-  margin:20px auto;
-}
-.ttt-cell {
-  height:75px;
-  border:1px solid #34708c;
-  background:#172940;
-  color:var(--cyan);
-  font-size:30px;
-  border-radius:10px;
-}
-.memory-grid {
-  display:grid;
-  grid-template-columns:repeat(4,minmax(45px,65px));
-  justify-content:center;
-  gap:8px;
-  margin:20px auto;
-}
-.memory-cell {
-  height:60px;
-  background:#1b3c55;
-  border:1px solid #34708c;
-  border-radius:9px;
-  color:white;
-  font-size:24px;
-}
-.memory-cell.open { background:#16435a; }
-.tile-grid {
-  display:grid;
-  grid-template-columns:repeat(4,minmax(45px,65px));
-  justify-content:center;
-  gap:7px;
-  margin:20px auto;
-}
-.tile {
-  height:58px;
-  display:grid;
-  place-items:center;
-  background:#1b3c55;
-  border-radius:8px;
-  font-weight:bold;
-  font-size:18px;
-}
-.tap-target {
-  width:130px;
-  height:130px;
-  border-radius:50%;
-  border:0;
-  background:var(--cyan);
-  color:#06111d;
-  font-weight:bold;
-  font-size:18px;
-  margin:20px auto;
-}
-.reaction-target {
-  padding:22px;
-  border:0;
-  border-radius:12px;
-  background:var(--cyan);
-  color:#06111d;
-  font-weight:bold;
-  margin:15px;
-  min-width:180px;
-}
-input:focus-visible,button:focus-visible,a:focus-visible {
-  outline:2px solid var(--cyan);
-  outline-offset:3px;
-}
-
-@media(max-width:600px) {
-  .nav { justify-content:center; }
-  nav { justify-content:center; gap:12px; }
-  nav a { font-size:12px; }
-  .hero { padding-top:60px; }
-  .stats { grid-template-columns:1fr; }
-  .section-heading h2 { font-size:25px; }
-}
+:root{--bg:#080d18;--panel:#101b2d;--panel2:#14243a;--cyan:#22d3ee;--blue:#387bff;--text:#f4f8ff;--muted:#a8b6ca}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Arial,sans-serif;color:var(--text);background:radial-gradient(ellipse at 15% 10%,#102d4a,transparent 40%),radial-gradient(ellipse at 85% 65%,#10263d,transparent 40%),var(--bg);min-height:100vh}
+button,input,textarea{font:inherit}
+button,a{cursor:pointer}
+a{color:inherit;text-decoration:none}
+header{position:sticky;top:0;z-index:20;background:#080d18ee;backdrop-filter:blur(14px);border-bottom:1px solid #20344e}
+.nav{max-width:1200px;margin:auto;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.logo{font-size:24px;font-weight:900;letter-spacing:1px}.logo span{color:var(--cyan)}
+nav{display:flex;gap:13px;flex-wrap:wrap}nav a{font-size:13px;color:#c7d5e8}nav a:hover{color:var(--cyan)}
+.hero{max-width:1200px;margin:auto;padding:75px 20px 50px;text-align:center}
+.tag{display:inline-block;border:1px solid #245d77;background:#10283a;color:var(--cyan);padding:8px 14px;border-radius:30px;font-size:12px;letter-spacing:2px}
+.hero h1{font-size:clamp(38px,8vw,72px);margin:22px 0 15px;line-height:1.05}
+.hero h1 span{color:var(--cyan);text-shadow:0 0 30px #22d3ee66}
+.hero p{color:var(--muted);max-width:650px;margin:auto;line-height:1.7}
+.hero-buttons,.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn,button{border:0;border-radius:9px;padding:12px 16px;font-weight:bold}
+.btn{display:inline-block;background:linear-gradient(110deg,var(--cyan),#3985ff);color:#06111d}
+.btn.secondary,button.secondary{color:white;background:#172940;border:1px solid #31516f}
+button{background:var(--cyan);color:#06111d}
+button.danger{background:#a83248;color:white}
+button:disabled{opacity:.5;cursor:not-allowed}
+.section{max-width:1200px;margin:auto;padding:42px 20px;scroll-margin-top:85px}
+.section-heading{margin-bottom:20px}.section-heading h2{font-size:29px}
+.section-heading p,.muted{color:var(--muted);margin-top:8px;line-height:1.6}
+.stats,.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:20px}
+.stat,.card,.feature{padding:20px;background:linear-gradient(145deg,#14243a,#0d1727);border:1px solid #233d59;border-radius:15px}
+.stat strong{display:block;color:var(--cyan);font-size:25px;margin-bottom:5px}
+.stat span{color:var(--muted);font-size:13px}
+.game-card{background:linear-gradient(145deg,#14243a,#0d1727);border:1px solid #233d59;border-radius:15px;overflow:hidden;transition:.2s}
+.game-card:hover{transform:translateY(-4px);border-color:var(--cyan)}
+.game-art{height:115px;display:grid;place-items:center;font-size:55px;background:radial-gradient(circle,#214b69,#101b2d 70%)}
+.game-info{padding:15px}.game-info p,.card p,.feature p{color:var(--muted);font-size:13px;line-height:1.6;margin:8px 0}
+.game-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px}
+.category{color:var(--cyan);font-size:12px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
+input,textarea{width:100%;padding:13px;margin:7px 0 14px;background:#080f1e;border:1px solid #34445f;border-radius:8px;color:white}
+textarea{min-height:85px;resize:vertical}
+label{font-size:13px;color:#cbd7ed}
+.panel{max-width:700px;margin:15px auto}
+.hidden{display:none!important}
+.status{display:inline-block;padding:5px 10px;border-radius:20px;background:#23344e;color:var(--cyan);font-size:12px;margin:8px 0}
+.notice{padding:13px;border-radius:9px;background:#15243b;color:#c6d7ef;margin:12px 0;line-height:1.6;font-size:13px}
+.small{font-size:12px;color:var(--muted);line-height:1.6}
+.score-row,.leader-row{display:grid;grid-template-columns:45px 1fr auto;gap:10px;align-items:center;padding:14px;border-bottom:1px solid #233d59}
+.leader-row:last-child{border:0}
+.rank{font-size:21px}.leader-name{font-weight:bold}.leader-sub{font-size:11px;color:var(--muted);margin-top:4px}
+.money{color:var(--cyan);font-weight:bold;text-align:right}
+.score-box{background:#101b2d;border:1px solid #233d59;border-radius:12px;overflow:hidden}
+.game-message{color:var(--cyan);margin:12px 0;min-height:24px;text-align:center}
+.ttt-grid,.memory-grid,.tile-grid{display:grid;justify-content:center;gap:8px;margin:20px auto}
+.ttt-grid{grid-template-columns:repeat(3,70px)}
+.ttt-cell{height:70px;background:#172940;color:var(--cyan);font-size:27px}
+.memory-grid,.tile-grid{grid-template-columns:repeat(4,58px)}
+.memory-cell,.tile{height:56px;background:#1b3c55;color:white;border-radius:8px;display:grid;place-items:center;font-size:21px}
+.tap-target{width:130px;height:130px;border-radius:50%;margin:20px auto;display:block}
+.modal{display:none;position:fixed;inset:0;z-index:50;background:#000c;padding:15px;align-items:center;justify-content:center}
+.modal.show{display:flex}
+.modal-box{width:min(600px,100%);max-height:90vh;overflow:auto;background:#101b2d;border:1px solid #2a5874;border-radius:18px;padding:22px}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.close{background:#26384d;color:white}
+footer{text-align:center;padding:30px 20px;color:var(--muted);border-top:1px solid #20344e;line-height:1.8}
+@media(max-width:600px){.nav{justify-content:center}nav{justify-content:center;gap:10px}.hero{padding-top:50px}.section-heading h2{font-size:25px}.leader-row{grid-template-columns:35px 1fr auto}}
 </style>
 </head>
-
 <body>
-
-<header>
-  <div class="nav">
-    <a href="#home" class="logo">COVE <span>GAMERZ</span></a>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#games">Games</a>
-      <a href="#news">News</a>
-      <a href="#videos">Videos</a>
-      <a href="#scores">Scores</a>
-      <a href="editing.html">Editing Studio</a>
-    </nav>
-  </div>
-</header>
+<header><div class="nav">
+<a href="#home" class="logo">COVE <span>GAMERZ</span></a>
+<nav>
+<a href="#home">Home</a><a href="#games">Games</a><a href="#leaderboard">Leaderboard</a><a href="#creator">Creator</a><a href="#premium">Premium</a><a href="#account">Account</a><a href="editing.html">Editing Studio</a>
+</nav>
+</div></header>
 
 <main>
 <section class="hero" id="home">
-  <span class="tag">WELCOME TO THE GAMING UNIVERSE</span>
-  <h1>PLAY. COMPETE.<br><span>LEVEL UP.</span></h1>
-  <p>
-    Welcome to Cove Gamerz! Explore fun browser games,
-    challenge your skills, discover gaming updates and
-    explore our editing studio.
-  </p>
-  <div class="hero-buttons">
-    <a class="btn" href="#games">EXPLORE GAMES</a>
-    <a class="btn secondary" href="editing.html">EDITING STUDIO</a>
-  </div>
-  <div class="stats">
-    <div class="stat"><strong>06+</strong><span>Playable Games</span></div>
-    <div class="stat"><strong>FREE</strong><span>Play in Your Browser</span></div>
-    <div class="stat"><strong>24/7</strong><span>Gaming Access</span></div>
-  </div>
+<span class="tag">WELCOME TO THE GAMING UNIVERSE</span>
+<h1>PLAY. COMPETE.<br><span>LEVEL UP.</span></h1>
+<p>Play games, discover creators, compete on leaderboards and join the Cove Gamerz community.</p>
+<div class="hero-buttons"><a class="btn" href="#games">EXPLORE GAMES</a><a class="btn secondary" href="#creator">BECOME A CREATOR</a></div>
+<div class="stats">
+<div class="stat"><strong>06+</strong><span>Built-in Games</span></div>
+<div class="stat"><strong>FREE</strong><span>Free Games</span></div>
+<div class="stat"><strong>CREATE</strong><span>Creator Community</span></div>
+<div class="stat"><strong>🏆 TOP</strong><span>Creator Leaderboard</span></div>
+</div>
 </section>
 
 <section class="section" id="games">
-  <div class="section-heading">
-    <div>
-      <h2>🎮 Gaming Arena</h2>
-      <p>Choose a game and challenge yourself.</p>
-    </div>
-  </div>
-
-  <div class="toolbar">
-    <input id="search" type="search" placeholder="Search games..." aria-label="Search games">
-    <button class="filter active" data-filter="All">All</button>
-    <button class="filter" data-filter="Puzzle">Puzzle</button>
-    <button class="filter" data-filter="Arcade">Arcade</button>
-    <button class="filter" data-filter="Skill">Skill</button>
-  </div>
-
-  <div class="game-grid" id="gameGrid">
-    <article class="game-card" data-name="Tic Tac Toe" data-category="Puzzle">
-      <div class="game-art">⭕</div>
-      <div class="game-info">
-        <h3>Tic Tac Toe</h3>
-        <p>Challenge the computer in this classic strategy game.</p>
-        <div class="game-meta"><span class="category">PUZZLE</span><button class="play" data-game="tic">PLAY NOW</button></div>
-      </div>
-    </article>
-
-    <article class="game-card" data-name="2048 Puzzle" data-category="Puzzle">
-      <div class="game-art">🔢</div>
-      <div class="game-info">
-        <h3>2048 Puzzle</h3>
-        <p>Combine matching numbers and reach the 2048 tile.</p>
-        <div class="game-meta"><span class="category">PUZZLE</span><button class="play" data-game="2048">PLAY NOW</button></div>
-      </div>
-    </article>
-
-    <article class="game-card" data-name="Memory Match" data-category="Puzzle">
-      <div class="game-art">🧠</div>
-      <div class="game-info">
-        <h3>Memory Match</h3>
-        <p>Find matching pairs and test your memory.</p>
-        <div class="game-meta"><span class="category">PUZZLE</span><button class="play" data-game="memory">PLAY NOW</button></div>
-      </div>
-    </article>
-
-    <article class="game-card" data-name="Speed Tap" data-category="Arcade">
-      <div class="game-art">⚡</div>
-      <div class="game-info">
-        <h3>Speed Tap</h3>
-        <p>Tap the target as many times as you can.</p>
-        <div class="game-meta"><span class="category">ARCADE</span><button class="play" data-game="speed">PLAY NOW</button></div>
-      </div>
-    </article>
-
-    <article class="game-card" data-name="Crystal Hunt" data-category="Skill">
-      <div class="game-art">💎</div>
-      <div class="game-info">
-        <h3>Crystal Hunt</h3>
-        <p>Find hidden crystals in the mystery grid.</p>
-        <div class="game-meta"><span class="category">SKILL</span><button class="play" data-game="crystal">PLAY NOW</button></div>
-      </div>
-    </article>
-
-    <article class="game-card" data-name="Reaction Test" data-category="Skill">
-      <div class="game-art">🚀</div>
-      <div class="game-info">
-        <h3>Reaction Test</h3>
-        <p>Wait for green and test your reaction speed.</p>
-        <div class="game-meta"><span class="category">SKILL</span><button class="play" data-game="reaction">PLAY NOW</button></div>
-      </div>
-    </article>
-  </div>
-  <p id="noGames" style="display:none;color:#a8b6ca;margin-top:20px;">No games found.</p>
+<div class="section-heading"><h2>🎮 Gaming Arena</h2><p>Choose a game and challenge yourself.</p></div>
+<div class="toolbar">
+<input id="search" type="search" placeholder="Search games...">
+<button class="filter" data-filter="All">All</button>
+<button class="secondary filter" data-filter="Puzzle">Puzzle</button>
+<button class="secondary filter" data-filter="Arcade">Arcade</button>
+<button class="secondary filter" data-filter="Skill">Skill</button>
+</div>
+<div class="grid" id="gameGrid"></div>
+<h3 style="margin-top:35px">🌐 Community Games</h3>
+<div class="grid" id="communityGames"></div>
+<p id="noGames" class="small hidden">No games found.</p>
 </section>
 
-<section class="section" id="news">
-  <div class="section-heading">
-    <div>
-      <h2>📰 Gaming News</h2>
-      <p>Gaming updates and announcements.</p>
-    </div>
-  </div>
-  <div class="feature-grid">
-    <article class="feature">
-      <div class="emoji">🎯</div>
-      <h3>Gaming Updates</h3>
-      <p>Visit our gaming news section for updates and announcements. New articles can be added here.</p>
-    </article>
-    <article class="feature">
-      <div class="emoji">🏆</div>
-      <h3>Gaming Challenges</h3>
-      <p>Play the games in our arena and try to beat your previous scores.</p>
-    </article>
-    <article class="feature">
-      <div class="emoji">🌟</div>
-      <h3>Community</h3>
-      <p>Have an idea or collaboration proposal? Contact the Cove Gamerz team.</p>
-    </article>
-  </div>
+<section class="section" id="leaderboard">
+<div class="section-heading"><h2>🏆 Creator Leaderboard</h2><p>Creators ranked by recorded earnings. Popular games ranked by recorded plays.</p></div>
+<div class="grid">
+<div class="card"><h3>💰 Top Creators</h3><p>Highest recorded creator earnings.</p><div id="creatorBoard" class="score-box"><div class="score-row">Loading...</div></div></div>
+<div class="card"><h3>🔥 Top Games</h3><p>Most played community games.</p><div id="gameBoard" class="score-box"><div class="score-row">Loading...</div></div></div>
+</div>
+<p class="small" style="margin-top:12px">Leaderboard data comes from the database. Earnings are recorded by the admin; they are not automatic cash payments.</p>
+<button class="secondary" onclick="loadLeaderboard()">REFRESH LEADERBOARD</button>
 </section>
 
-<section class="section" id="videos">
-  <div class="section-heading">
-    <div>
-      <h2>▶️ Videos & Content</h2>
-      <p>Watch our gaming and editing content.</p>
-    </div>
-  </div>
-  <div class="feature-grid">
-    <article class="feature">
-      <div class="emoji">🎬</div>
-      <h3>Gaming Videos</h3>
-      <p>Gameplay, highlights and gaming shorts.</p>
-      <a class="btn" href="https://www.youtube.com/" target="_blank" rel="noopener">OPEN YOUTUBE</a>
-    </article>
-    <article class="feature">
-      <div class="emoji">✂️</div>
-      <h3>Editing Showcase</h3>
-      <p>Explore editing services, creative work and editing resources.</p>
-      <a class="btn" href="editing.html">OPEN STUDIO</a>
-    </article>
-  </div>
+<section class="section" id="creator">
+<div class="section-heading"><h2>🚀 Creator Studio</h2><p>Submit your game and let the admin review it.</p></div>
+<div class="card panel">
+<div id="creatorLocked" class="notice">Login first to submit your game.</div>
+<div id="creatorForm" class="hidden">
+<label>Game Title</label><input id="gameTitle" maxlength="80" placeholder="Your game name">
+<label>Description</label><textarea id="gameDescription" maxlength="500" placeholder="Describe your game"></textarea>
+<label>Playable Game URL</label><input id="gameURL" type="url" placeholder="https://example.com/game">
+<button id="submitGameBtn" onclick="submitGame()">SUBMIT FOR APPROVAL</button>
+<p class="small">Only submit games you created or have permission to share. This version accepts game links, not game file uploads.</p>
+</div></div>
+</section>
+
+<section class="section hidden" id="dashboard">
+<div class="section-heading"><h2>📊 Creator Dashboard</h2><p>Your games, recorded earnings and payout requests.</p></div>
+<div class="grid">
+<div class="stat"><strong id="myEarnings">₹0</strong><span>Your recorded earnings</span></div>
+<div class="stat"><strong id="myGameCount">0</strong><span>Your submitted games</span></div>
+</div>
+<h3 style="margin-top:25px">My Games</h3><div id="myGames" class="grid"></div>
+<div class="card panel">
+<h3>Request a Payout</h3>
+<p class="small">This sends a request to the admin. It does not transfer money. Only request an amount that has actually been earned and approved.</p>
+<label>Amount in ₹</label><input id="payoutAmount" type="number" min="1" max="100000" placeholder="Enter amount">
+<button onclick="requestPayout()">SEND REQUEST</button>
+</div>
+<h3>My Payout Requests</h3><div id="myPayouts" class="grid"></div>
+</section>
+
+<section class="section hidden" id="admin">
+<div class="section-heading"><h2>🛡️ Admin Control Panel</h2><p>Review games, record creator earnings and manage payout requests.</p></div>
+<h3>Pending Games</h3><div id="pendingGames" class="grid"></div>
+<div class="card panel">
+<h3>➕ Record Creator Earnings</h3>
+<p class="small">Enter the creator's User ID from their submitted game card. This records earnings for the leaderboard; it does not send money.</p>
+<label>Creator User ID</label><input id="earningCreator" placeholder="Paste creator UUID">
+<label>Amount in ₹</label><input id="earningAmount" type="number" min="1" max="1000000" placeholder="Amount">
+<label>Reason / Note</label><input id="earningNote" maxlength="150" placeholder="Example: Monthly creator reward">
+<button onclick="addEarning()">ADD EARNING RECORD</button>
+</div>
+<h3 style="margin-top:28px">Payout Requests</h3><div id="adminPayouts" class="grid"></div>
+</section>
+
+<section class="section" id="premium">
+<div class="section-heading"><h2>⭐ Cove Gamerz Premium</h2><p>Proposed membership plans. Payments are not active yet.</p></div>
+<div class="grid">
+<div class="card"><h3>Monthly</h3><h2>₹49</h2><p>Proposed monthly membership.</p></div>
+<div class="card"><h3>Quarterly</h3><h2>₹129</h2><p>Proposed three-month membership.</p></div>
+<div class="card"><h3>Yearly</h3><h2>₹399</h2><p>Proposed yearly membership.</p></div>
+</div>
+<div class="notice">Premium subscriptions, payments and exclusive access are not active. No money is collected on this page.</div>
+<button disabled>PREMIUM COMING SOON</button>
+</section>
+
+<section class="section" id="account">
+<div class="section-heading"><h2>👤 Your Account</h2><p>Create an account or login to access Creator Studio.</p></div>
+<div class="card panel" id="authBox">
+<label>Email</label><input id="email" type="email" autocomplete="email" placeholder="Your email">
+<label>Password</label><input id="password" type="password" autocomplete="current-password" placeholder="At least 6 characters">
+<div class="actions"><button onclick="signUp()">SIGN UP</button><button class="secondary" onclick="signIn()">LOGIN</button></div>
+<p class="small">Email confirmation may be required.</p>
+</div>
+<div class="card panel hidden" id="userBox">
+<h3 id="welcome">Welcome!</h3><p id="userEmail" class="muted"></p><span id="userRole" class="status"></span>
+<div class="actions"><button onclick="signOut()">LOGOUT</button></div>
+</div>
+<div id="message" class="notice hidden" role="status"></div>
 </section>
 
 <section class="section" id="scores">
-  <div class="section-heading">
-    <div>
-      <h2>🏆 Your Best Scores</h2>
-      <p>Your scores are saved on this device.</p>
-    </div>
-    <button class="filter" id="clearScores">Clear Scores</button>
-  </div>
-  <div class="score-box" id="scoreBoard">
-    <div class="score-row"><span>No scores yet</span><span>Play a game!</span></div>
-  </div>
+<div class="section-heading"><h2>🎯 Your Best Scores</h2><p>Saved on this device only.</p></div>
+<div class="score-box" id="scoreBoard"></div>
+<button class="secondary" style="margin-top:12px" onclick="clearScores()">CLEAR SCORES</button>
 </section>
 
-<section class="section" id="contact">
-  <div class="feature">
-    <div class="emoji">🤝</div>
-    <h2 style="margin:12px 0">Work With Cove Gamerz</h2>
-    <p style="margin-bottom:18px">For collaborations, suggestions and business enquiries, contact us by email.</p>
-    <a class="btn" href="mailto:covegamerz959@gmail.com">CONTACT US</a>
-  </div>
-</section>
+<section class="section"><div class="feature">
+<h2>🤝 Work With Cove Gamerz</h2><p>For collaborations and suggestions, contact our team.</p>
+<a class="btn" href="mailto:covegamerz959@gmail.com">CONTACT US</a>
+</div></section>
 </main>
 
-<footer>
-  <strong>COVE GAMERZ</strong><br>
-  Play. Compete. Create.<br>
-  © <span id="year"></span> Cove Gamerz. All rights reserved.
-</footer>
+<footer><strong class="logo">COVE <span>GAMERZ</span></strong><br>Play. Compete. Create.<br>© <span id="year"></span> Cove Gamerz</footer>
 
-<div class="modal" id="gameModal" role="dialog" aria-modal="true" aria-labelledby="gameTitle">
-  <div class="modal-box">
-    <div class="modal-head">
-      <h2 id="gameTitle">Game</h2>
-      <button class="close" id="closeGame">CLOSE ✕</button>
-    </div>
-    <div id="gameContent"></div>
-  </div>
-</div>
+<div class="modal" id="gameModal" role="dialog" aria-modal="true">
+<div class="modal-box">
+<div class="modal-head"><h2 id="modalTitle">Game</h2><button class="close" onclick="closeGame()">CLOSE ✕</button></div>
+<div id="gameContent"></div>
+</div></div>
 
 <script>
-const $ = id => document.getElementById(id);
-let currentFilter = "All";
+/* Public browser key only. Never paste a Supabase Secret/service_role key here. */
+const SUPABASE_URL="https://juiszmrjjgllrblpdisq.supabase.co";
+const SUPABASE_KEY="sb_publishable_83QNB8pE4497gzx104hQUw_YKPsi_Nh";
+const $=id=>document.getElementById(id);
+let db=null,currentUser=null,currentProfile=null,activeFilter="All";
+let reactionTimer=null,speedTimer=null;
+const builtInGames=[
+{id:"tic",name:"Tic Tac Toe",category:"Puzzle",icon:"⭕",desc:"Play against the computer."},
+{id:"2048",name:"2048 Puzzle",category:"Puzzle",icon:"🔢",desc:"Combine numbers to reach 2048."},
+{id:"memory",name:"Memory Match",category:"Puzzle",icon:"🧠",desc:"Find matching pairs."},
+{id:"speed",name:"Speed Tap",category:"Arcade",icon:"⚡",desc:"Tap as many times as you can."},
+{id:"crystal",name:"Crystal Hunt",category:"Skill",icon:"💎",desc:"Find the hidden crystal."},
+{id:"reaction",name:"Reaction Test",category:"Skill",icon:"🚀",desc:"Test your reaction speed."}
+];
+function notify(t){$("message").textContent=t;$("message").classList.remove("hidden");clearTimeout(notify.timer);notify.timer=setTimeout(()=>$("message").classList.add("hidden"),6000);}
+function safeText(tag,text){const e=document.createElement(tag);e.textContent=text??"";return e;}
+function validURL(v){try{const u=new URL(v);return u.protocol==="https:"||u.protocol==="http:";}catch{return false;}}
+function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+if(window.supabase&&SUPABASE_URL.startsWith("https://")&&SUPABASE_KEY.startsWith("sb_publishable_"))db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+else notify("Supabase could not load. Check your internet connection.");
 
-$("year").textContent = new Date().getFullYear();
+function renderGames(){
+ const grid=$("gameGrid");grid.replaceChildren();let count=0;
+ builtInGames.forEach(g=>{
+  if(activeFilter!=="All"&&g.category!==activeFilter)return;
+  if(!g.name.toLowerCase().includes($("search").value.toLowerCase()))return;
+  count++;const card=document.createElement("article");card.className="game-card";
+  const art=safeText("div",g.icon);art.className="game-art";
+  const info=document.createElement("div");info.className="game-info";
+  info.append(safeText("h3",g.name),safeText("p",g.desc));
+  const meta=document.createElement("div");meta.className="game-meta";
+  const cat=safeText("span",g.category.toUpperCase());cat.className="category";
+  const btn=safeText("button","PLAY");btn.addEventListener("click",()=>openGame(g.id));
+  meta.append(cat,btn);info.append(meta);card.append(art,info);grid.append(card);
+ });
+ $("noGames").classList.toggle("hidden",count>0);
+}
+$("search").addEventListener("input",renderGames);
+document.querySelectorAll(".filter").forEach(b=>b.addEventListener("click",()=>{
+ activeFilter=b.dataset.filter;
+ document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("secondary",x!==b));
+ renderGames();
+}));
 
-/* SEARCH AND FILTER */
-function filterGames() {
-  const term = $("search").value.toLowerCase();
-  let visible = 0;
+function saveRecord(name,score){
+ let r={};try{r=JSON.parse(localStorage.getItem("coveScores")||"{}");}catch{}
+ r[name]=Math.max(Number(r[name]||0),Number(score)||0);
+ localStorage.setItem("coveScores",JSON.stringify(r));showScores();
+}
+function showScores(){
+ let r={};try{r=JSON.parse(localStorage.getItem("coveScores")||"{}");}catch{}
+ const box=$("scoreBoard");box.replaceChildren();
+ const entries=Object.entries(r).sort((a,b)=>b[1]-a[1]);
+ if(!entries.length){box.append(safeText("p","No scores saved yet."));return;}
+ entries.forEach(([n,s])=>{const row=document.createElement("div");row.className="score-row";row.append(safeText("span",n),safeText("span",String(s)));box.append(row);});
+}
+function clearScores(){localStorage.removeItem("coveScores");showScores();}
 
-  document.querySelectorAll(".game-card").forEach(card => {
-    const matchesName = card.dataset.name.toLowerCase().includes(term);
-    const matchesCategory = currentFilter === "All" || card.dataset.category === currentFilter;
-    card.style.display = matchesName && matchesCategory ? "" : "none";
-    if (matchesName && matchesCategory) visible++;
-  });
+function openGame(id){
+ closeGame();const g=builtInGames.find(x=>x.id===id);if(!g)return;
+ $("modalTitle").textContent=g.name;$("gameContent").replaceChildren();$("gameModal").classList.add("show");
+ if(id==="tic")startTic();
+ if(id==="2048")start2048();
+ if(id==="memory")startMemory();
+ if(id==="speed")startSpeed();
+ if(id==="crystal")startCrystal();
+ if(id==="reaction")startReaction();
+}
+function closeGame(){clearInterval(speedTimer);clearTimeout(reactionTimer);$("gameModal").classList.remove("show");}
+$("gameModal").addEventListener("click",e=>{if(e.target===$("gameModal"))closeGame();});
+function gameMsg(t){const p=safeText("p",t);p.className="game-message";$("gameContent").append(p);return p;}
+function gameButton(t,fn){const b=safeText("button",t);b.addEventListener("click",fn);$("gameContent").append(b);return b;}
 
-  $("noGames").style.display = visible ? "none" : "block";
+/* TIC TAC TOE */
+function startTic(){
+ let board=Array(9).fill(""),done=false;
+ const wrap=document.createElement("div");wrap.className="ttt-grid";
+ const msg=gameMsg("You are X. Your turn!");
+ function winner(){
+  const lines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  for(const [a,b,c] of lines)if(board[a]&&board[a]===board[b]&&board[a]===board[c])return board[a];
+  return board.every(Boolean)?"draw":null;
+ }
+ function draw(){wrap.replaceChildren();board.forEach((v,i)=>{const b=safeText("button",v||" ");b.className="ttt-cell";b.addEventListener("click",()=>move(i));wrap.append(b);});}
+ function finish(w){done=true;msg.textContent=w==="draw"?"Draw!":w==="X"?"You win!":"Computer wins!";if(w==="X")saveRecord("Tic Tac Toe",1);}
+ function move(i){
+  if(done||board[i])return;board[i]="X";let w=winner();if(w){draw();finish(w);return;}
+  const free=board.map((v,i)=>v?null:i).filter(v=>v!==null);
+  if(free.length)board[free[Math.floor(Math.random()*free.length)]]="O";
+  w=winner();draw();if(w)finish(w);else msg.textContent="Your turn!";
+ }
+ draw();$("gameContent").append(wrap);gameButton("RESTART",startTic);
 }
 
-$("search").addEventListener("input", filterGames);
-
-document.querySelectorAll(".filter[data-filter]").forEach(button => {
-  button.addEventListener("click", () => {
-    currentFilter = button.dataset.filter;
-    document.querySelectorAll(".filter[data-filter]").forEach(b => b.classList.remove("active"));
-    button.classList.add("active");
-    filterGames();
-  });
-});
-
-/* SCORE STORAGE */
-function getScores() {
-  try { return JSON.parse(localStorage.getItem("coveScores") || "{}"); }
-  catch { return {}; }
-}
-
-function saveScore(name, score) {
-  const scores = getScores();
-  scores[name] = Math.max(Number(scores[name] || 0), Number(score || 0));
-  localStorage.setItem("coveScores", JSON.stringify(scores));
-  showScores();
-}
-
-function showScores() {
-  const scores = getScores();
-  const entries = Object.entries(scores).sort((a,b) => b[1] - a[1]);
-  const board = $("scoreBoard");
-  board.innerHTML = "";
-
-  if (!entries.length) {
-    board.innerHTML = '<div class="score-row"><span>No scores yet</span><span>Play a game!</span></div>';
-    return;
-  }
-
-  entries.forEach(([name,score]) => {
-    const row = document.createElement("div");
-    row.className = "score-row";
-    const title = document.createElement("span");
-    const value = document.createElement("span");
-    title.textContent = name;
-    value.textContent = score;
-    row.append(title,value);
-    board.appendChild(row);
-  });
-}
-
-$("clearScores").addEventListener("click", () => {
-  if (confirm("Clear all saved scores on this device?")) {
-    localStorage.removeItem("coveScores");
-    showScores();
-  }
-});
-
-showScores();
-
-/* GAME MODAL */
-function openGame(title) {
-  $("gameTitle").textContent = title;
-  $("gameContent").innerHTML = "";
-  $("gameModal").classList.add("show");
-}
-
-function closeGame() {
-  $("gameModal").classList.remove("show");
-  $("gameContent").innerHTML = "";
-}
-
-$("closeGame").addEventListener("click", closeGame);
-
-$("gameModal").addEventListener("click", event => {
-  if (event.target === $("gameModal")) closeGame();
-});
-
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closeGame();
-});
-
-function message(text) {
-  const el = document.createElement("p");
-  el.className = "game-message";
-  el.textContent = text;
-  $("gameContent").appendChild(el);
-  return el;
-}
-
-function control(text, callback) {
-  let wrap = $("gameContent").querySelector(".controls");
-  if (!wrap) {
-    wrap = document.createElement("div");
-    wrap.className = "controls";
-    $("gameContent").appendChild(wrap);
-  }
-  const button = document.createElement("button");
-  button.textContent = text;
-  button.addEventListener("click", callback);
-  wrap.appendChild(button);
-  return button;
-}
-
-/* 1. TIC TAC TOE */
-function startTic() {
-  openGame("Tic Tac Toe");
-  let board = Array(9).fill("");
-  let finished = false;
-  const status = message("Your turn: X");
-
-  const grid = document.createElement("div");
-  grid.className = "ttt-grid";
-  $("gameContent").appendChild(grid);
-
-  function winner(b) {
-    const lines = [
-      [0,1,2],[3,4,5],[6,7,8],
-      [0,3,6],[1,4,7],[2,5,8],
-      [0,4,8],[2,4,6]
-    ];
-    for (const line of lines) {
-      const [a,c,d] = line;
-      if (b[a] && b[a] === b[c] && b[a] === b[d]) return b[a];
-    }
-    return "";
-  }
-
-  function render() {
-    grid.innerHTML = "";
-    board.forEach((value,index) => {
-      const cell = document.createElement("button");
-      cell.className = "ttt-cell";
-      cell.textContent = value;
-      cell.addEventListener("click", () => move(index));
-      grid.appendChild(cell);
-    });
-  }
-
-  function move(index) {
-    if (finished || board[index]) return;
-    board[index] = "X";
-    let result = winner(board);
-
-    if (result) {
-      finished = true;
-      status.textContent = "You win!";
-      saveScore("Tic Tac Toe",100);
-      render();
-      return;
-    }
-
-    if (!board.includes("")) {
-      finished = true;
-      status.textContent = "It's a draw!";
-      render();
-      return;
-    }
-
-    const empty = board.map((v,i) => v === "" ? i : -1).filter(i => i >= 0);
-    const aiMove = empty[Math.floor(Math.random() * empty.length)];
-    board[aiMove] = "O
+/* 2048 */
+function start2048(){
+ let a=Array(16).fill(0),over=false;
+ const wrap=document.createElement("div");wrap.className="tile-grid";const msg=gameMsg("Join matching numbers!");
+ function spawn(){const f=a.map((v,i)=>v?null:i).filter(v=>v!==null);if(f.length)a[f[Math.floor(Math.random()*f.length)]]=Math.random()<.9?2:4;}
+ function draw(){wrap.replaceChildren();a.forEach(v=>wrap.append(Object.assign(safeText("div",v?String(v):""),{className:"tile"})));msg.textContent="Highest tile: "+Math.max(...a);}
+ function compress(line){let x=line.filter(Bool
