@@ -1,629 +1,525 @@
-
+  
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
-<!-- GOOGLE SEARCH CONSOLE VERIFICATION -->
-<meta name="google-site-verification" content="eBDq-2G-L2hWg76ZO6cXrPeWpO4SRLJ6_1yCybVyHk0" />
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="eBDq-2G-L2hWg76ZO6cXrPeWpO4SRLJ6_1yCybVyHk0">
+<meta name="description" content="Cove Gamerz - Play games, explore gaming, editing and creator collaborations.">
 <meta name="theme-color" content="#080d18">
-<meta name="description" content="Cove Gamerz is an independent gaming platform for games, creators, video editing, game developers and collaborations.">
-<meta name="keywords" content="Cove Gamerz, online games, gaming, game developers, gaming edits, game publishing">
-<meta name="author" content="Cove Gamerz">
-
-<title>Cove Gamerz | Gaming Universe</title>
+<title>Cove Gamerz | Play Create Explore</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
---bg:#080d18;
---card:#101b2c;
---blue:#168cff;
---cyan:#00e5ff;
---white:#f4f8ff;
---muted:#9aabc1;
+:root {
+  --bg:#070c17;
+  --panel:#101c30;
+  --blue:#12c8ff;
+  --cyan:#5cecff;
+  --white:#f4f8ff;
+  --muted:#9eb0c7;
 }
+*{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-font-family:Arial,sans-serif;
-background:var(--bg);
-color:var(--white);
-line-height:1.6;
+  background:var(--bg);
+  color:var(--white);
+  font-family:Arial,sans-serif;
+  line-height:1.6;
 }
-a{text-decoration:none;color:inherit}
+button,input,textarea,select{font:inherit}
 button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.container{width:min(1150px,92%);margin:auto}
 
+/* INTRO */
+#intro{
+  position:fixed;inset:0;z-index:9999;
+  background:radial-gradient(circle,#102d4b,#030710 70%);
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;overflow:hidden;
+}
+#intro.hide{animation:introOut .7s forwards;pointer-events:none}
+.intro-content{position:relative;z-index:2;animation:introIn 1.2s ease}
+.intro-logo{
+  font-size:clamp(38px,9vw,76px);
+  font-weight:1000;letter-spacing:3px;
+  text-shadow:0 0 15px #12c8ff,0 0 45px #0879c5;
+  animation:glow 1.5s infinite alternate;
+}
+.intro-logo span{color:var(--blue)}
+.intro-tag{letter-spacing:5px;color:var(--cyan);margin-top:10px}
+.intro-line{
+  width:180px;height:3px;background:#173c55;
+  margin:25px auto;overflow:hidden;border-radius:10px;
+}
+.intro-line:after{
+  content:"";display:block;width:45%;height:100%;
+  background:var(--cyan);animation:loading 2.5s ease forwards;
+  box-shadow:0 0 15px var(--cyan);
+}
+.particle{
+  position:absolute;width:4px;height:4px;border-radius:50%;
+  background:var(--cyan);box-shadow:0 0 12px var(--cyan);
+  animation:float 4s infinite ease-in-out;
+}
+@keyframes glow{to{text-shadow:0 0 30px #12c8ff,0 0 75px #0879c5}}
+@keyframes introIn{from{opacity:0;transform:scale(.65)}to{opacity:1;transform:scale(1)}}
+@keyframes introOut{to{opacity:0;visibility:hidden}}
+@keyframes loading{to{width:100%}}
+@keyframes float{50%{transform:translate(35px,-70px);opacity:.3}}
+
+/* NAV */
 header{
-position:sticky;top:0;z-index:100;
-background:rgba(8,13,24,.96);
-border-bottom:1px solid #203149;
+  position:sticky;top:0;z-index:100;
+  background:rgba(5,11,22,.94);
+  border-bottom:1px solid #15334c;
+  backdrop-filter:blur(12px);
 }
-.nav{
-max-width:1150px;margin:auto;padding:15px 20px;
-display:flex;justify-content:space-between;align-items:center;
-}
-.logo{font-size:24px;font-weight:900;letter-spacing:1px}
-.logo span{color:var(--cyan)}
-nav{display:flex;gap:17px;flex-wrap:wrap}
-nav a{font-size:13px;color:#c4d3e7}
-nav a:hover{color:var(--cyan)}
-.menu{display:none;background:none;border:0;color:white;font-size:25px}
+nav{height:72px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:23px;font-weight:1000;letter-spacing:1px}
+.logo span{color:var(--blue)}
+.nav-links{display:flex;gap:21px;list-style:none}
+.nav-links a{font-size:14px;color:#d2e1f2}
+.nav-links a:hover{color:var(--cyan)}
+.menu-btn{display:none;background:none;border:1px solid #31516c;color:white;padding:8px 12px;border-radius:8px}
 
-.hero{
-min-height:540px;
-display:flex;align-items:center;justify-content:center;
-text-align:center;padding:75px 20px;
-background:
-radial-gradient(ellipse at 50% 45%,#10345a 0%,transparent 60%),
-linear-gradient(135deg,#080d18,#0b192c);
-}
-.hero-content{max-width:800px}
-.tag{color:var(--cyan);font-size:12px;letter-spacing:4px;font-weight:bold}
-h1{font-size:clamp(42px,8vw,78px);line-height:1.12;margin:18px 0}
-h1 span{color:var(--cyan)}
-.hero p{color:var(--muted);max-width:600px;margin:0 auto 28px}
-
+/* BUTTONS */
 .btn{
-display:inline-block;border:0;border-radius:7px;
-background:linear-gradient(100deg,#0878ff,#00cfff);
-padding:13px 22px;color:white;font-weight:bold;
-margin:5px;transition:.2s;
+  display:inline-block;padding:12px 22px;border:0;border-radius:9px;
+  background:linear-gradient(100deg,#087bb9,#24d5ff);
+  color:#00121e;font-weight:bold;margin:5px;
+  transition:.2s;
 }
-.btn:hover{transform:translateY(-3px);filter:brightness(1.15)}
-.btn-outline{background:transparent;border:1px solid var(--cyan)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 8px 24px #12c8ff35}
+.btn-outline{background:transparent;color:var(--cyan);border:1px solid var(--blue)}
+.small-btn{padding:9px 15px;font-size:13px}
 
-section{padding:75px 20px;scroll-margin-top:75px}
-.container{max-width:1150px;margin:auto}
-.heading{text-align:center;margin-bottom:38px}
-.heading h2{font-size:34px}
-.heading p{color:var(--muted);margin-top:8px}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-gap:20px;
+/* HERO */
+.hero{
+  min-height:550px;display:grid;place-items:center;text-align:center;
+  background:
+    radial-gradient(ellipse at 20% 30%,#123d5d 0%,transparent 45%),
+    radial-gradient(ellipse at 80% 70%,#102b4a 0%,transparent 45%),
+    #080d18;
+  padding:80px 0;
 }
+.tag{
+  display:inline-block;color:var(--cyan);border:1px solid #1d789a;
+  border-radius:30px;padding:7px 15px;font-size:12px;
+  letter-spacing:2px;margin-bottom:20px;
+}
+.hero h1{font-size:clamp(44px,9vw,82px);line-height:1.1;font-weight:1000}
+.hero h1 span{color:var(--blue);text-shadow:0 0 30px #12c8ff66}
+.hero p{max-width:650px;margin:22px auto;color:#bacce0;font-size:17px}
+
+/* SECTIONS */
+section{padding:75px 0}
+.section-head{text-align:center;margin-bottom:35px}
+.section-head h2{font-size:clamp(28px,5vw,40px)}
+.section-head h2 span{color:var(--blue)}
+.section-head p{color:var(--muted);margin-top:7px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .card{
-background:var(--card);
-border:1px solid #22364f;
-border-radius:13px;padding:23px;
-transition:.25s;
+  background:linear-gradient(145deg,#13233a,#0b1424);
+  border:1px solid #203c57;border-radius:16px;
+  padding:23px;transition:.25s;
 }
-.card:hover{transform:translateY(-5px);border-color:var(--cyan)}
-.card .emoji{font-size:38px}
-.card h3{margin:12px 0 6px}
+.card:hover{transform:translateY(-5px);border-color:var(--blue);box-shadow:0 10px 30px #009ee51c}
+.card-icon{font-size:35px;margin-bottom:10px}
+.card h3{margin-bottom:7px}
 .card p{color:var(--muted);font-size:14px}
-.dark{background:#0b1423}
+.card .btn{margin:15px 0 0}
+.game-card{display:flex;flex-direction:column}
+.game-card .btn{margin-top:auto;align-self:flex-start}
 
-.game-area{
-background:#070d19;
-border:1px solid #23405c;
-border-radius:14px;padding:15px;text-align:center;
+/* GAME SEARCH */
+.game-tools{
+  display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:25px
 }
-canvas{
-display:block;width:100%;max-width:700px;
-margin:15px auto;background:#101d30;
-border:1px solid #1c3a57;border-radius:8px;
-touch-action:none;
+.game-tools input,.game-tools select{
+  background:#101c30;border:1px solid #31516c;color:white;
+  border-radius:9px;padding:12px;min-width:200px
 }
-.game-info{
-display:flex;justify-content:center;
-gap:25px;flex-wrap:wrap;color:var(--cyan);
+.filters{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:25px}
+.filters button{
+  background:#12243a;color:#d8e9fa;border:1px solid #294b68;
+  border-radius:25px;padding:8px 15px
 }
-.controls{
-display:flex;justify-content:center;gap:12px;flex-wrap:wrap;
-}
-.controls button{
-width:55px;height:48px;background:#17304b;
-color:white;border:1px solid #2878aa;
-border-radius:9px;font-size:20px;
-}
+.filters button.active{background:#087eb8;color:white;border-color:var(--cyan)}
 
-input,textarea,select{
-width:100%;padding:13px;margin:8px 0 15px;
-background:#091321;border:1px solid #29405a;
-color:white;border-radius:7px;font:inherit;
+/* GAME MODAL */
+#gameModal{
+  display:none;position:fixed;inset:0;z-index:500;
+  background:#020610ed;overflow:auto;padding:25px 12px;
 }
-textarea{min-height:110px;resize:vertical}
-label{font-size:13px;color:#c5d5e8}
-.form-card{max-width:650px;margin:auto}
-.notice{font-size:12px;color:var(--muted);margin-top:12px}
+#gameModal.show{display:block}
+.game-window{
+  max-width:650px;margin:30px auto;background:#101d31;
+  border:1px solid #1b83ad;border-radius:17px;padding:22px;
+}
+.game-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.close-btn{background:#253a52;color:white;border:0;padding:8px 13px;border-radius:8px}
+#gameContent{margin-top:20px;text-align:center}
+.game-board{display:grid;gap:7px;max-width:350px;margin:15px auto}
+.game-board button{
+  min-height:65px;background:#1b3450;border:1px solid #315c7d;
+  border-radius:8px;color:white;font-size:25px;font-weight:bold
+}
+.game-action{margin:12px}
+.game-message{color:var(--cyan);font-weight:bold;margin:12px}
+.game-input{
+  padding:12px;border:1px solid #31516c;background:#081321;
+  color:white;border-radius:8px;margin:6px
+}
+.game-canvas{
+  display:block;max-width:100%;margin:15px auto;
+  background:#07101e;border:1px solid #1d6586;border-radius:10px;
+  touch-action:manipulation
+}
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:340px;margin:15px auto}
+.memory-card{
+  height:65px;background:#1a3855;border:1px solid #38769a;
+  border-radius:8px;color:white;font-size:25px
+}
+.tile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:330px;margin:15px auto}
+.tile{
+  aspect-ratio:1;background:#203b55;border-radius:7px;
+  display:grid;place-items:center;font-weight:bold;font-size:20px
+}
+.tile.filled{background:#087eaa;color:white}
 
-footer{
-padding:35px 20px;text-align:center;
-background:#050912;border-top:1px solid #203149;
-color:var(--muted);font-size:13px;
+/* FORMS */
+.form-box{
+  max-width:650px;margin:auto;padding:26px;
+  border-radius:16px;background:#101c30;border:1px solid #234967
 }
-.social{
-margin:15px;display:flex;gap:18px;
-justify-content:center;flex-wrap:wrap;
+.form-box label{display:block;color:#dceafa;font-size:14px;margin-top:10px}
+.form-box input,.form-box textarea,.form-box select{
+  width:100%;padding:13px;margin:6px 0 12px;
+  border:1px solid #31516c;border-radius:8px;
+  color:white;background:#081321;outline:none
 }
-.email-link{color:var(--cyan);word-break:break-word}
+.form-box textarea{min-height:110px;resize:vertical}
+.form-note{font-size:12px;color:var(--muted);margin-top:10px}
+.contact-info{text-align:center;color:var(--muted);margin-top:20px}
+.contact-info a{color:var(--cyan)}
+.premium{border-color:#b58a37;background:linear-gradient(145deg,#2a2417,#101b2c)}
+.premium h3{color:#ffcf70}
 
-@media(max-width:700px){
-.menu{display:block}
-nav{
-display:none;position:absolute;top:60px;left:0;
-width:100%;background:#0b1423;padding:20px;
-flex-direction:column;
+/* FOOTER */
+footer{background:#040912;border-top:1px solid #17334b;padding:35px 0;text-align:center;color:#91a4ba}
+footer .logo{margin-bottom:8px}
+.footer-links{margin:12px}
+.footer-links a{margin:0 9px;font-size:13px}
+.hidden{display:none!important}
+
+@media(max-width:800px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .menu-btn{display:block}
+  .nav-links{
+    display:none;position:absolute;top:72px;left:0;width:100%;
+    background:#07101e;padding:20px;flex-direction:column
+  }
+  .nav-links.show{display:flex}
 }
-nav.show{display:flex}
-.hero{min-height:470px}
-section{padding:55px 16px}
+@media(max-width:550px){
+  .grid{grid-template-columns:1fr}
+  .hero{min-height:480px}
+  section{padding:58px 0}
+  .form-box{padding:17px}
+  .game-window{padding:15px}
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<div class="nav">
-<a href="#home" class="logo">COVE <span>GAMERZ</span></a>
-<button class="menu" onclick="toggleMenu()">☰</button>
-<nav id="nav">
-<a href="#home">Home</a>
-<a href="#games">Games</a>
-<a href="#editing">Editing</a>
-<a href="#publish">Publish Game</a>
-<a href="#partners">Partners</a>
-<a href="#news">News</a>
-<a href="#contact">Contact</a>
-</nav>
+<!-- INTRO -->
+<div id="intro">
+  <div class="particle" style="top:20%;left:15%"></div>
+  <div class="particle" style="top:70%;left:80%"></div>
+  <div class="particle" style="top:35%;left:90%"></div>
+  <div class="particle" style="top:80%;left:25%"></div>
+  <div class="intro-content">
+    <div class="intro-logo">COVE <span>GAMERZ</span></div>
+    <div class="intro-tag">PLAY • CREATE • EXPLORE</div>
+    <div class="intro-line"></div>
+    <p style="color:#a9c8dc;letter-spacing:3px;font-size:12px">ENTER THE NEXT LEVEL</p>
+  </div>
 </div>
+
+<header>
+  <div class="container">
+    <nav>
+      <a href="#home" class="logo">COVE <span>GAMERZ</span></a>
+      <button class="menu-btn" id="menuBtn">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#games">Games</a></li>
+        <li><a href="#leaderboard">Scores</a></li>
+        <li><a href="#editing">Editing</a></li>
+        <li><a href="#collab">Collab</a></li>
+        <li><a href="#membership">Membership</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
 <main>
-
 <section class="hero" id="home">
-<div class="hero-content">
-<div class="tag">WELCOME TO THE GAMING UNIVERSE</div>
-<h1>LEVEL UP YOUR <span>GAMING</span></h1>
-<p>
-Discover games, explore gaming content, showcase your creativity
-and connect with the gaming community at Cove Gamerz.
-</p>
-<a href="#games" class="btn">EXPLORE GAMES</a>
-<a href="#partners" class="btn btn-outline">COLLABORATE WITH US</a>
-</div>
+  <div class="container">
+    <div class="tag">WELCOME TO THE NEXT LEVEL</div>
+    <h1>COVE <span>GAMERZ</span></h1>
+    <p>Play exciting mini games, explore gaming, discover creative editing and connect with creators.</p>
+    <a href="#games" class="btn">PLAY GAMES</a>
+    <a href="#collab" class="btn btn-outline">COLLABORATE</a>
+  </div>
 </section>
 
 <section id="games">
-<div class="container">
-<div class="heading">
-<h2>🎮 Gaming Zone</h2>
-<p>Explore games and play our original browser mini-game.</p>
-</div>
-<div class="grid">
+  <div class="container">
+    <div class="section-head">
+      <h2>THE <span>GAME ZONE</span></h2>
+      <p>Choose your challenge. Beat your best score.</p>
+    </div>
 
-<div class="card">
-<div class="emoji">🌌</div>
-<h3>Neon Survival</h3>
-<p>Collect energy crystals, avoid drones and survive in the arena.</p>
-<a href="#play" class="btn">PLAY NOW</a>
-</div>
+    <div class="game-tools">
+      <input type="search" id="gameSearch" placeholder="Search games...">
+      <select id="gameCategory">
+        <option value="all">All Categories</option>
+        <option value="arcade">Arcade</option>
+        <option value="puzzle">Puzzle</option>
+        <option value="skill">Skill</option>
+      </select>
+    </div>
 
-<div class="card">
-<div class="emoji">🏎️</div>
-<h3>Racing Zone</h3>
-<p>A place for racing games and future browser game releases.</p>
-<p class="notice">More games coming soon.</p>
-</div>
-
-<div class="card">
-<div class="emoji">🧩</div>
-<h3>Arcade Zone</h3>
-<p>Discover casual games and fun gaming challenges.</p>
-<p class="notice">More games coming soon.</p>
-</div>
-
-</div>
-</div>
+    <div class="grid" id="gameGrid">
+      <div class="card game-card" data-name="neon snake" data-category="arcade">
+        <div class="card-icon">🐍</div><h3>Neon Snake</h3>
+        <p>Eat the crystals, grow your snake and beat your record.</p>
+        <button class="btn small-btn" onclick="launchGame('snake')">Play Now</button>
+      </div>
+      <div class="card game-card" data-name="tic tac toe" data-category="puzzle">
+        <div class="card-icon">❎</div><h3>Tic Tac Toe</h3>
+        <p>Challenge yourself in this classic strategy game.</p>
+        <button class="btn small-btn" onclick="launchGame('tic')">Play Now</button>
+      </div>
+      <div class="card game-card" data-name="2048 puzzle" data-category="puzzle">
+        <div class="card-icon">🔢</div><h3>2048 Puzzle</h3>
+        <p>Combine matching numbers and reach the highest tile.</p>
+        <button class="btn small-btn" onclick="launchGame('2048')">Play Now</button>
+      </div>
+      <div class="card game-card" data-name="memory match" data-category="puzzle">
+        <div class="card-icon">🧠</div><h3>Memory Match</h3>
+        <p>Find matching pairs and test your memory.</p>
+        <button class="btn small-btn" onclick="launchGame('memory')">Play Now</button>
+      </div>
+      <div class="card game-card" data-name="brick breaker" data-category="arcade">
+        <div class="card-icon">🧱</div><h3>Brick Breaker</h3>
+        <p>Clear the blocks by tapping them before time runs out.</p>
+        <button class="btn small-btn" onclick="launchGame('brick')">Play Now</button>
+      </div>
+      <div class="card game-card" data-name="neon runner" data-category="arcade">
+        <div class="card-icon">🏃</div><h3>Neon Runner</h3>
+        <p>Jump over obstacles and keep running.</p>
+        <button class="btn small-btn" onclick="launchGame('runner')">Play Now</button>
+      </div>
+      <div class="card game-card" data-name="speed tap" data-category="skill">
+        <div class="card-icon">⚡</div><h3>Speed Tap</h3>
+        <p>Tap as fast as possible before the timer ends.</p>
+        <button class="btn small-btn" onclick="launchGame('speed')">Play Now</button>
+      </div>
+      <div class="card game-card" data-name="crystal hunt" data-category="skill">
+        <div class="card-icon">💎</div><h3>Crystal Hunt</h3>
+        <p>Find and collect the crystals before time runs out.</p>
+        <button class="btn small-btn" onclick="launchGame('crystal')">Play Now</button>
+      </div>
+    </div>
+    <p id="noGames" class="game-message hidden">No games found. Try another search.</p>
+  </div>
 </section>
 
-<section class="dark" id="play">
-<div class="container">
-<div class="heading">
-<h2>🌌 Neon Survival</h2>
-<p>Collect 10 crystals and avoid the moving drones!</p>
-</div>
-
-<div class="game-area">
-<div class="game-info">
-<span>Crystals: <b id="score">0</b>/10</span>
-<span>Time: <b id="time">0</b>s</span>
-<span id="status">Ready to play</span>
-</div>
-
-<canvas id="game" width="700" height="390"></canvas>
-
-<button class="btn" onclick="startGame()">START / RESTART</button>
-<p class="notice">Computer: Arrow keys or WASD | Mobile: Use the buttons below.</p>
-
-<div class="controls">
-<button onclick="move('up')">↑</button>
-<button onclick="move('left')">←</button>
-<button onclick="move('down')">↓</button>
-<button onclick="move('right')">→</button>
-</div>
-</div>
-</div>
+<section id="leaderboard">
+  <div class="container">
+    <div class="section-head">
+      <h2>YOUR <span>RECORDS</span></h2>
+      <p>Your personal best scores on this device.</p>
+    </div>
+    <div class="form-box">
+      <div id="scoresList">Play a game to start creating your records!</div>
+      <p class="form-note">Records are stored on this device. Online player rankings need a shared database.</p>
+    </div>
+  </div>
 </section>
 
 <section id="editing">
-<div class="container">
-<div class="heading">
-<h2>🎬 Creator & Editing Zone</h2>
-<p>A place for gaming creators and video editors.</p>
-</div>
-<div class="grid">
-
-<div class="card">
-<div class="emoji">🎞️</div>
-<h3>Video Editing</h3>
-<p>Showcase gaming edits, transitions and creative projects.</p>
-</div>
-
-<div class="card">
-<div class="emoji">📺</div>
-<h3>Creator Community</h3>
-<p>Connect gaming creators and share their channels.</p>
-</div>
-
-<div class="card">
-<div class="emoji">🎨</div>
-<h3>Design Studio</h3>
-<p>Gaming thumbnails, banners, logos and creative graphics.</p>
-</div>
-
-</div>
-</div>
+  <div class="container">
+    <div class="section-head">
+      <h2>CREATOR <span>ZONE</span></h2>
+      <p>Gaming and creativity together.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="card-icon">🎬</div><h3>Video Editing</h3><p>Editing ideas, transitions and creative effects for creators.</p></div>
+      <div class="card"><div class="card-icon">✨</div><h3>Visual Effects</h3><p>Discover effects and creative inspiration for your videos.</p></div>
+      <div class="card"><div class="card-icon">🎨</div><h3>Creator Studio</h3><p>Build your creator identity and explore new ideas.</p></div>
+    </div>
+  </div>
 </section>
 
-<section class="dark" id="publish">
-<div class="container">
-<div class="heading">
-<h2>🚀 Publish Your Game</h2>
-<p>Developers can propose their games for a possible listing on Cove Gamerz.</p>
-</div>
-
-<div class="card form-card">
-<form onsubmit="sendForm(event,'Game Publishing Request')">
-
-<label>Developer / Studio Name</label>
-<input name="name" required placeholder="Your studio name">
-
-<label>Email Address</label>
-<input name="email" type="email" required placeholder="Your email">
-
-<label>Game Name</label>
-<input name="game" required placeholder="Your game title">
-
-<label>Game Link</label>
-<input name="link" type="url" placeholder="https://example.com">
-
-<label>Tell us about your game</label>
-<textarea name="message" required placeholder="Describe your game..."></textarea>
-
-<button class="btn" type="submit">SUBMIT GAME PROPOSAL</button>
-</form>
-<p class="notice">Your email app will open. Send the proposal from there. Games are reviewed before listing.</p>
-</div>
-</div>
+<section id="collab">
+  <div class="container">
+    <div class="section-head">
+      <h2>CREATOR <span>COLLABORATION</span></h2>
+      <p>Want to work with Cove Gamerz? Send us your idea.</p>
+    </div>
+    <form class="form-box" id="collabForm">
+      <label>Your Name / Creator Name</label>
+      <input id="collabName" required placeholder="Your name">
+      <label>Your Channel or Portfolio Link</label>
+      <input id="collabLink" type="url" placeholder="https://...">
+      <label>What would you like to collaborate on?</label>
+      <select id="collabType">
+        <option>Gaming Content</option>
+        <option>Video Editing</option>
+        <option>Game Development</option>
+        <option>Promotion Partnership</option>
+        <option>Other</option>
+      </select>
+      <label>Your Idea</label>
+      <textarea id="collabIdea" required placeholder="Tell us your collaboration idea"></textarea>
+      <button class="btn" type="submit">Send Collaboration Request</button>
+      <p class="form-note">Your email app will open. Review and send your request there.</p>
+    </form>
+  </div>
 </section>
 
-<section id="partners">
-<div class="container">
-<div class="heading">
-<h2>🤝 Partner With Cove Gamerz</h2>
-<p>Let's explore opportunities to work together.</p>
-</div>
-
-<div class="grid">
-
-<div class="card">
-<div class="emoji">🏢</div>
-<h3>Game Companies</h3>
-<p>Discuss game promotions, official integrations and partnerships.</p>
-</div>
-
-<div class="card">
-<div class="emoji">👨‍💻</div>
-<h3>Game Developers</h3>
-<p>Showcase original games and reach new gaming audiences.</p>
-</div>
-
-<div class="card">
-<div class="emoji">🎥</div>
-<h3>Content Creators</h3>
-<p>Explore creator collaborations and gaming projects.</p>
-</div>
-
-</div>
-
-<div style="text-align:center;margin-top:25px">
-<a href="#contact" class="btn">BECOME A PARTNER</a>
-</div>
-</div>
-</section>
-
-<section class="dark" id="news">
-<div class="container">
-<div class="heading">
-<h2>📰 Gaming News</h2>
-<p>Updates and announcements from Cove Gamerz.</p>
-</div>
-<div class="card" style="text-align:center">
-<h3>Latest Updates Coming Soon</h3>
-<p>New games, gaming news and community announcements will appear here.</p>
-</div>
-</div>
+<section id="membership">
+  <div class="container">
+    <div class="section-head">
+      <h2>MEMBERSHIP <span>ZONE</span></h2>
+      <p>Explore membership options as the community grows.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-icon">🎮</div>
+        <h3>Free Member</h3>
+        <p>Play available games and explore the creator zone.</p>
+        <p style="color:#5cecff;margin-top:12px;font-weight:bold">FREE</p>
+      </div>
+      <div class="card premium">
+        <div class="card-icon">👑</div>
+        <h3>Premium Interest</h3>
+        <p>Get updates about future bonus themes, extra levels and member features.</p>
+        <p style="color:#ffcf70;margin-top:12px;font-weight:bold">COMING SOON</p>
+        <button class="btn" onclick="membershipRequest()">Join Interest List</button>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <h3>Creator Partner</h3>
+        <p>Send a collaboration request to discuss possible projects.</p>
+        <a href="#collab" class="btn small-btn">Explore Collaboration</a>
+      </div>
+    </div>
+    <p class="form-note" style="text-align:center;margin-top:18px">Premium payments are not enabled yet. No payment is collected on this website.</p>
+  </div>
 </section>
 
 <section id="contact">
-<div class="container">
-<div class="heading">
-<h2>📩 Contact Cove Gamerz</h2>
-<p>For business enquiries, partnerships and general questions.</p>
-</div>
-
-<div class="card form-card">
-<form onsubmit="sendForm(event,'Cove Gamerz Contact Message')">
-
-<label>Your Name</label>
-<input name="name" required placeholder="Enter your name">
-
-<label>Your Email</label>
-<input name="email" type="email" required placeholder="Enter your email">
-
-<label>Subject</label>
-<select name="subject">
-<option>Business Collaboration</option>
-<option>Game Publishing</option>
-<option>Gaming Creator</option>
-<option>General Enquiry</option>
-</select>
-
-<label>Message</label>
-<textarea name="message" required placeholder="Write your message..."></textarea>
-
-<button class="btn" type="submit">SEND MESSAGE</button>
-</form>
-
-<p class="notice">Business Email:</p>
-<a class="email-link" href="mailto:sarveshkumar01980198@gmail.com">
-sarveshkumar01980198@gmail.com
-</a>
-</div>
-</div>
+  <div class="container">
+    <div class="section-head">
+      <h2>CONTACT <span>US</span></h2>
+      <p>Questions, feedback or ideas? Send a message.</p>
+    </div>
+    <form class="form-box" id="contactForm">
+      <label>Your Name</label>
+      <input id="contactName" required placeholder="Your name">
+      <label>Your Email</label>
+      <input id="contactEmail" type="email" required placeholder="Your email">
+      <label>Message</label>
+      <textarea id="contactMessage" required placeholder="Write your message"></textarea>
+      <button class="btn" type="submit">Send Message</button>
+      <p class="form-note">Your email app will open with a prepared message. You must press Send there.</p>
+    </form>
+    <div class="contact-info">
+      Business Email: <a href="mailto:covegamerz959@gmail.com">covegamerz959@gmail.com</a>
+    </div>
+  </div>
 </section>
-
 </main>
 
 <footer>
-<div class="logo">COVE <span>GAMERZ</span></div>
-
-<div class="social">
-<a href="#home">Home</a>
-<a href="#games">Games</a>
-<a href="#partners">Partners</a>
-<a href="#contact">Contact</a>
-</div>
-
-<p>Business: sarveshkumar01980198@gmail.com</p>
-<p>© <span id="year"></span> Cove Gamerz. All rights reserved.</p>
-<p>Independent gaming and creator platform.</p>
+  <div class="container">
+    <div class="logo">COVE <span>GAMERZ</span></div>
+    <p>PLAY • CREATE • EXPLORE</p>
+    <div class="footer-links">
+      <a href="#home">Home</a><a href="#games">Games</a>
+      <a href="#collab">Collaboration</a><a href="#contact">Contact</a>
+    </div>
+    <p>© <span id="year"></span> Cove Gamerz. All Rights Reserved.</p>
+  </div>
 </footer>
 
+<!-- GAME WINDOW -->
+<div id="gameModal">
+  <div class="game-window">
+    <div class="game-top">
+      <h2 id="gameTitle">Game</h2>
+      <button class="close-btn" onclick="closeGame()">✕ Close</button>
+    </div>
+    <div id="gameContent"></div>
+  </div>
+</div>
+
 <script>
-function toggleMenu(){
-document.getElementById('nav').classList.toggle('show');
+const BUSINESS_EMAIL = "covegamerz959@gmail.com";
+
+/* INTRO: once per tab session, not on refresh */
+const intro = document.getElementById("intro");
+if (sessionStorage.getItem("coveIntroSeen")) {
+  intro.remove();
+} else {
+  sessionStorage.setItem("coveIntroSeen","yes");
+  setTimeout(() => {
+    intro.classList.add("hide");
+    setTimeout(() => intro.remove(),750);
+  },3000);
 }
 
-document.querySelectorAll('nav a').forEach(a=>{
-a.addEventListener('click',()=>{
-document.getElementById('nav').classList.remove('show');
+/* MOBILE MENU */
+document.getElementById("menuBtn").onclick = () => {
+  document.getElementById("navLinks").classList.toggle("show");
+};
+document.querySelectorAll(".nav-links a").forEach(a => {
+  a.onclick = () => document.getElementById("navLinks").classList.remove("show");
 });
-});
+document.getElementById("year").textContent = new Date().getFullYear();
 
-document.getElementById('year').textContent=new Date().getFullYear();
-
-// COVE GAMERZ BUSINESS EMAIL
-const BUSINESS_EMAIL = "sarveshkumar01980198@gmail.com";
-
-// CONTACT AND GAME PUBLISHING FORMS
-function sendForm(event,subject){
-event.preventDefault();
-
-const form=event.target;
-const data=new FormData(form);
-
-const body=[...data.entries()]
-.map(([key,value])=>key+": "+value)
-.join("\n");
-
-const url="mailto:"+BUSINESS_EMAIL+
-"?subject="+encodeURIComponent(subject)+
-"&body="+encodeURIComponent(body);
-
-window.location.href=url;
+/* GAME SEARCH AND FILTER */
+function filterGames(){
+  const query=document.getElementById("gameSearch").value.toLowerCase();
+  const category=document.getElementById("gameCategory").value;
+  let visible=0;
+  document.querySelectorAll(".game-card").forEach(card=>{
+    const matchName=card.dataset.name.includes(query);
+    const matchCat=category==="all" || card.dataset.category===category;
+    card.classList.toggle("hidden",!(matchName && matchCat));
+    if(matchName && matchCat) visible++;
+  });
+  document.getElementById("noGames").classList.toggle("hidden",visible>0);
 }
+document.getElementById("gameSearch").addEventListener("input",filterGames);
+document.getElementById("gameCategory").addEventListener("change",filterGames);
 
-// NEON SURVIVAL GAME
-const canvas=document.getElementById("game");
-const ctx=canvas.getContext("2d");
-
-let player,crystals,drones,score,running,elapsed,last;
-let keys={};
-let touchDirection=null;
-
-function resetGame(){
-player={x:350,y:195,r:12,speed:3.5};
-score=0;
-elapsed=0;
-last=0;
-running=true;
-crystals=[];
-drones=[];
-
-for(let i=0;i<10;i++)spawnCrystal();
-
-for(let i=0;i<5;i++){
-drones.push({
-x:50+Math.random()*600,
-y:40+Math.random()*300,
-dx:(Math.random()-.5)*2.5,
-dy:(Math.random()-.5)*2.5,
-r:13
-});
+/* PERSONAL RECORDS */
+function saveRecord(name,score){
+  const key="coveRecords";
+  let records=JSON.parse(localStorage.getItem(key)||"{}");
+  records[name]=Math.max(Number(records[name]||0),Number(score||0));
+  localStorage.setItem(key,JSON.stringify(records));
+  showRecords();
 }
-
-document.getElementById("score").textContent=score;
-document.getElementById("time").textContent=0;
-document.getElementById("status").textContent="Playing!";
-}
-
-function spawnCrystal(){
-crystals.push({
-x:25+Math.random()*(canvas.width-50),
-y:25+Math.random()*(canvas.height-50),
-r:8
-});
-}
-
-function startGame(){
-resetGame();
-draw();
-requestAnimationFrame(loop);
-}
-
-function move(dir){
-touchDirection=dir;
-setTimeout(()=>{
-if(touchDirection===dir)touchDirection=null;
-},150);
-}
-
-window.addEventListener("keydown",e=>{
-keys[e.key.toLowerCase()]=true;
-if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key)){
-e.preventDefault();
-}
-});
-
-window.addEventListener("keyup",e=>{
-keys[e.key.toLowerCase()]=false;
-});
-
-function update(dt){
-if(keys["arrowup"]||keys["w"]||touchDirection==="up")player.y-=player.speed;
-if(keys["arrowdown"]||keys["s"]||touchDirection==="down")player.y+=player.speed;
-if(keys["arrowleft"]||keys["a"]||touchDirection==="left")player.x-=player.speed;
-if(keys["arrowright"]||keys["d"]||touchDirection==="right")player.x+=player.speed;
-
-player.x=Math.max(player.r,Math.min(canvas.width-player.r,player.x));
-player.y=Math.max(player.r,Math.min(canvas.height-player.r,player.y));
-
-drones.forEach(d=>{
-d.x+=d.dx*dt*60;
-d.y+=d.dy*dt*60;
-
-if(d.x<d.r||d.x>canvas.width-d.r)d.dx*=-1;
-if(d.y<d.r||d.y>canvas.height-d.r)d.dy*=-1;
-});
-
-for(let i=crystals.length-1;i>=0;i--){
-let c=crystals[i];
-
-if(Math.hypot(player.x-c.x,player.y-c.y)<player.r+c.r){
-crystals.splice(i,1);
-score++;
-document.getElementById("score").textContent=score;
-
-if(score>=10){
-running=false;
-document.getElementById("status").textContent="YOU WIN! 🏆";
-return;
-}
-spawnCrystal();
-}
-}
-
-for(let d of drones){
-if(Math.hypot(player.x-d.x,player.y-d.y)<player.r+d.r){
-running=false;
-document.getElementById("status").textContent="GAME OVER";
-return;
-}
-}
-
-elapsed+=dt;
-document.getElementById("time").textContent=Math.floor(elapsed);
-}
-
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-ctx.strokeStyle="#1a3450";
-
-for(let x=0;x<canvas.width;x+=35){
-ctx.beginPath();
-ctx.moveTo(x,0);
-ctx.lineTo(x,canvas.height);
-ctx.stroke();
-}
-
-for(let y=0;y<canvas.height;y+=35){
-ctx.beginPath();
-ctx.moveTo(0,y);
-ctx.lineTo(canvas.width,y);
-ctx.stroke();
-}
-
-crystals.forEach(c=>{
-ctx.fillStyle="#00e5ff";
-ctx.shadowBlur=15;
-ctx.shadowColor="#00e5ff";
-ctx.beginPath();
-ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
-ctx.fill();
-});
-
-ctx.shadowBlur=0;
-
-drones.forEach(d=>{
-ctx.fillStyle="#ff526c";
-ctx.beginPath();
-ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
-ctx.fill();
-});
-
-if(player){
-ctx.fillStyle="#36a2ff";
-ctx.shadowBlur=18;
-ctx.shadowColor="#168cff";
-ctx.beginPath();
-ctx.arc(player.x,player.y,player.r,0,Math.PI*2);
-ctx.fill();
-ctx.shadowBlur=0;
-}
-}
-
-function loop(timestamp){
-if(!running)return;
-
-const dt=Math.min((timestamp-last)/1000||0,0.04);
-last=timestamp;
-
-update(dt);
-draw();
-
-if(running)requestAnimationFrame(loop);
-}
-
-draw();
-</script>
-
-</body>
-</html>
+function showRecords(){
+  const records=JSON.parse(localStorage.getItem("coveRecords")||"{}");
+  const entries=Object.entries(records).sort((a,b)=>b[1]-a[1]);
+  document.getElementById("scoresList").inner
