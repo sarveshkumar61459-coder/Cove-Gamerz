@@ -1,314 +1,695 @@
-  
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="eBDq-2G-L2hWg76ZO6cXrPeWpO4SRLJ6_1yCybVyHk0">
-<meta name="description" content="Cove Gamerz - Play free games, discover gaming news, videos and join our gaming community.">
+<meta name="description" content="Cove Gamerz - Play free online games, explore gaming news, videos and editing studio.">
 <meta name="theme-color" content="#080d18">
 <title>Cove Gamerz | Gaming Universe</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:#080d18;color:#f5f8ff;font-family:Arial,sans-serif;line-height:1.6}
-a{text-decoration:none;color:inherit}
-button,input{font:inherit}
-button{cursor:pointer}
-:root{--cyan:#22d3ee;--blue:#397bff;--panel:#111d30;--muted:#a2b0c5}
-.container{width:min(1120px,92%);margin:auto}
-header{position:sticky;top:0;z-index:20;background:#080d18ed;backdrop-filter:blur(12px);border-bottom:1px solid #263449}
-nav{min-height:70px;display:flex;justify-content:space-between;align-items:center;gap:15px}
-.logo{font-size:23px;font-weight:900}
-.logo span{color:var(--cyan)}
-.links{display:flex;gap:20px;align-items:center}
-.links a{font-size:14px;color:#c5d0df}
-.links a:hover{color:var(--cyan)}
-.menu{display:none;background:#18263c;color:white;border:1px solid #34445c;padding:8px 12px;border-radius:8px}
-.hero{padding:95px 0 75px;min-height:510px;display:flex;align-items:center;background:radial-gradient(ellipse at 75% 50%,#10385a 0%,transparent 55%)}
-.tag{color:var(--cyan);border:1px solid #1d6578;background:#103044;padding:7px 13px;border-radius:30px;font-size:12px;letter-spacing:2px}
-h1{font-size:clamp(42px,8vw,75px);line-height:1.08;margin:25px 0;letter-spacing:-2px}
-h1 span{color:var(--cyan)}
-.hero p{max-width:610px;color:var(--muted);font-size:17px}
-.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-.btn{padding:12px 20px;border-radius:9px;border:1px solid #33465f;display:inline-block;font-weight:bold}
-.primary{background:linear-gradient(110deg,var(--cyan),var(--blue));color:#06101b;border:0}
-.secondary{background:#15243a}
-section{padding:65px 0}
-.heading{margin-bottom:25px}
-.heading h2{font-size:32px}
-.heading p{color:var(--muted);margin-top:5px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
-.card{background:linear-gradient(145deg,#15243a,#0d1728);border:1px solid #28374d;border-radius:16px;padding:21px;transition:.2s}
-.card:hover{transform:translateY(-5px);border-color:var(--cyan)}
-.emoji{font-size:39px;margin-bottom:10px}
-.card h3{font-size:19px;margin-bottom:5px}
-.card p{color:var(--muted);font-size:14px;margin-bottom:15px}
-.play{background:#12364b;color:var(--cyan);border:1px solid #1b5269;padding:9px 15px;border-radius:8px;font-weight:bold}
-.search{width:100%;background:#111d30;border:1px solid #34445c;border-radius:9px;padding:13px;color:white;margin-bottom:17px;outline:none}
-.filters{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:20px}
-.filter{background:#17253a;color:#c4d0df;border:1px solid #34445c;padding:8px 14px;border-radius:25px}
-.filter.active{background:var(--cyan);color:#07101a}
-.feature{background:linear-gradient(110deg,#102e47,#111a2b);border:1px solid #263d58;padding:27px;border-radius:17px}
-.feature p{color:var(--muted)}
-.score{display:flex;justify-content:space-between;padding:12px;background:#15243a;border-radius:8px;margin-bottom:8px}
-footer{border-top:1px solid #28374d;padding:30px 0;color:var(--muted);font-size:13px}
-.modal{display:none;position:fixed;inset:0;z-index:50;background:#000d;align-items:center;justify-content:center;padding:15px}
-.modal.show{display:flex}
-.modal-box{background:#111d30;border:1px solid #26738a;border-radius:17px;padding:22px;width:min(500px,100%);max-height:90vh;overflow:auto}
-.modal-head{display:flex;justify-content:space-between;align-items:center}
-.close{background:#293b53;color:white;border:0;padding:7px 12px;border-radius:8px}
-#gameContent{text-align:center;padding-top:20px}
-.game-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-width:310px;margin:15px auto}
-.game-grid button,.tile{background:#1c3450;color:white;border:1px solid #34516f;border-radius:8px;min-height:58px;font-size:22px}
-.game-grid button:disabled{opacity:.45}
-.tile{display:grid;place-items:center}
-.controls{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:15px}
-.controls button{background:var(--cyan);color:#06101b;border:0;border-radius:8px;padding:9px 13px;font-weight:bold}
-.message{color:var(--cyan);margin:10px}
-#intro{position:fixed;inset:0;z-index:100;background:#080d18;display:grid;place-items:center;animation:hide 1s 1.2s forwards}
-#intro div{font-size:clamp(35px,8vw,65px);font-weight:900;text-shadow:0 0 25px var(--cyan)}
-#intro span{color:var(--cyan)}
-@keyframes hide{to{opacity:0;visibility:hidden;pointer-events:none}}
-@media(max-width:760px){
-.menu{display:block}
-.links{display:none;position:absolute;top:70px;left:0;right:0;background:#0d1728;padding:20px;flex-direction:column}
-.links.open{display:flex}
-.grid{grid-template-columns:repeat(2,1fr)}
-.hero{padding:70px 0}
+:root {
+  --bg:#080d18;
+  --panel:#101b2d;
+  --panel2:#14243a;
+  --cyan:#22d3ee;
+  --blue:#387bff;
+  --text:#f4f8ff;
+  --muted:#a8b6ca;
 }
-@media(max-width:480px){.grid{grid-template-columns:1fr}section{padding:48px 0}}
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:Arial, sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(ellipse at 15% 10%,#102d4a 0%,transparent 40%),
+    radial-gradient(ellipse at 85% 65%,#10263d 0%,transparent 40%),
+    var(--bg);
+  min-height:100vh;
+}
+button,input { font:inherit; }
+button { cursor:pointer; }
+a { color:inherit; text-decoration:none; }
+
+header {
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(8,13,24,.92);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid #20344e;
+}
+.nav {
+  max-width:1200px;
+  margin:auto;
+  padding:16px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.logo {
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+.logo span { color:var(--cyan); }
+nav { display:flex; gap:18px; flex-wrap:wrap; }
+nav a { color:#c7d5e8; font-size:14px; }
+nav a:hover { color:var(--cyan); }
+
+.hero {
+  max-width:1200px;
+  margin:auto;
+  padding:85px 20px 65px;
+  text-align:center;
+}
+.tag {
+  display:inline-block;
+  border:1px solid #245d77;
+  background:#10283a;
+  color:var(--cyan);
+  padding:8px 14px;
+  border-radius:30px;
+  font-size:12px;
+  letter-spacing:2px;
+}
+.hero h1 {
+  font-size:clamp(38px,8vw,76px);
+  margin:22px 0 15px;
+  line-height:1.05;
+}
+.hero h1 span {
+  color:var(--cyan);
+  text-shadow:0 0 30px #22d3ee66;
+}
+.hero p {
+  color:var(--muted);
+  max-width:650px;
+  margin:auto;
+  line-height:1.7;
+}
+.hero-buttons {
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:28px;
+}
+.btn {
+  display:inline-block;
+  border:0;
+  border-radius:10px;
+  padding:13px 20px;
+  font-weight:bold;
+  background:linear-gradient(110deg,var(--cyan),#3985ff);
+  color:#06111d;
+  transition:.2s;
+}
+.btn:hover { transform:translateY(-3px); box-shadow:0 8px 25px #22d3ee33; }
+.btn.secondary {
+  color:white;
+  background:#172940;
+  border:1px solid #31516f;
+}
+
+.section {
+  max-width:1200px;
+  margin:auto;
+  padding:48px 20px;
+}
+.section-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-bottom:25px;
+}
+.section-heading h2 { font-size:30px; }
+.section-heading p { color:var(--muted); margin-top:8px; }
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:35px;
+}
+.stat {
+  padding:20px;
+  background:#101d30;
+  border:1px solid #203b57;
+  border-radius:15px;
+}
+.stat strong {
+  display:block;
+  color:var(--cyan);
+  font-size:25px;
+  margin-bottom:5px;
+}
+.stat span { color:var(--muted); font-size:13px; }
+
+.toolbar {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:22px;
+}
+#search {
+  flex:1;
+  min-width:190px;
+  padding:13px 15px;
+  border-radius:10px;
+  border:1px solid #2b4561;
+  background:#101b2d;
+  color:white;
+  outline:none;
+}
+#search:focus { border-color:var(--cyan); }
+.filter {
+  border:1px solid #2b4561;
+  background:#101b2d;
+  color:white;
+  padding:11px 15px;
+  border-radius:10px;
+}
+.filter.active {
+  background:#123c50;
+  border-color:var(--cyan);
+  color:var(--cyan);
+}
+
+.game-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(235px,1fr));
+  gap:18px;
+}
+.game-card {
+  background:linear-gradient(145deg,#14243a,#0d1727);
+  border:1px solid #233d59;
+  border-radius:16px;
+  overflow:hidden;
+  transition:.25s;
+}
+.game-card:hover {
+  transform:translateY(-6px);
+  border-color:var(--cyan);
+  box-shadow:0 12px 30px #0005;
+}
+.game-art {
+  height:135px;
+  display:grid;
+  place-items:center;
+  font-size:65px;
+  background:radial-gradient(circle,#214b69,#101b2d 70%);
+}
+.game-info { padding:17px; }
+.game-info h3 { margin-bottom:8px; }
+.game-info p {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+  min-height:39px;
+}
+.game-meta {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:15px;
+  gap:10px;
+}
+.category { color:var(--cyan); font-size:12px; }
+.play {
+  background:var(--cyan);
+  color:#06111d;
+  border:0;
+  border-radius:8px;
+  padding:9px 14px;
+  font-weight:bold;
+}
+
+.feature-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:18px;
+}
+.feature {
+  padding:25px;
+  background:linear-gradient(145deg,#14243a,#0d1727);
+  border:1px solid #233d59;
+  border-radius:16px;
+}
+.feature .emoji { font-size:35px; }
+.feature h3 { margin:13px 0 9px; }
+.feature p { color:var(--muted); line-height:1.6; font-size:14px; }
+
+.score-box {
+  background:#101b2d;
+  border:1px solid #233d59;
+  border-radius:15px;
+  overflow:hidden;
+}
+.score-row {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:15px 18px;
+  border-bottom:1px solid #233d59;
+}
+.score-row:last-child { border:0; }
+.score-row span:last-child { color:var(--cyan); font-weight:bold; }
+
+footer {
+  border-top:1px solid #20344e;
+  padding:30px 20px;
+  text-align:center;
+  color:var(--muted);
+  line-height:1.8;
+}
+footer strong { color:var(--cyan); }
+
+.modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:50;
+  background:#000c;
+  padding:15px;
+  align-items:center;
+  justify-content:center;
+}
+.modal.show { display:flex; }
+.modal-box {
+  width:min(600px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#101b2d;
+  border:1px solid #2a5874;
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 0 50px #0009;
+}
+.modal-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:20px;
+}
+.close {
+  background:#26384d;
+  border:0;
+  color:white;
+  border-radius:8px;
+  padding:8px 12px;
+}
+#gameContent { text-align:center; }
+.game-message {
+  color:var(--cyan);
+  margin:12px 0;
+  min-height:25px;
+  line-height:1.5;
+}
+.controls {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:17px;
+}
+.controls button,.game-action {
+  background:#1b3c55;
+  color:white;
+  border:1px solid #34708c;
+  padding:11px 16px;
+  border-radius:9px;
+}
+.controls button:hover,.game-action:hover { border-color:var(--cyan); }
+
+.ttt-grid {
+  display:grid;
+  grid-template-columns:repeat(3,75px);
+  justify-content:center;
+  gap:8px;
+  margin:20px auto;
+}
+.ttt-cell {
+  height:75px;
+  border:1px solid #34708c;
+  background:#172940;
+  color:var(--cyan);
+  font-size:30px;
+  border-radius:10px;
+}
+.memory-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(45px,65px));
+  justify-content:center;
+  gap:8px;
+  margin:20px auto;
+}
+.memory-cell {
+  height:60px;
+  background:#1b3c55;
+  border:1px solid #34708c;
+  border-radius:9px;
+  color:white;
+  font-size:24px;
+}
+.memory-cell.open { background:#16435a; }
+.tile-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(45px,65px));
+  justify-content:center;
+  gap:7px;
+  margin:20px auto;
+}
+.tile {
+  height:58px;
+  display:grid;
+  place-items:center;
+  background:#1b3c55;
+  border-radius:8px;
+  font-weight:bold;
+  font-size:18px;
+}
+.tap-target {
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  border:0;
+  background:var(--cyan);
+  color:#06111d;
+  font-weight:bold;
+  font-size:18px;
+  margin:20px auto;
+}
+.reaction-target {
+  padding:22px;
+  border:0;
+  border-radius:12px;
+  background:var(--cyan);
+  color:#06111d;
+  font-weight:bold;
+  margin:15px;
+  min-width:180px;
+}
+input:focus-visible,button:focus-visible,a:focus-visible {
+  outline:2px solid var(--cyan);
+  outline-offset:3px;
+}
+
+@media(max-width:600px) {
+  .nav { justify-content:center; }
+  nav { justify-content:center; gap:12px; }
+  nav a { font-size:12px; }
+  .hero { padding-top:60px; }
+  .stats { grid-template-columns:1fr; }
+  .section-heading h2 { font-size:25px; }
+}
 </style>
 </head>
 
 <body>
 
-<div id="intro"><div>COVE <span>GAMERZ</span></div></div>
-
 <header>
-<div class="container">
-<nav>
-<a class="logo" href="#home">COVE <span>GAMERZ</span></a>
-<button class="menu" id="menuBtn">☰</button>
-<div class="links" id="navLinks">
-<a href="#home">Home</a>
-<a href="#games">Games</a>
-<a href="#news">News</a>
-<a href="#videos">Videos</a>
-<a href="#scores">Scores</a>
-<a href="editing.html">Editing Studio ↗</a>
-</div>
-</nav>
-</div>
+  <div class="nav">
+    <a href="#home" class="logo">COVE <span>GAMERZ</span></a>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#games">Games</a>
+      <a href="#news">News</a>
+      <a href="#videos">Videos</a>
+      <a href="#scores">Scores</a>
+      <a href="editing.html">Editing Studio</a>
+    </nav>
+  </div>
 </header>
 
 <main>
 <section class="hero" id="home">
-<div class="container">
-<span class="tag">WELCOME TO THE GAMING UNIVERSE</span>
-<h1>LEVEL UP YOUR <span>GAMING</span></h1>
-<p>Play exciting mini games, discover gaming updates, explore videos and become part of the Cove Gamerz community.</p>
-<div class="actions">
-<a class="btn primary" href="#games">PLAY GAMES ⚡</a>
-<a class="btn secondary" href="#news">EXPLORE NEWS</a>
-</div>
-</div>
+  <span class="tag">WELCOME TO THE GAMING UNIVERSE</span>
+  <h1>PLAY. COMPETE.<br><span>LEVEL UP.</span></h1>
+  <p>
+    Welcome to Cove Gamerz! Explore fun browser games,
+    challenge your skills, discover gaming updates and
+    explore our editing studio.
+  </p>
+  <div class="hero-buttons">
+    <a class="btn" href="#games">EXPLORE GAMES</a>
+    <a class="btn secondary" href="editing.html">EDITING STUDIO</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><strong>06+</strong><span>Playable Games</span></div>
+    <div class="stat"><strong>FREE</strong><span>Play in Your Browser</span></div>
+    <div class="stat"><strong>24/7</strong><span>Gaming Access</span></div>
+  </div>
 </section>
 
-<section class="container" id="games">
-<div class="heading">
-<h2>🎮 Gaming Arena</h2>
-<p>Choose your favourite game and challenge yourself.</p>
-</div>
-<input class="search" id="gameSearch" placeholder="Search games...">
-<div class="filters">
-<button class="filter active" data-filter="all">All</button>
-<button class="filter" data-filter="puzzle">Puzzle</button>
-<button class="filter" data-filter="arcade">Arcade</button>
-<button class="filter" data-filter="fun">Fun</button>
-</div>
+<section class="section" id="games">
+  <div class="section-heading">
+    <div>
+      <h2>🎮 Gaming Arena</h2>
+      <p>Choose a game and challenge yourself.</p>
+    </div>
+  </div>
 
-<div class="grid" id="gameGrid">
-<div class="card" data-category="puzzle" data-name="tic tac toe">
-<div class="emoji">⭕</div><h3>Tic Tac Toe</h3>
-<p>Play the classic X and O game.</p><button class="play" data-game="tic">PLAY NOW</button>
-</div>
-<div class="card" data-category="puzzle" data-name="2048 puzzle">
-<div class="emoji">🔢</div><h3>2048 Puzzle</h3>
-<p>Combine numbers and reach 2048.</p><button class="play" data-game="2048">PLAY NOW</button>
-</div>
-<div class="card" data-category="fun" data-name="memory match">
-<div class="emoji">🧠</div><h3>Memory Match</h3>
-<p>Find matching cards and test your memory.</p><button class="play" data-game="memory">PLAY NOW</button>
-</div>
-<div class="card" data-category="arcade" data-name="speed tap">
-<div class="emoji">⚡</div><h3>Speed Tap</h3>
-<p>Tap as quickly as possible in ten seconds.</p><button class="play" data-game="speed">PLAY NOW</button>
-</div>
-<div class="card" data-category="fun" data-name="crystal hunt">
-<div class="emoji">💎</div><h3>Crystal Hunt</h3>
-<p>Find the hidden crystal in five attempts.</p><button class="play" data-game="crystal">PLAY NOW</button>
-</div>
-<div class="card" data-category="arcade" data-name="reaction test">
-<div class="emoji">🎯</div><h3>Reaction Test</h3>
-<p>Test your reaction speed.</p><button class="play" data-game="reaction">PLAY NOW</button>
-</div>
-</div>
-<p id="noGames" class="message" hidden>No games found.</p>
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="Search games..." aria-label="Search games">
+    <button class="filter active" data-filter="All">All</button>
+    <button class="filter" data-filter="Puzzle">Puzzle</button>
+    <button class="filter" data-filter="Arcade">Arcade</button>
+    <button class="filter" data-filter="Skill">Skill</button>
+  </div>
+
+  <div class="game-grid" id="gameGrid">
+    <article class="game-card" data-name="Tic Tac Toe" data-category="Puzzle">
+      <div class="game-art">⭕</div>
+      <div class="game-info">
+        <h3>Tic Tac Toe</h3>
+        <p>Challenge the computer in this classic strategy game.</p>
+        <div class="game-meta"><span class="category">PUZZLE</span><button class="play" data-game="tic">PLAY NOW</button></div>
+      </div>
+    </article>
+
+    <article class="game-card" data-name="2048 Puzzle" data-category="Puzzle">
+      <div class="game-art">🔢</div>
+      <div class="game-info">
+        <h3>2048 Puzzle</h3>
+        <p>Combine matching numbers and reach the 2048 tile.</p>
+        <div class="game-meta"><span class="category">PUZZLE</span><button class="play" data-game="2048">PLAY NOW</button></div>
+      </div>
+    </article>
+
+    <article class="game-card" data-name="Memory Match" data-category="Puzzle">
+      <div class="game-art">🧠</div>
+      <div class="game-info">
+        <h3>Memory Match</h3>
+        <p>Find matching pairs and test your memory.</p>
+        <div class="game-meta"><span class="category">PUZZLE</span><button class="play" data-game="memory">PLAY NOW</button></div>
+      </div>
+    </article>
+
+    <article class="game-card" data-name="Speed Tap" data-category="Arcade">
+      <div class="game-art">⚡</div>
+      <div class="game-info">
+        <h3>Speed Tap</h3>
+        <p>Tap the target as many times as you can.</p>
+        <div class="game-meta"><span class="category">ARCADE</span><button class="play" data-game="speed">PLAY NOW</button></div>
+      </div>
+    </article>
+
+    <article class="game-card" data-name="Crystal Hunt" data-category="Skill">
+      <div class="game-art">💎</div>
+      <div class="game-info">
+        <h3>Crystal Hunt</h3>
+        <p>Find hidden crystals in the mystery grid.</p>
+        <div class="game-meta"><span class="category">SKILL</span><button class="play" data-game="crystal">PLAY NOW</button></div>
+      </div>
+    </article>
+
+    <article class="game-card" data-name="Reaction Test" data-category="Skill">
+      <div class="game-art">🚀</div>
+      <div class="game-info">
+        <h3>Reaction Test</h3>
+        <p>Wait for green and test your reaction speed.</p>
+        <div class="game-meta"><span class="category">SKILL</span><button class="play" data-game="reaction">PLAY NOW</button></div>
+      </div>
+    </article>
+  </div>
+  <p id="noGames" style="display:none;color:#a8b6ca;margin-top:20px;">No games found.</p>
 </section>
 
-<section class="container" id="news">
-<div class="heading">
-<h2>📰 Gaming News</h2>
-<p>Gaming updates and community announcements.</p>
-</div>
-<div class="grid">
-<div class="card"><div class="emoji">🎮</div><h3>Gaming Updates</h3><p>Latest gaming news and updates will be published here.</p></div>
-<div class="card"><div class="emoji">🏆</div><h3>Tournaments</h3><p>Community tournament announcements and event information.</p></div>
-<div class="card"><div class="emoji">🚀</div><h3>New Releases</h3><p>Discover new games and upcoming gaming releases.</p></div>
-</div>
+<section class="section" id="news">
+  <div class="section-heading">
+    <div>
+      <h2>📰 Gaming News</h2>
+      <p>Gaming updates and announcements.</p>
+    </div>
+  </div>
+  <div class="feature-grid">
+    <article class="feature">
+      <div class="emoji">🎯</div>
+      <h3>Gaming Updates</h3>
+      <p>Visit our gaming news section for updates and announcements. New articles can be added here.</p>
+    </article>
+    <article class="feature">
+      <div class="emoji">🏆</div>
+      <h3>Gaming Challenges</h3>
+      <p>Play the games in our arena and try to beat your previous scores.</p>
+    </article>
+    <article class="feature">
+      <div class="emoji">🌟</div>
+      <h3>Community</h3>
+      <p>Have an idea or collaboration proposal? Contact the Cove Gamerz team.</p>
+    </article>
+  </div>
 </section>
 
-<section class="container" id="videos">
-<div class="heading">
-<h2>📺 Gaming Videos</h2>
-<p>Watch gameplay, highlights and creator videos.</p>
-</div>
-<div class="feature">
-<h3>YOUR GAMING VIDEO HUB</h3>
-<p>Add your YouTube video links here to showcase gameplay, highlights and gaming content.</p>
-<div class="actions">
-<a class="btn primary" href="https://www.youtube.com/" target="_blank" rel="noopener">OPEN YOUTUBE ↗</a>
-</div>
-</div>
+<section class="section" id="videos">
+  <div class="section-heading">
+    <div>
+      <h2>▶️ Videos & Content</h2>
+      <p>Watch our gaming and editing content.</p>
+    </div>
+  </div>
+  <div class="feature-grid">
+    <article class="feature">
+      <div class="emoji">🎬</div>
+      <h3>Gaming Videos</h3>
+      <p>Gameplay, highlights and gaming shorts.</p>
+      <a class="btn" href="https://www.youtube.com/" target="_blank" rel="noopener">OPEN YOUTUBE</a>
+    </article>
+    <article class="feature">
+      <div class="emoji">✂️</div>
+      <h3>Editing Showcase</h3>
+      <p>Explore editing services, creative work and editing resources.</p>
+      <a class="btn" href="editing.html">OPEN STUDIO</a>
+    </article>
+  </div>
 </section>
 
-<section class="container" id="scores">
-<div class="heading">
-<h2>🏆 Your High Scores</h2>
-<p>Scores saved on this device.</p>
-</div>
-<div id="scoreList" class="score-list"></div>
-<button class="play" id="clearScores">CLEAR SCORES</button>
+<section class="section" id="scores">
+  <div class="section-heading">
+    <div>
+      <h2>🏆 Your Best Scores</h2>
+      <p>Your scores are saved on this device.</p>
+    </div>
+    <button class="filter" id="clearScores">Clear Scores</button>
+  </div>
+  <div class="score-box" id="scoreBoard">
+    <div class="score-row"><span>No scores yet</span><span>Play a game!</span></div>
+  </div>
 </section>
 
-<section class="container">
-<div class="feature">
-<h2>🎬 Want to Create Amazing Edits?</h2>
-<p>Visit our separate Editing Studio for editing showcases and creative projects.</p>
-<div class="actions">
-<a class="btn primary" href="editing.html">OPEN EDITING STUDIO ↗</a>
-</div>
-</div>
-</section>
-
-<section class="container" id="contact">
-<div class="heading">
-<h2>🤝 Join Cove Gamerz</h2>
-<p>For collaboration and website enquiries.</p>
-</div>
-<div class="feature">
-<p>Interested in working with Cove Gamerz? Send us your idea through email.</p>
-<div class="actions">
-<a class="btn primary" href="mailto:covegamerz959@gmail.com?subject=Cove%20Gamerz%20Collaboration">COLLABORATE</a>
-<a class="btn secondary" href="mailto:covegamerz959@gmail.com">CONTACT US</a>
-</div>
-</div>
+<section class="section" id="contact">
+  <div class="feature">
+    <div class="emoji">🤝</div>
+    <h2 style="margin:12px 0">Work With Cove Gamerz</h2>
+    <p style="margin-bottom:18px">For collaborations, suggestions and business enquiries, contact us by email.</p>
+    <a class="btn" href="mailto:covegamerz959@gmail.com">CONTACT US</a>
+  </div>
 </section>
 </main>
 
 <footer>
-<div class="container">
-<strong>COVE <span style="color:#22d3ee">GAMERZ</span></strong>
-<p>Gaming • Creativity • Community</p>
-<p>© <span id="year"></span> Cove Gamerz. All rights reserved.</p>
-</div>
+  <strong>COVE GAMERZ</strong><br>
+  Play. Compete. Create.<br>
+  © <span id="year"></span> Cove Gamerz. All rights reserved.
 </footer>
 
-<div class="modal" id="gameModal">
-<div class="modal-box">
-<div class="modal-head">
-<h2 id="gameTitle">Game</h2>
-<button class="close" id="closeGame">✕</button>
-</div>
-<div id="gameContent"></div>
-</div>
+<div class="modal" id="gameModal" role="dialog" aria-modal="true" aria-labelledby="gameTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="gameTitle">Game</h2>
+      <button class="close" id="closeGame">CLOSE ✕</button>
+    </div>
+    <div id="gameContent"></div>
+  </div>
 </div>
 
 <script>
-"use strict";
-
 const $ = id => document.getElementById(id);
-const BUSINESS_EMAIL = "covegamerz959@gmail.com";
+let currentFilter = "All";
 
 $("year").textContent = new Date().getFullYear();
 
-$("menuBtn").addEventListener("click", () => {
-  $("navLinks").classList.toggle("open");
-});
-
-$("navLinks").querySelectorAll("a").forEach(a => {
-  a.addEventListener("click", () => $("navLinks").classList.remove("open"));
-});
-
-let currentFilter = "all";
-
+/* SEARCH AND FILTER */
 function filterGames() {
-  const q = $("gameSearch").value.toLowerCase();
-  let count = 0;
-  document.querySelectorAll("#gameGrid .card").forEach(card => {
-    const matchName = card.dataset.name.includes(q);
-    const matchCategory = currentFilter === "all" || card.dataset.category === currentFilter;
-    card.hidden = !(matchName && matchCategory);
-    if (!card.hidden) count++;
+  const term = $("search").value.toLowerCase();
+  let visible = 0;
+
+  document.querySelectorAll(".game-card").forEach(card => {
+    const matchesName = card.dataset.name.toLowerCase().includes(term);
+    const matchesCategory = currentFilter === "All" || card.dataset.category === currentFilter;
+    card.style.display = matchesName && matchesCategory ? "" : "none";
+    if (matchesName && matchesCategory) visible++;
   });
-  $("noGames").hidden = count !== 0;
+
+  $("noGames").style.display = visible ? "none" : "block";
 }
 
-$("gameSearch").addEventListener("input", filterGames);
+$("search").addEventListener("input", filterGames);
 
-document.querySelectorAll(".filter").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    currentFilter = btn.dataset.filter;
+document.querySelectorAll(".filter[data-filter]").forEach(button => {
+  button.addEventListener("click", () => {
+    currentFilter = button.dataset.filter;
+    document.querySelectorAll(".filter[data-filter]").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
     filterGames();
   });
 });
 
-let scores = {};
-try {
-  scores = JSON.parse(localStorage.getItem("coveScores") || "{}");
-} catch(e) {
-  scores = {};
+/* SCORE STORAGE */
+function getScores() {
+  try { return JSON.parse(localStorage.getItem("coveScores") || "{}"); }
+  catch { return {}; }
 }
 
 function saveScore(name, score) {
-  scores[name] = Math.max(Number(scores[name] || 0), score);
-  try {
-    localStorage.setItem("coveScores", JSON.stringify(scores));
-  } catch(e) {}
-  drawScores();
+  const scores = getScores();
+  scores[name] = Math.max(Number(scores[name] || 0), Number(score || 0));
+  localStorage.setItem("coveScores", JSON.stringify(scores));
+  showScores();
 }
 
-function drawScores() {
-  const entries = Object.entries(scores).sort((a,b) => b[1]-a[1]);
-  $("scoreList").innerHTML = entries.length
-    ? entries.map(([name,score]) =>
-      `<div class="score"><span>${name}</span><strong>${score}</strong></div>`
-    ).join("")
-    : "<p class='message'>Play a game to record your first score!</p>";
+function showScores() {
+  const scores = getScores();
+  const entries = Object.entries(scores).sort((a,b) => b[1] - a[1]);
+  const board = $("scoreBoard");
+  board.innerHTML = "";
+
+  if (!entries.length) {
+    board.innerHTML = '<div class="score-row"><span>No scores yet</span><span>Play a game!</span></div>';
+    return;
+  }
+
+  entries.forEach(([name,score]) => {
+    const row = document.createElement("div");
+    row.className = "score-row";
+    const title = document.createElement("span");
+    const value = document.createElement("span");
+    title.textContent = name;
+    value.textContent = score;
+    row.append(title,value);
+    board.appendChild(row);
+  });
 }
 
 $("clearScores").addEventListener("click", () => {
-  scores = {};
-  localStorage.removeItem("coveScores");
-  drawScores();
+  if (confirm("Clear all saved scores on this device?")) {
+    localStorage.removeItem("coveScores");
+    showScores();
+  }
 });
 
-drawScores();
+showScores();
 
+/* GAME MODAL */
 function openGame(title) {
   $("gameTitle").textContent = title;
   $("gameContent").innerHTML = "";
@@ -317,250 +698,96 @@ function openGame(title) {
 
 function closeGame() {
   $("gameModal").classList.remove("show");
+  $("gameContent").innerHTML = "";
 }
 
 $("closeGame").addEventListener("click", closeGame);
-$("gameModal").addEventListener("click", e => {
-  if(e.target === $("gameModal")) closeGame();
+
+$("gameModal").addEventListener("click", event => {
+  if (event.target === $("gameModal")) closeGame();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeGame();
 });
 
 function message(text) {
-  const p = document.createElement("p");
-  p.className = "message";
-  p.textContent = text;
-  $("gameContent").appendChild(p);
-  return p;
+  const el = document.createElement("p");
+  el.className = "game-message";
+  el.textContent = text;
+  $("gameContent").appendChild(el);
+  return el;
 }
 
 function control(text, callback) {
-  const b = document.createElement("button");
-  b.textContent = text;
-  b.addEventListener("click", callback);
-  $("gameContent").appendChild(b);
-  b.parentElement.classList.add("controls");
-  return b;
+  let wrap = $("gameContent").querySelector(".controls");
+  if (!wrap) {
+    wrap = document.createElement("div");
+    wrap.className = "controls";
+    $("gameContent").appendChild(wrap);
+  }
+  const button = document.createElement("button");
+  button.textContent = text;
+  button.addEventListener("click", callback);
+  wrap.appendChild(button);
+  return button;
 }
 
+/* 1. TIC TAC TOE */
 function startTic() {
   openGame("Tic Tac Toe");
   let board = Array(9).fill("");
-  let turn = "X";
-  let ended = false;
-  const status = message("Player X's turn");
+  let finished = false;
+  const status = message("Your turn: X");
+
   const grid = document.createElement("div");
-  grid.className = "game-grid";
+  grid.className = "ttt-grid";
   $("gameContent").appendChild(grid);
 
-  function draw() {
+  function winner(b) {
+    const lines = [
+      [0,1,2],[3,4,5],[6,7,8],
+      [0,3,6],[1,4,7],[2,5,8],
+      [0,4,8],[2,4,6]
+    ];
+    for (const line of lines) {
+      const [a,c,d] = line;
+      if (b[a] && b[a] === b[c] && b[a] === b[d]) return b[a];
+    }
+    return "";
+  }
+
+  function render() {
     grid.innerHTML = "";
-    board.forEach((value,i) => {
-      const b = document.createElement("button");
-      b.textContent = value;
-      b.addEventListener("click", () => {
-        if(ended || board[i]) return;
-        board[i] = turn;
-        if(checkWin()) {
-          status.textContent = "Player " + turn + " wins!";
-          ended = true;
-          if(turn === "X") saveScore("Tic Tac Toe",1);
-        } else if(board.every(Boolean)) {
-          status.textContent = "Draw!";
-          ended = true;
-        } else {
-          turn = turn === "X" ? "O" : "X";
-          status.textContent = "Player " + turn + "'s turn";
-        }
-        draw();
-      });
-      grid.appendChild(b);
+    board.forEach((value,index) => {
+      const cell = document.createElement("button");
+      cell.className = "ttt-cell";
+      cell.textContent = value;
+      cell.addEventListener("click", () => move(index));
+      grid.appendChild(cell);
     });
   }
 
-  function checkWin() {
-    const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-    return wins.some(line => line.every(i => board[i] === turn));
-  }
+  function move(index) {
+    if (finished || board[index]) return;
+    board[index] = "X";
+    let result = winner(board);
 
-  control("Restart",startTic);
-  draw();
-}
-
-function start2048() {
-  openGame("2048 Puzzle");
-  let board = Array(16).fill(0), score = 0, ended = false;
-  const status = message("Combine numbers to reach 2048!");
-  const grid = document.createElement("div");
-  grid.className = "game-grid";
-  $("gameContent").appendChild(grid);
-
-  function addTile() {
-    const empty = board.map((v,i) => v===0?i:-1).filter(i=>i>=0);
-    if(empty.length) board[empty[Math.floor(Math.random()*empty.length)]] = Math.random()<.9?2:4;
-  }
-
-  function draw() {
-    grid.innerHTML = "";
-    board.forEach(v => {
-      const tile = document.createElement("div");
-      tile.className = "tile";
-      tile.textContent = v || "";
-      grid.appendChild(tile);
-    });
-    status.textContent = "Score: " + score;
-  }
-
-  function move(dir) {
-    if(ended) return;
-    const old = board.join(",");
-    for(let n=0;n<4;n++) {
-      let indexes=[];
-      for(let k=0;k<4;k++) {
-        if(dir==="left") indexes.push(n*4+k);
-        if(dir==="right") indexes.push(n*4+3-k);
-        if(dir==="up") indexes.push(k*4+n);
-        if(dir==="down") indexes.push((3-k)*4+n);
-      }
-      let values=indexes.map(i=>board[i]).filter(v=>v);
-      let merged=[];
-      for(let i=0;i<values.length;i++) {
-        if(values[i]===values[i+1]) {
-          merged.push(values[i]*2);
-          score+=values[i]*2;
-          i++;
-        } else merged.push(values[i]);
-      }
-      while(merged.length<4) merged.push(0);
-      indexes.forEach((idx,i)=>board[idx]=merged[i]);
+    if (result) {
+      finished = true;
+      status.textContent = "You win!";
+      saveScore("Tic Tac Toe",100);
+      render();
+      return;
     }
-    if(old!==board.join(",")) addTile();
-    draw();
-    if(board.includes(2048)) {
-      ended=true;
-      status.textContent="You reached 2048!";
-      saveScore("2048 Puzzle",score);
+
+    if (!board.includes("")) {
+      finished = true;
+      status.textContent = "It's a draw!";
+      render();
+      return;
     }
-    if(old===board.join(",") && !board.includes(0)) {
-      status.textContent="Board full! Restart to play again.";
-    }
-  }
 
-  ["up","left","down","right"].forEach(d => control(d.toUpperCase(),()=>move(d)));
-  control("Restart",start2048);
-  addTile();addTile();draw();
-}
-
-function startMemory() {
-  openGame("Memory Match");
-  const symbols=["🎮","⭐","🚀","💎","🎯","🔥","👾","🏆"];
-  const cards=[...symbols,...symbols].sort(()=>Math.random()-.5);
-  let first=null,lock=false,matches=0,moves=0;
-  const status=message("Find all matching pairs!");
-  const grid=document.createElement("div");
-  grid.className="game-grid";
-  $("gameContent").appendChild(grid);
-
-  cards.forEach(symbol=>{
-    const b=document.createElement("button");
-    b.textContent="?";
-    b.addEventListener("click",()=>{
-      if(lock||b.dataset.open||b.dataset.done)return;
-      b.textContent=symbol;
-      b.dataset.open="yes";
-      if(!first) first={b,symbol};
-      else {
-        moves++;
-        if(first.symbol===symbol) {
-          first.b.dataset.done="yes";
-          b.dataset.done="yes";
-          matches+=2;
-          first=null;
-          status.textContent="Moves: "+moves;
-          if(matches===16) {
-            status.textContent="You won!";
-            saveScore("Memory Match",Math.max(1,100-moves));
-          }
-        } else {
-          const previous=first.b;
-          first=null;
-          lock=true;
-          setTimeout(()=>{
-            previous.textContent="?";
-            b.textContent="?";
-            delete previous.dataset.open;
-            delete b.dataset.open;
-            lock=false;
-          },700);
-          status.textContent="Moves: "+moves;
-        }
-      }
-    });
-    grid.appendChild(b);
-  });
-  control("Restart",startMemory);
-}
-
-function startSpeed() {
-  openGame("Speed Tap");
-  let score=0,time=10,playing=true;
-  const status=message("Tap as many times as possible!");
-  const tap=control("TAP ⚡",()=>{
-    if(!playing)return;
-    score++;
-    status.textContent="Taps: "+score+" | Time: "+time;
-  });
-  const timer=setInterval(()=>{
-    time--;
-    status.textContent="Taps: "+score+" | Time: "+time;
-    if(time<=0) {
-      clearInterval(timer);
-      playing=false;
-      tap.disabled=true;
-      status.textContent="Time up! Score: "+score;
-      saveScore("Speed Tap",score);
-    }
-  },1000);
-  $("closeGame").onclick=()=>{clearInterval(timer);closeGame();};
-  control("Restart",()=>{clearInterval(timer);startSpeed();});
-}
-
-function startCrystal() {
-  openGame("Crystal Hunt");
-  const target=Math.floor(Math.random()*9);
-  let tries=5,found=false;
-  const status=message("Find the hidden crystal!");
-  const grid=document.createElement("div");
-  grid.className="game-grid";
-  $("gameContent").appendChild(grid);
-  for(let i=0;i<9;i++) {
-    const b=document.createElement("button");
-    b.textContent="❔";
-    b.addEventListener("click",()=>{
-      if(found||b.disabled)return;
-      b.disabled=true;
-      if(i===target) {
-        found=true;
-        b.textContent="💎";
-        status.textContent="You found the crystal!";
-        saveScore("Crystal Hunt",tries);
-      } else {
-        b.textContent="❌";
-        tries--;
-        status.textContent="Attempts left: "+tries;
-        if(tries===0)status.textContent="Game over! Restart to try again.";
-      }
-    });
-    grid.appendChild(b);
-  }
-  control("Restart",startCrystal);
-}
-
-function startReaction() {
-  openGame("Reaction Test");
-  let ready=false,finished=false,start=0;
-  const status=message("Press START and wait for green!");
-  const target=document.createElement("button");
-  target.textContent="START";
-  target.style.cssText="padding:22px;background:#22d3ee;border:0;border-radius:12px;font-weight:bold;margin:15px";
-  $("gameContent").appendChild(target);
-  let timer;
-  target.addEventListener("click",()=
+    const empty = board.map((v,i) => v === "" ? i : -1).filter(i => i >= 0);
+    const aiMove = empty[Math.floor(Math.random() * empty.length)];
+    board[aiMove] = "O
