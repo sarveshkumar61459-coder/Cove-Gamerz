@@ -1,31 +1,45 @@
  
 <script>
-const BUSINESS_EMAIL = "covegamerz959@gmail.com";
+"use strict";
 
-const intro = document.getElementById("intro");
-if (sessionStorage.getItem("coveIntroSeen")) {
-  intro.remove();
-} else {
-  sessionStorage.setItem("coveIntroSeen", "yes");
-  setTimeout(() => {
-    intro.classList.add("hide");
-    setTimeout(() => intro.remove(), 750);
-  }, 3000);
+const BUSINESS_EMAIL = "covegamerz959@gmail.com";
+let gameTimer = null;
+let gameState = {};
+
+const $ = id => document.getElementById(id);
+
+function safeRecords() {
+  try { return JSON.parse(localStorage.getItem("coveRecords") || "{}"); }
+  catch { return {}; }
 }
 
-document.getElementById("menuBtn").onclick = () => {
-  document.getElementById("navLinks").classList.toggle("show");
-};
+/* INTRO */
+const intro = $("intro");
+if (intro) {
+  if (sessionStorage.getItem("coveIntroSeen")) {
+    intro.remove();
+  } else {
+    sessionStorage.setItem("coveIntroSeen", "yes");
+    setTimeout(() => {
+      intro.classList.add("hide");
+      setTimeout(() => intro.remove(), 750);
+    }, 3000);
+  }
+}
 
-document.querySelectorAll(".nav-links a").forEach(a => {
-  a.onclick = () => document.getElementById("navLinks").classList.remove("show");
+/* NAVIGATION */
+$("menuBtn")?.addEventListener("click", () => {
+  $("navLinks")?.classList.toggle("show");
 });
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => $("navLinks")?.classList.remove("show"));
+});
+if ($("year")) $("year").textContent = new Date().getFullYear();
 
-document.getElementById("year").textContent = new Date().getFullYear();
-
+/* GAME SEARCH */
 function filterGames() {
-  const query = document.getElementById("gameSearch").value.toLowerCase();
-  const category = document.getElementById("gameCategory").value;
+  const query = ($("gameSearch")?.value || "").toLowerCase();
+  const category = $("gameCategory")?.value || "all";
   let visible = 0;
 
   document.querySelectorAll(".game-card").forEach(card => {
@@ -35,481 +49,369 @@ function filterGames() {
     if (match) visible++;
   });
 
-  document.getElementById("noGames").classList.toggle("hidden", visible > 0);
+  $("noGames")?.classList.toggle("hidden", visible > 0);
 }
+$("gameSearch")?.addEventListener("input", filterGames);
+$("gameCategory")?.addEventListener("change", filterGames);
 
-document.getElementById("gameSearch").addEventListener("input", filterGames);
-document.getElementById("gameCategory").addEventListener("change", filterGames);
-
+/* PERSONAL SCORES */
 function saveRecord(name, score) {
-  try {
-    const records = JSON.parse(localStorage.getItem("coveRecords") || "{}");
-    records[name] = Math.max(Number(records[name] || 0), Number(score || 0));
-    localStorage.setItem("coveRecords", JSON.stringify(records));
-    showRecords();
-  } catch(e) {}
+  const records = safeRecords();
+  records[name] = Math.max(Number(records[name] || 0), Number(score || 0));
+  localStorage.setItem("coveRecords", JSON.stringify(records));
+  showRecords();
 }
 
 function showRecords() {
-  const records = JSON.parse(localStorage.getItem("coveRecords") || "{}");
-  const entries = Object.entries(records).sort((a,b) => b[1] - a[1]);
-  document.getElementById("scoresList").innerHTML =
-    entries.length
-      ? entries.map(([name,score]) =>
-        `<p style="padding:8px;border-bottom:1px solid #29445d">${name}: <b>${score}</b></p>`
-      ).join("")
-      : "Play a game to start creating your records!";
+  const records = safeRecords();
+  const entries = Object.entries(records).sort((a, b) => b[1] - a[1]);
+  $("scoresList").innerHTML = entries.length
+    ? entries.map(([name, score]) =>
+        `<p style="padding:8px;border-bottom:1px solid #29445e">
+          🏆 ${name}: <b>${score}</b>
+        </p>`).join("")
+    : "Play a game to start creating your records!";
 }
 showRecords();
 
-const modal = document.getElementById("gameModal");
-const content = document.getElementById("gameContent");
-const title = document.getElementById("gameTitle");
-let gameTimer = null;
-let gameCleanup = null;
-
-function closeGame() {
-  clearInterval(gameTimer);
-  clearTimeout(gameTimer);
-  if (gameCleanup) gameCleanup();
+/* GAME WINDOW */
+function stopGame() {
+  if (gameTimer) clearInterval(gameTimer);
   gameTimer = null;
-  gameCleanup = null;
-  modal.classList.remove("show");
-  content.innerHTML = "";
 }
-
+function closeGame() {
+  stopGame();
+  $("gameModal").classList.remove("show");
+  $("gameContent").innerHTML = "";
+}
 function launchGame(name) {
-  closeGame();
-  modal.classList.add("show");
+  stopGame();
+  $("gameModal").classList.add("show");
+  const titles = {
+    snake:"Neon Snake", tic:"Tic Tac Toe", "2048":"2048 Puzzle",
+    memory:"Memory Match", brick:"Brick Breaker",
+    runner:"Neon Runner", speed:"Speed Tap", crystal:"Crystal Hunt"
+  };
+  $("gameTitle").textContent = titles[name] || "Game";
+  $("gameContent").innerHTML = "";
+
   const games = {
-    snake: "Neon Snake",
-    tic: "Tic Tac Toe",
-    "2048": "2048 Puzzle",
-    memory: "Memory Match",
-    brick: "Brick Breaker",
-    runner: "Neon Runner",
-    speed: "Speed Tap",
-    crystal: "Crystal Hunt"
+    snake:startSnake, tic:startTic, "2048":start2048,
+    memory:startMemory, brick:startBrick,
+    runner:startRunner, speed:startSpeed, crystal:startCrystal
   };
-  title.textContent = games[name] || "Game";
-  const starts = {
-    snake: startSnake,
-    tic: startTic,
-    "2048": start2048,
-    memory: startMemory,
-    brick: startBrick,
-    runner: startRunner,
-    speed: startSpeed,
-    crystal: startCrystal
-  };
-  if (starts[name]) starts[name]();
+  if (games[name]) games[name]();
 }
+$("gameModal")?.addEventListener("click", e => {
+  if (e.target.id === "gameModal") closeGame();
+});
 
+/* GAME HELPERS */
 function message(text) {
-  const p = document.createElement("p");
-  p.className = "game-message";
-  p.textContent = text;
-  content.appendChild(p);
+  const el = document.createElement("p");
+  el.className = "game-message";
+  el.textContent = text;
+  $("gameContent").appendChild(el);
+  return el;
 }
-
-function button(text, action) {
+function actionButton(text, callback) {
   const b = document.createElement("button");
-  b.className = "btn";
+  b.className = "btn small-btn game-action";
   b.textContent = text;
-  b.onclick = action;
-  content.appendChild(b);
+  b.addEventListener("click", callback);
+  $("gameContent").appendChild(b);
   return b;
 }
 
 /* TIC TAC TOE */
 function startTic() {
   let board = Array(9).fill("");
-  let ended = false;
+  let turn = "X";
+  let finished = false;
+
+  const status = message("Your turn: X");
   const grid = document.createElement("div");
   grid.className = "game-board";
   grid.style.gridTemplateColumns = "repeat(3,1fr)";
-  content.appendChild(grid);
-  const status = document.createElement("p");
-  status.className = "game-message";
-  content.appendChild(status);
+  $("gameContent").appendChild(grid);
 
-  function winner() {
-    const lines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-    for (const line of lines) {
-      const [a,b,c] = line;
-      if (board[a] && board[a] === board[b] && board[a] === board[c]) return board[a];
-    }
-    return board.every(Boolean) ? "draw" : null;
-  }
-
-  function render() {
+  function draw() {
     grid.innerHTML = "";
-    board.forEach((v,i) => {
+    board.forEach((value, i) => {
       const b = document.createElement("button");
-      b.textContent = v || " ";
-      b.onclick = () => {
-        if (ended || board[i]) return;
-        board[i] = "X";
-        let result = winner();
-        if (!result) {
-          const free = board.map((v,i) => v ? -1 : i).filter(i => i >= 0);
-          if (free.length) board[free[Math.floor(Math.random()*free.length)]] = "O";
-          result = winner();
-        }
-        if (result) {
-          ended = true;
-          status.textContent = result === "draw" ? "Draw!" : result + " wins!";
-          if (result === "X") saveRecord("Tic Tac Toe", 1);
-        } else status.textContent = "Your turn: X";
-        render();
-      };
+      b.textContent = value;
+      b.addEventListener("click", () => play(i));
       grid.appendChild(b);
     });
   }
-  status.textContent = "You are X. Play against the computer!";
-  render();
-  button("Restart", startTic);
-}
-
-/* MEMORY MATCH */
-function startMemory() {
-  const symbols = ["🎮","🚀","⚡","💎","👑","🔥","🎯","🏆"];
-  const cards = [...symbols,...symbols].sort(() => Math.random()-.5);
-  let first = null, lock = false, pairs = 0, moves = 0;
-  const grid = document.createElement("div");
-  grid.className = "memory-grid";
-  content.appendChild(grid);
-  const info = document.createElement("p");
-  info.className = "game-message";
-  content.appendChild(info);
-  const matched = [];
-
-  cards.forEach((symbol,i) => {
-    const b = document.createElement("button");
-    b.className = "memory-card";
-    b.textContent = "?";
-    b.onclick = () => {
-      if (lock || matched.includes(i) || first === i) return;
-      b.textContent = symbol;
-      if (first === null) first = i;
-      else {
-        moves++;
-        const previous = grid.children[first];
-        if (cards[first] === symbol) {
-          matched.push(first,i);
-          pairs++;
-          first = null;
-          if (pairs === 8) {
-            info.textContent = "You won in " + moves + " moves!";
-            saveRecord("Memory Match", Math.max(1, 100-moves));
-          }
-        } else {
-          lock = true;
-          const old = first;
-          first = null;
-          setTimeout(() => {
-            grid.children[old].textContent = "?";
-            b.textContent = "?";
-            lock = false;
-          }, 700);
-        }
-      }
-      info.textContent = "Pairs: " + pairs + "/8 • Moves: " + moves;
-    };
-    grid.appendChild(b);
-  });
-  button("Restart", startMemory);
-}
-
-/* SPEED TAP */
-function startSpeed() {
-  let score = 0, time = 15, running = false;
-  const info = document.createElement("p");
-  info.className = "game-message";
-  content.appendChild(info);
-  const tap = button("START", () => {
-    if (running) {
-      score++;
-      info.textContent = "Taps: " + score + " | Time: " + time;
-      return;
+  function play(i) {
+    if (finished || board[i]) return;
+    board[i] = turn;
+    const wins = [
+      [0,1,2],[3,4,5],[6,7,8],
+      [0,3,6],[1,4,7],[2,5,8],
+      [0,4,8],[2,4,6]
+    ];
+    draw();
+    if (wins.some(line => line.every(n => board[n] === turn))) {
+      status.textContent = turn + " wins!";
+      finished = true;
+      if (turn === "X") saveRecord("Tic Tac Toe", 1);
+    } else if (board.every(Boolean)) {
+      status.textContent = "It's a draw!";
+      finished = true;
+    } else {
+      turn = turn === "X" ? "O" : "X";
+      status.textContent = "Your turn: " + turn;
     }
-    running = true;
-    score = 0;
-    time = 15;
-    tap.textContent = "TAP FAST!";
-    info.textContent = "Taps: 0 | Time: 15";
-    gameTimer = setInterval(() => {
-      time--;
-      info.textContent = "Taps: " + score + " | Time: " + time;
-      if (time <= 0) {
-        clearInterval(gameTimer);
-        running = false;
-        tap.textContent = "PLAY AGAIN";
-        info.textContent = "Time up! Your score: " + score;
-        saveRecord("Speed Tap", score);
-      }
-    },1000);
-  });
-}
-
-/* CRYSTAL HUNT */
-function startCrystal() {
-  let score = 0, time = 20;
-  const grid = document.createElement("div");
-  grid.className = "memory-grid";
-  content.appendChild(grid);
-  const info = document.createElement("p");
-  info.className = "game-message";
-  content.appendChild(info);
-
-  const cells = [];
-  for (let i=0;i<16;i++) {
-    const b = document.createElement("button");
-    b.className = "memory-card";
-    b.textContent = "⬛";
-    b.onclick = () => {
-      if (b.disabled) return;
-      b.disabled = true;
-      if (b.dataset.crystal === "yes") {
-        b.textContent = "💎";
-        score++;
-      } else b.textContent = "·";
-      info.textContent = "Crystals: " + score + " | Time: " + time;
-    };
-    cells.push(b);
-    grid.appendChild(b);
   }
-  const positions = [...Array(16).keys()].sort(() => Math.random()-.5).slice(0,5);
-  positions.forEach(i => cells[i].dataset.crystal = "yes");
-  info.textContent = "Find the 5 hidden crystals!";
-  gameTimer = setInterval(() => {
-    time--;
-    info.textContent = "Crystals: " + score + " | Time: " + time;
-    if (time <= 0) {
-      clearInterval(gameTimer);
-      cells.forEach(b => {
-        if (b.dataset.crystal === "yes" && b.textContent === "⬛") b.textContent = "💎";
-        b.disabled = true;
-      });
-      info.textContent = "Time up! You found " + score + " crystals.";
-      saveRecord("Crystal Hunt", score);
-    }
-  },1000);
-  button("Restart", startCrystal);
-}
-
-/* BRICK BREAKER: TAP BLOCKS */
-function startBrick() {
-  let score = 0, time = 25;
-  const grid = document.createElement("div");
-  grid.className = "memory-grid";
-  content.appendChild(grid);
-  const info = document.createElement("p");
-  info.className = "game-message";
-  content.appendChild(info);
-
-  for (let i=0;i<16;i++) {
-    const b = document.createElement("button");
-    b.className = "memory-card";
-    b.textContent = "🧱";
-    b.onclick = () => {
-      if (b.disabled) return;
-      b.disabled = true;
-      b.textContent = "💥";
-      score++;
-      info.textContent = "Blocks cleared: " + score + " | Time: " + time;
-    };
-    grid.appendChild(b);
-  }
-  info.textContent = "Tap the blocks to clear them!";
-  gameTimer = setInterval(() => {
-    time--;
-    if (time <= 0) {
-      clearInterval(gameTimer);
-      info.textContent = "Time up! Blocks cleared: " + score;
-      saveRecord("Brick Breaker", score);
-      [...grid.children].forEach(b => b.disabled = true);
-    }
-  },1000);
-  button("Restart", startBrick);
-}
-
-/* NEON RUNNER */
-function startRunner() {
-  let score = 0, over = false;
-  const area = document.createElement("div");
-  area.style.cssText = "background:#07101e;padding:30px;border-radius:12px;font-size:40px";
-  area.innerHTML = "🏃　　🧱";
-  content.appendChild(area);
-  const info = document.createElement("p");
-  info.className = "game-message";
-  content.appendChild(info);
-  const jump = button("JUMP", () => {
-    if (over) return;
-    score++;
-    area.innerHTML = "🏃　　✨";
-    info.textContent = "Distance: " + score;
-    setTimeout(() => { if (!over) area.innerHTML = "🏃　　🧱"; },250);
-  });
-  button("Finish Run", () => {
-    over = true;
-    info.textContent = "Run finished! Distance: " + score;
-    saveRecord("Neon Runner", score);
-  });
-  info.textContent = "Tap JUMP to dodge obstacles and score points!";
+  actionButton("Restart", startTic);
+  draw();
 }
 
 /* 2048 PUZZLE */
 function start2048() {
   let board = Array(16).fill(0);
   let score = 0;
-  function addTile() {
-    const empty = board.map((v,i) => v ? -1 : i).filter(i => i >= 0);
-    if (empty.length) board[empty[Math.floor(Math.random()*empty.length)]] = Math.random() < .9 ? 2 : 4;
-  }
-  addTile(); addTile();
+  const status = message("Score: 0");
   const grid = document.createElement("div");
   grid.className = "tile-grid";
-  content.appendChild(grid);
-  const info = document.createElement("p");
-  info.className = "game-message";
-  content.appendChild(info);
+  $("gameContent").appendChild(grid);
 
-  function render() {
+  function addTile() {
+    const empty = board.map((v,i) => v === 0 ? i : -1).filter(i => i >= 0);
+    if (empty.length) board[empty[Math.floor(Math.random()*empty.length)]] =
+      Math.random() < 0.9 ? 2 : 4;
+  }
+  function draw() {
     grid.innerHTML = "";
     board.forEach(v => {
-      const cell = document.createElement("div");
-      cell.className = "tile" + (v ? " filled" : "");
-      cell.textContent = v || "";
-      grid.appendChild(cell);
+      const tile = document.createElement("div");
+      tile.className = "tile" + (v ? " filled" : "");
+      tile.textContent = v || "";
+      grid.appendChild(tile);
     });
-    info.textContent = "Score: " + score;
+    status.textContent = "Score: " + score;
   }
-
   function move(direction) {
-    let changed = false;
-    for (let line=0;line<4;line++) {
-      let indices = [];
-      for (let j=0;j<4;j++) {
-        const r = direction === "up" ? j : direction === "down" ? 3-j : line;
-        const c = direction === "left" ? j : direction === "right" ? 3-j : line;
-        indices.push(r*4+c);
+    const old = board.join(",");
+    for (let n = 0; n < 4; n++) {
+      let indexes = [];
+      for (let k = 0; k < 4; k++) {
+        if (direction === "left") indexes.push(n*4+k);
+        if (direction === "right") indexes.push(n*4+3-k);
+        if (direction === "up") indexes.push(k*4+n);
+        if (direction === "down") indexes.push((3-k)*4+n);
       }
-      if (direction === "up" || direction === "down") indices = indices.map((_,j) => (direction === "up" ? j*4+line : (3-j)*4+line));
-      const old = indices.map(i => board[i]);
-      let vals = old.filter(Boolean);
-      for (let j=0;j<vals.length-1;j++) {
-        if (vals[j] === vals[j+1]) {
-          vals[j] *= 2;
-          score += vals[j];
-          vals.splice(j+1,1);
+      let values = indexes.map(i => board[i]).filter(v => v);
+      let merged = [];
+      for (let i = 0; i < values.length; i++) {
+        if (values[i] === values[i+1]) {
+          merged.push(values[i]*2);
+          score += values[i]*2;
+          i++;
+        } else merged.push(values[i]);
+      }
+      while (merged.length < 4) merged.push(0);
+      indexes.forEach((idx,i) => board[idx] = merged[i]);
+    }
+    if (old !== board.join(",")) addTile();
+    draw();
+    if (board.includes(2048)) status.textContent = "Amazing! You reached 2048!";
+    if (old !== board.join(",")) saveRecord("2048 Puzzle", score);
+  }
+  ["up","left","down","right"].forEach(d =>
+    actionButton(d.toUpperCase(), () => move(d)));
+  addTile(); addTile(); draw();
+}
+
+/* MEMORY MATCH */
+function startMemory() {
+  const symbols = ["🎮","⭐","🚀","💎","🎯","🔥","👾","🏆"];
+  let cards = [...symbols,...symbols].sort(() => Math.random()-.5);
+  let first = null, lock = false, matched = 0, moves = 0;
+  const status = message("Find all matching pairs!");
+  const grid = document.createElement("div");
+  grid.className = "memory-grid";
+  $("gameContent").appendChild(grid);
+
+  cards.forEach((symbol,i) => {
+    const b = document.createElement("button");
+    b.className = "memory-card";
+    b.textContent = "?";
+    b.addEventListener("click", () => {
+      if (lock || b.dataset.open || b.dataset.done) return;
+      b.textContent = symbol;
+      b.dataset.open = "yes";
+      if (first === null) {
+        first = {b, symbol};
+      } else {
+        moves++;
+        if (first.symbol === symbol) {
+          first.b.dataset.done = "yes";
+          b.dataset.done = "yes";
+          first = null;
+          matched += 2;
+          status.textContent = "Moves: " + moves;
+          if (matched === 16) {
+            status.textContent = "You won! Moves: " + moves;
+            saveRecord("Memory Match", Math.max(1, 100-moves));
+          }
+        } else {
+          const previous = first.b;
+          first = null;
+          lock = true;
+          setTimeout(() => {
+            previous.textContent = "?";
+            b.textContent = "?";
+            delete previous.dataset.open;
+            delete b.dataset.open;
+            lock = false;
+          }, 700);
+          status.textContent = "Moves: " + moves;
         }
       }
-      while (vals.length<4) vals.push(0);
-      indices.forEach((idx,j) => {
-        if (board[idx] !== vals[j]) changed = true;
-        board[idx] = vals[j];
-      });
-    }
-    if (changed) addTile();
-    render();
-    if (board.includes(2048)) {
-      info.textContent = "You reached 2048! Score: " + score;
-      saveRecord("2048 Puzzle", score);
-    }
-  }
-
-  ["up","down","left","right"].forEach(dir => button(dir.toUpperCase(), () => move(dir)));
-  render();
-  button("Restart", start2048);
-}
-
-/* NEON SNAKE */
-function startSnake() {
-  let snake = [42,41,40], dir = 1, food = 55, score = 0, over = false;
-  const grid = document.createElement("div");
-  grid.className = "tile-grid";
-  grid.style.gridTemplateColumns = "repeat(10,1fr)";
-  content.appendChild(grid);
-  const cells = [];
-  for (let i=0;i<100;i++) {
-    const cell = document.createElement("div");
-    cell.className = "tile";
-    cell.style.aspectRatio = "1";
-    cells.push(cell);
-    grid.appendChild(cell);
-  }
-  const info = document.createElement("p");
-  info.className = "game-message";
-  content.appendChild(info);
-
-  function render() {
-    cells.forEach(c => c.textContent = "");
-    snake.forEach(i => { if(cells[i]) cells[i].textContent = "🟦"; });
-    cells[food].textContent = "💎";
-    info.textContent = "Score: " + score;
-  }
-  function step() {
-    if (over) return;
-    const head = snake[0];
-    let next = head + dir;
-    if (next < 0 || next >= 100 ||
-        (dir === 1 && head%10 === 9) ||
-        (dir === -1 && head%10 === 0) ||
-        snake.includes(next)) {
-      over = true;
-      clearInterval(gameTimer);
-      info.textContent = "Game over! Score: " + score;
-      saveRecord("Neon Snake", score);
-      return;
-    }
-    snake.unshift(next);
-    if (next === food) {
-      score++;
-      food = Math.floor(Math.random()*100);
-      while(snake.includes(food)) food = Math.floor(Math.random()*100);
-    } else snake.pop();
-    render();
-  }
-  [["⬆", -10],["⬅",-1],["⬇",10],["➡",1]].forEach(([label,d]) => {
-    button(label, () => {
-      if (d === -dir) return;
-      dir = d;
     });
+    grid.appendChild(b);
   });
-  render();
-  gameTimer = setInterval(step,350);
+  actionButton("Restart", startMemory);
 }
 
+/* BRICK BREAKER */
+function startBrick() {
+  let score = 0;
+  const status = message("Tap every block to clear the board!");
+  const grid = document.createElement("div");
+  grid.className = "game-board";
+  grid.style.gridTemplateColumns = "repeat(4,1fr)";
+  $("gameContent").appendChild(grid);
+  for (let i=0;i<16;i++) {
+    const b = document.createElement("button");
+    b.textContent = "🧱";
+    b.addEventListener("click", () => {
+      if (b.disabled) return;
+      b.disabled = true;
+      b.textContent = "✨";
+      score++;
+      status.textContent = "Blocks cleared: " + score + "/16";
+      if (score === 16) {
+        status.textContent = "Level complete!";
+        saveRecord("Brick Breaker", score);
+      }
+    });
+    grid.appendChild(b);
+  }
+  actionButton("Restart", startBrick);
+}
+
+/* NEON RUNNER */
+function startRunner() {
+  let score = 0;
+  let playing = true;
+  const status = message("Tap JUMP to collect points!");
+  const player = document.createElement("div");
+  player.style.fontSize = "55px";
+  player.textContent = "🏃";
+  $("gameContent").appendChild(player);
+  actionButton("JUMP", () => {
+    if (!playing) return;
+    score++;
+    status.textContent = "Distance: " + score;
+    player.textContent = score % 2 ? "🦘" : "🏃";
+  });
+  actionButton("Finish Run", () => {
+    playing = false;
+    status.textContent = "Run finished! Score: " + score;
+    saveRecord("Neon Runner", score);
+  });
+}
+
+/* SPEED TAP */
+function startSpeed() {
+  let score = 0, time = 10, playing = true;
+  const status = message("Tap as fast as you can! Time: 10");
+  const tap = actionButton("TAP ⚡", () => {
+    if (!playing) return;
+    score++;
+    status.textContent = "Taps: " + score + " | Time: " + time;
+  });
+  gameTimer = setInterval(() => {
+    time--;
+    status.textContent = "Taps: " + score + " | Time: " + time;
+    if (time <= 0) {
+      stopGame();
+      playing = false;
+      tap.disabled = true;
+      status.textContent = "Time up! Your score: " + score;
+      saveRecord("Speed Tap", score);
+    }
+  }, 1000);
+  actionButton("Restart", startSpeed);
+}
+
+/* CRYSTAL HUNT */
+function startCrystal() {
+  let target = Math.floor(Math.random()*9);
+  let tries = 5, found = false;
+  const status = message("Find the hidden crystal! Attempts: 5");
+  const grid = document.createElement("div");
+  grid.className = "game-board";
+  grid.style.gridTemplateColumns = "repeat(3,1fr)";
+  $("gameContent").appendChild(grid);
+
+  for (let i=0;i<9;i++) {
+    const b = document.createElement("button");
+    b.textContent = "❔";
+    b.addEventListener("click", () => {
+      if (found || b.disabled) return;
+      b.disabled = true;
+      if (i === target) {
+        b.textContent = "💎";
+        found = true;
+        status.textContent = "You found the crystal!";
+        saveRecord("Crystal Hunt", tries);
+      } else {
+        b.textContent = "❌";
+        tries--;
+        status.textContent = "Try again! Attempts: " + tries;
+        if (tries === 0) status.textContent = "Game over! Try again.";
+      }
+    });
+    grid.appendChild(b);
+  }
+  actionButton("Restart", startCrystal);
+}
+
+/* MEMBERSHIP */
 function membershipRequest() {
-  const subject = encodeURIComponent("Cove Gamerz Membership Interest");
-  const body = encodeURIComponent("Hello Cove Gamerz, I would like to receive updates about future membership features.");
-  location.href = `mailto:${BUSINESS_EMAIL}?subject=${subject}&body=${body}`;
+  location.href = "mailto:" + BUSINESS_EMAIL +
+    "?subject=" + encodeURIComponent("Cove Gamerz Membership Interest");
 }
 
-document.getElementById("collabForm").addEventListener("submit", e => {
+/* COLLAB FORM */
+$("collabForm")?.addEventListener("submit", e => {
   e.preventDefault();
-  const name = document.getElementById("collabName").value;
-  const link = document.getElementById("collabLink").value;
-  const type = document.getElementById("collabType").value;
-  const idea = document.getElementById("collabIdea").value;
-  const subject = encodeURIComponent("Cove Gamerz Collaboration Request");
-  const body = encodeURIComponent(`Name: ${name}\nLink: ${link}\nType: ${type}\nIdea: ${idea}`);
-  location.href = `mailto:${BUSINESS_EMAIL}?subject=${subject}&body=${body}`;
+  const body =
+    "Name: " + $("collabName").value +
+    "\nLink: " + $("collabLink").value +
+    "\nType: " + $("collabType").value +
+    "\nIdea: " + $("collabIdea").value;
+  location.href = "mailto:" + BUSINESS_EMAIL +
+    "?subject=" + encodeURIComponent("Collaboration Request") +
+    "&body=" + encodeURIComponent(body);
 });
 
-document.getElementById("contactForm").addEventListener("submit", e => {
+/* CONTACT FORM */
+$("contactForm")?.addEventListener("submit", e => {
   e.preventDefault();
-  const name = document.getElementById("contactName").value;
-  const email = document.getElementById("contactEmail").value;
-  const msg = document.getElementById("contactMessage").value;
-  const subject = encodeURIComponent("Cove Gamerz Website Message");
-  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nMessage: ${msg}`);
-  location.href = `mailto:${BUSINESS_EMAIL}?subject=${subject}&body=${body}`;
+  const body =
+    "Name: " + $("contactName").value +
+    "\nEmail: " + $("contactEmail").value +
+    "\nMessage: " + $("contactMessage").value;
+  location.href = "mailto:" + BUSINESS_EMAIL +
+    "?subject=" + encodeURIComponent("Cove Gamerz Contact") +
+    "&body=" + encodeURIComponent(body);
 });
-
-modal.addEventListener("click", e => {
-  if (e.target === modal) closeGame();
-});
-        </script>
-        
+</script>
+</body>
+</html>
