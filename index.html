@@ -1,316 +1,381 @@
-
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="eBDq-2G-L2hWg76ZO6cXrPeWpO4SRLJ6_1yCybVyHk0">
-<meta name="description" content="Cove Gamerz - Play, compete, create and earn.">
-<meta name="theme-color" content="#080d18">
-<title>Cove Gamerz | Gaming Universe</title>
+<meta name="description" content="Cove Gamerz - Play games, create games and join our gaming community.">
+<title>Cove Gamerz - Play Create Dominate</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#080d18;--panel:#101b2d;--panel2:#14243a;--cyan:#22d3ee;--blue:#387bff;--text:#f4f8ff;--muted:#a8b6ca}
-*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#070b14;--panel:#101b2c;--blue:#00d9ff;--white:#f4f8ff;--muted:#9aacc2;--line:#263e58;--green:#29df91;--red:#ff657b}
+*{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:Arial,sans-serif;color:var(--text);background:radial-gradient(ellipse at 15% 10%,#102d4a,transparent 40%),radial-gradient(ellipse at 85% 65%,#10263d,transparent 40%),var(--bg);min-height:100vh}
-button,input,textarea{font:inherit}
-button,a{cursor:pointer}
-a{color:inherit;text-decoration:none}
-header{position:sticky;top:0;z-index:20;background:#080d18ee;backdrop-filter:blur(14px);border-bottom:1px solid #20344e}
-.nav{max-width:1200px;margin:auto;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
-.logo{font-size:24px;font-weight:900;letter-spacing:1px}.logo span{color:var(--cyan)}
-nav{display:flex;gap:13px;flex-wrap:wrap}nav a{font-size:13px;color:#c7d5e8}nav a:hover{color:var(--cyan)}
-.hero{max-width:1200px;margin:auto;padding:75px 20px 50px;text-align:center}
-.tag{display:inline-block;border:1px solid #245d77;background:#10283a;color:var(--cyan);padding:8px 14px;border-radius:30px;font-size:12px;letter-spacing:2px}
-.hero h1{font-size:clamp(38px,8vw,72px);margin:22px 0 15px;line-height:1.05}
-.hero h1 span{color:var(--cyan);text-shadow:0 0 30px #22d3ee66}
-.hero p{color:var(--muted);max-width:650px;margin:auto;line-height:1.7}
-.hero-buttons,.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
-.btn,button{border:0;border-radius:9px;padding:12px 16px;font-weight:bold}
-.btn{display:inline-block;background:linear-gradient(110deg,var(--cyan),#3985ff);color:#06111d}
-.btn.secondary,button.secondary{color:white;background:#172940;border:1px solid #31516f}
-button{background:var(--cyan);color:#06111d}
-button.danger{background:#a83248;color:white}
+body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,sans-serif}
+header{position:sticky;top:0;z-index:20;background:#080e1bf2;border-bottom:1px solid var(--line);padding:14px 5%;display:flex;align-items:center;justify-content:space-between;gap:15px;backdrop-filter:blur(12px)}
+.logo{font-size:22px;font-weight:900;color:var(--blue);text-shadow:0 0 15px #00d9ff88}
+nav{display:flex;flex-wrap:wrap;gap:14px}
+nav a{color:white;text-decoration:none;font-size:13px}
+nav a:hover{color:var(--blue)}
+.hero{text-align:center;padding:80px 15px 65px;background:radial-gradient(ellipse at 50% 0%,#164a70 0%,#070b14 68%);animation:appear 1s}
+@keyframes appear{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+.hero h1{font-size:clamp(36px,7vw,68px);margin:0 0 15px}
+.hero h1 span{color:var(--blue);text-shadow:0 0 20px #00d9ff66}
+.hero p{color:var(--muted)}
+.wrap{max-width:1150px;margin:auto;padding:25px 16px}
+.section{margin:35px 0;scroll-margin-top:90px}
+h2{font-size:25px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px}
+.card{background:linear-gradient(145deg,#14243a,#0c1422);border:1px solid var(--line);border-radius:15px;padding:19px;min-width:0;transition:.2s}
+.card:hover{border-color:var(--blue);box-shadow:0 0 18px #00d9ff22;transform:translateY(-3px)}
+.icon{font-size:38px}
+.muted{color:var(--muted);font-size:13px;line-height:1.5}
+button{background:var(--blue);color:#00121a;border:0;padding:11px 16px;border-radius:8px;font-weight:bold;cursor:pointer;margin:4px 3px 4px 0}
+button:hover{filter:brightness(1.15)}
 button:disabled{opacity:.5;cursor:not-allowed}
-.section{max-width:1200px;margin:auto;padding:42px 20px;scroll-margin-top:85px}
-.section-heading{margin-bottom:20px}.section-heading h2{font-size:29px}
-.section-heading p,.muted{color:var(--muted);margin-top:8px;line-height:1.6}
-.stats,.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:20px}
-.stat,.card,.feature{padding:20px;background:linear-gradient(145deg,#14243a,#0d1727);border:1px solid #233d59;border-radius:15px}
-.stat strong{display:block;color:var(--cyan);font-size:25px;margin-bottom:5px}
-.stat span{color:var(--muted);font-size:13px}
-.game-card{background:linear-gradient(145deg,#14243a,#0d1727);border:1px solid #233d59;border-radius:15px;overflow:hidden;transition:.2s}
-.game-card:hover{transform:translateY(-4px);border-color:var(--cyan)}
-.game-art{height:115px;display:grid;place-items:center;font-size:55px;background:radial-gradient(circle,#214b69,#101b2d 70%)}
-.game-info{padding:15px}.game-info p,.card p,.feature p{color:var(--muted);font-size:13px;line-height:1.6;margin:8px 0}
-.game-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px}
-.category{color:var(--cyan);font-size:12px}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
-input,textarea{width:100%;padding:13px;margin:7px 0 14px;background:#080f1e;border:1px solid #34445f;border-radius:8px;color:white}
-textarea{min-height:85px;resize:vertical}
-label{font-size:13px;color:#cbd7ed}
-.panel{max-width:700px;margin:15px auto}
+.secondary{background:#203650;color:white;border:1px solid #3c5875}
+.danger{background:#a82b43;color:white}
+.success{background:#167e59;color:white}
+input,textarea,select{width:100%;background:#091321;color:white;border:1px solid #38516c;border-radius:8px;padding:12px;margin:6px 0 12px;font:inherit}
+textarea{min-height:90px;resize:vertical}
+label{font-size:13px;color:#c6d4e5}
+.notice{padding:12px;border-radius:9px;background:#122b3c;color:#bdefff;margin:12px 0;font-size:13px}
+.status{font-size:13px;color:var(--muted);white-space:pre-wrap}
+.gamebox{display:none;background:#0c1625;border:1px solid #31506c;border-radius:15px;padding:20px;margin-top:20px;text-align:center}
+.gamebox.show{display:block}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;max-width:300px;margin:15px auto}
+.cell{height:85px;font-size:30px;background:#203650;color:white}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:330px;margin:15px auto}
+.tile{height:65px;background:#203650;color:white;display:grid;place-items:center;border-radius:8px;font-size:20px;font-weight:bold}
+.memory{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-width:330px;margin:15px auto}
+.memory button{height:65px;font-size:22px;padding:0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+td,th{padding:10px;border-bottom:1px solid var(--line);text-align:left}
+footer{text-align:center;padding:35px;color:var(--muted);border-top:1px solid var(--line);margin-top:40px}
+.pill{display:inline-block;border:1px solid #31516d;border-radius:20px;padding:5px 9px;color:var(--blue);font-size:11px}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
 .hidden{display:none!important}
-.status{display:inline-block;padding:5px 10px;border-radius:20px;background:#23344e;color:var(--cyan);font-size:12px;margin:8px 0}
-.notice{padding:13px;border-radius:9px;background:#15243b;color:#c6d7ef;margin:12px 0;line-height:1.6;font-size:13px}
-.small{font-size:12px;color:var(--muted);line-height:1.6}
-.score-row,.leader-row{display:grid;grid-template-columns:45px 1fr auto;gap:10px;align-items:center;padding:14px;border-bottom:1px solid #233d59}
-.leader-row:last-child{border:0}
-.rank{font-size:21px}.leader-name{font-weight:bold}.leader-sub{font-size:11px;color:var(--muted);margin-top:4px}
-.money{color:var(--cyan);font-weight:bold;text-align:right}
-.score-box{background:#101b2d;border:1px solid #233d59;border-radius:12px;overflow:hidden}
-.game-message{color:var(--cyan);margin:12px 0;min-height:24px;text-align:center}
-.ttt-grid,.memory-grid,.tile-grid{display:grid;justify-content:center;gap:8px;margin:20px auto}
-.ttt-grid{grid-template-columns:repeat(3,70px)}
-.ttt-cell{height:70px;background:#172940;color:var(--cyan);font-size:27px}
-.memory-grid,.tile-grid{grid-template-columns:repeat(4,58px)}
-.memory-cell,.tile{height:56px;background:#1b3c55;color:white;border-radius:8px;display:grid;place-items:center;font-size:21px}
-.tap-target{width:130px;height:130px;border-radius:50%;margin:20px auto;display:block}
-.modal{display:none;position:fixed;inset:0;z-index:50;background:#000c;padding:15px;align-items:center;justify-content:center}
-.modal.show{display:flex}
-.modal-box{width:min(600px,100%);max-height:90vh;overflow:auto;background:#101b2d;border:1px solid #2a5874;border-radius:18px;padding:22px}
-.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.close{background:#26384d;color:white}
-footer{text-align:center;padding:30px 20px;color:var(--muted);border-top:1px solid #20344e;line-height:1.8}
-@media(max-width:600px){.nav{justify-content:center}nav{justify-content:center;gap:10px}.hero{padding-top:50px}.section-heading h2{font-size:25px}.leader-row{grid-template-columns:35px 1fr auto}}
+@media(max-width:650px){header{align-items:flex-start;flex-direction:column}nav{gap:11px}.hero{padding:55px 12px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.card{padding:13px}.card button{font-size:11px;padding:10px}}
+@media(max-width:390px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<header><div class="nav">
-<a href="#home" class="logo">COVE <span>GAMERZ</span></a>
-<nav>
-<a href="#home">Home</a><a href="#games">Games</a><a href="#leaderboard">Leaderboard</a><a href="#creator">Creator</a><a href="#premium">Premium</a><a href="#account">Account</a><a href="editing.html">Editing Studio</a>
-</nav>
-</div></header>
 
-<main>
+<header>
+<div class="logo">⚡ COVE GAMERZ</div>
+<nav>
+<a href="#home">Home</a>
+<a href="#games">Games</a>
+<a href="#community">Community</a>
+<a href="#creator">Creator</a>
+<a href="#leaderboard">Leaderboard</a>
+<a href="#premium">Premium</a>
+<a href="#account">Account</a>
+<a href="editing.html">Editing Studio</a>
+</nav>
+</header>
+
 <section class="hero" id="home">
-<span class="tag">WELCOME TO THE GAMING UNIVERSE</span>
-<h1>PLAY. COMPETE.<br><span>LEVEL UP.</span></h1>
-<p>Play games, discover creators, compete on leaderboards and join the Cove Gamerz community.</p>
-<div class="hero-buttons"><a class="btn" href="#games">EXPLORE GAMES</a><a class="btn secondary" href="#creator">BECOME A CREATOR</a></div>
-<div class="stats">
-<div class="stat"><strong>06+</strong><span>Built-in Games</span></div>
-<div class="stat"><strong>FREE</strong><span>Free Games</span></div>
-<div class="stat"><strong>CREATE</strong><span>Creator Community</span></div>
-<div class="stat"><strong>🏆 TOP</strong><span>Creator Leaderboard</span></div>
-</div>
+<div class="pill">WELCOME TO COVE GAMERZ</div>
+<h1>PLAY. <span>CREATE.</span><br>DOMINATE.</h1>
+<p>Discover games. Share your creations. Join the community.</p>
+<button onclick="go('games')">EXPLORE GAMES</button>
+<button class="secondary" onclick="go('creator')">BECOME A CREATOR</button>
 </section>
+
+<main class="wrap">
 
 <section class="section" id="games">
-<div class="section-heading"><h2>🎮 Gaming Arena</h2><p>Choose a game and challenge yourself.</p></div>
-<div class="toolbar">
-<input id="search" type="search" placeholder="Search games...">
-<button class="filter" data-filter="All">All</button>
-<button class="secondary filter" data-filter="Puzzle">Puzzle</button>
-<button class="secondary filter" data-filter="Arcade">Arcade</button>
-<button class="secondary filter" data-filter="Skill">Skill</button>
-</div>
-<div class="grid" id="gameGrid"></div>
-<h3 style="margin-top:35px">🌐 Community Games</h3>
-<div class="grid" id="communityGames"></div>
-<p id="noGames" class="small hidden">No games found.</p>
-</section>
-
-<section class="section" id="leaderboard">
-<div class="section-heading"><h2>🏆 Creator Leaderboard</h2><p>Creators ranked by recorded earnings. Popular games ranked by recorded plays.</p></div>
+<h2>🎮 Play Games</h2>
+<p class="muted">Choose a game and start playing.</p>
 <div class="grid">
-<div class="card"><h3>💰 Top Creators</h3><p>Highest recorded creator earnings.</p><div id="creatorBoard" class="score-box"><div class="score-row">Loading...</div></div></div>
-<div class="card"><h3>🔥 Top Games</h3><p>Most played community games.</p><div id="gameBoard" class="score-box"><div class="score-row">Loading...</div></div></div>
+<div class="card"><div class="icon">⭕</div><h3>Tic Tac Toe</h3><p class="muted">Classic two-player game.</p><button onclick="openGame('tic')">PLAY</button></div>
+<div class="card"><div class="icon">🔢</div><h3>2048</h3><p class="muted">Join numbers to reach 2048.</p><button onclick="openGame('2048')">PLAY</button></div>
+<div class="card"><div class="icon">🧠</div><h3>Memory Match</h3><p class="muted">Find all matching pairs.</p><button onclick="openGame('memory')">PLAY</button></div>
+<div class="card"><div class="icon">⚡</div><h3>Speed Tap</h3><p class="muted">Tap as quickly as possible.</p><button onclick="openGame('tap')">PLAY</button></div>
+<div class="card"><div class="icon">💎</div><h3>Crystal Hunt</h3><p class="muted">Find the hidden crystal.</p><button onclick="openGame('crystal')">PLAY</button></div>
+<div class="card"><div class="icon">⏱️</div><h3>Reaction Test</h3><p class="muted">Test your reaction speed.</p><button onclick="openGame('reaction')">PLAY</button></div>
 </div>
-<p class="small" style="margin-top:12px">Leaderboard data comes from the database. Earnings are recorded by the admin; they are not automatic cash payments.</p>
-<button class="secondary" onclick="loadLeaderboard()">REFRESH LEADERBOARD</button>
+
+<div class="gamebox" id="gameArea">
+<h2 id="gameTitle">Game</h2>
+<div id="gameContent"></div>
+<button class="secondary" onclick="closeGame()">CLOSE GAME</button>
+</div>
 </section>
 
-<section class="section" id="creator">
-<div class="section-heading"><h2>🚀 Creator Studio</h2><p>Submit your game and let the admin review it.</p></div>
-<div class="card panel">
-<div id="creatorLocked" class="notice">Login first to submit your game.</div>
-<div id="creatorForm" class="hidden">
-<label>Game Title</label><input id="gameTitle" maxlength="80" placeholder="Your game name">
-<label>Description</label><textarea id="gameDescription" maxlength="500" placeholder="Describe your game"></textarea>
-<label>Playable Game URL</label><input id="gameURL" type="url" placeholder="https://example.com/game">
-<button id="submitGameBtn" onclick="submitGame()">SUBMIT FOR APPROVAL</button>
-<p class="small">Only submit games you created or have permission to share. This version accepts game links, not game file uploads.</p>
-</div></div>
-</section>
-
-<section class="section hidden" id="dashboard">
-<div class="section-heading"><h2>📊 Creator Dashboard</h2><p>Your games, recorded earnings and payout requests.</p></div>
-<div class="grid">
-<div class="stat"><strong id="myEarnings">₹0</strong><span>Your recorded earnings</span></div>
-<div class="stat"><strong id="myGameCount">0</strong><span>Your submitted games</span></div>
-</div>
-<h3 style="margin-top:25px">My Games</h3><div id="myGames" class="grid"></div>
-<div class="card panel">
-<h3>Request a Payout</h3>
-<p class="small">This sends a request to the admin. It does not transfer money. Only request an amount that has actually been earned and approved.</p>
-<label>Amount in ₹</label><input id="payoutAmount" type="number" min="1" max="100000" placeholder="Enter amount">
-<button onclick="requestPayout()">SEND REQUEST</button>
-</div>
-<h3>My Payout Requests</h3><div id="myPayouts" class="grid"></div>
-</section>
-
-<section class="section hidden" id="admin">
-<div class="section-heading"><h2>🛡️ Admin Control Panel</h2><p>Review games, record creator earnings and manage payout requests.</p></div>
-<h3>Pending Games</h3><div id="pendingGames" class="grid"></div>
-<div class="card panel">
-<h3>➕ Record Creator Earnings</h3>
-<p class="small">Enter the creator's User ID from their submitted game card. This records earnings for the leaderboard; it does not send money.</p>
-<label>Creator User ID</label><input id="earningCreator" placeholder="Paste creator UUID">
-<label>Amount in ₹</label><input id="earningAmount" type="number" min="1" max="1000000" placeholder="Amount">
-<label>Reason / Note</label><input id="earningNote" maxlength="150" placeholder="Example: Monthly creator reward">
-<button onclick="addEarning()">ADD EARNING RECORD</button>
-</div>
-<h3 style="margin-top:28px">Payout Requests</h3><div id="adminPayouts" class="grid"></div>
-</section>
-
-<section class="section" id="premium">
-<div class="section-heading"><h2>⭐ Cove Gamerz Premium</h2><p>Proposed membership plans. Payments are not active yet.</p></div>
-<div class="grid">
-<div class="card"><h3>Monthly</h3><h2>₹49</h2><p>Proposed monthly membership.</p></div>
-<div class="card"><h3>Quarterly</h3><h2>₹129</h2><p>Proposed three-month membership.</p></div>
-<div class="card"><h3>Yearly</h3><h2>₹399</h2><p>Proposed yearly membership.</p></div>
-</div>
-<div class="notice">Premium subscriptions, payments and exclusive access are not active. No money is collected on this page.</div>
-<button disabled>PREMIUM COMING SOON</button>
+<section class="section" id="community">
+<h2>🌐 Community Games</h2>
+<p class="muted">Games approved by the admin appear here.</p>
+<div class="grid" id="communityGames"><div class="card">Loading community games...</div></div>
 </section>
 
 <section class="section" id="account">
-<div class="section-heading"><h2>👤 Your Account</h2><p>Create an account or login to access Creator Studio.</p></div>
-<div class="card panel" id="authBox">
-<label>Email</label><input id="email" type="email" autocomplete="email" placeholder="Your email">
-<label>Password</label><input id="password" type="password" autocomplete="current-password" placeholder="At least 6 characters">
-<div class="actions"><button onclick="signUp()">SIGN UP</button><button class="secondary" onclick="signIn()">LOGIN</button></div>
-<p class="small">Email confirmation may be required.</p>
+<h2>👤 Account</h2>
+<div class="card">
+<div id="loggedOut">
+<h3>Create account / Login</h3>
+<label>Email</label><input id="email" type="email" placeholder="Your email">
+<label>Password</label><input id="password" type="password" placeholder="Password">
+<label>Username</label><input id="username" placeholder="Username (for signup)">
+<button onclick="signUp()">SIGN UP</button>
+<button class="secondary" onclick="signIn()">LOGIN</button>
+<p class="status" id="authStatus"></p>
+<p class="muted">Signup ke baad email confirmation maanga ja sakta hai. Inbox aur spam folder check karein.</p>
 </div>
-<div class="card panel hidden" id="userBox">
-<h3 id="welcome">Welcome!</h3><p id="userEmail" class="muted"></p><span id="userRole" class="status"></span>
-<div class="actions"><button onclick="signOut()">LOGOUT</button></div>
+<div id="loggedIn" class="hidden">
+<h3 id="welcome"></h3>
+<p class="muted" id="userRole"></p>
+<button class="secondary" onclick="signOut()">LOGOUT</button>
 </div>
-<div id="message" class="notice hidden" role="status"></div>
+</div>
 </section>
 
-<section class="section" id="scores">
-<div class="section-heading"><h2>🎯 Your Best Scores</h2><p>Saved on this device only.</p></div>
-<div class="score-box" id="scoreBoard"></div>
-<button class="secondary" style="margin-top:12px" onclick="clearScores()">CLEAR SCORES</button>
+<section class="section" id="creator">
+<h2>🕹️ Creator Studio</h2>
+<div class="card">
+<h3>Submit Your Game</h3>
+<p class="muted">Apne game ka playable HTTPS link submit karo. Admin approval ke baad game community mein dikhega.</p>
+<label>Game title</label><input id="gameTitleInput" placeholder="Your game name">
+<label>Description</label><textarea id="gameDescription" placeholder="Describe your game"></textarea>
+<label>Game URL (HTTPS)</label><input id="gameUrl" type="url" placeholder="https://example.com/game">
+<button onclick="submitGame()">SUBMIT GAME</button>
+<p class="status" id="submitStatus"></p>
+</div>
+<div class="card" style="margin-top:15px">
+<h3>My Creator Dashboard</h3>
+<div id="creatorDashboard"><p class="muted">Login to see your submitted games.</p></div>
+</div>
 </section>
 
-<section class="section"><div class="feature">
-<h2>🤝 Work With Cove Gamerz</h2><p>For collaborations and suggestions, contact our team.</p>
-<a class="btn" href="mailto:covegamerz959@gmail.com">CONTACT US</a>
-</div></section>
+<section class="section" id="leaderboard">
+<h2>🏆 Creator Leaderboard</h2>
+<div class="card">
+<p class="muted">Published games ke recorded plays ke basis par.</p>
+<div id="leaderboardData">Login/connect hone par leaderboard load hoga.</div>
+</div>
+</section>
+
+<section class="section" id="admin">
+<h2>🛡️ Admin Panel</h2>
+<div class="card">
+<p class="muted">Admin role wale account ke liye.</p>
+<div id="adminPanel"><p class="muted">Admin login karein.</p></div>
+</div>
+</section>
+
+<section class="section" id="payout">
+<h2>💰 Payout Requests</h2>
+<div class="card">
+<p class="muted">Creators apni payout request record kar sakte hain. Filhaal bank transfer nahi hota.</p>
+<label>Requested amount (₹)</label><input id="payoutAmount" type="number" min="1" placeholder="Amount">
+<button onclick="requestPayout()">SEND PAYOUT REQUEST</button>
+<p class="status" id="payoutStatus"></p>
+<div id="payoutHistory"></div>
+</div>
+</section>
+
+<section class="section" id="premium">
+<h2>⭐ Cove Gamerz Premium</h2>
+<div class="grid">
+<div class="card"><div class="icon">🥉</div><h3>Monthly</h3><h2>₹49</h2><p class="muted">Proposed monthly plan.</p><button onclick="premiumInfo()">VIEW PLAN</button></div>
+<div class="card"><div class="icon">🥈</div><h3>Quarterly</h3><h2>₹129</h2><p class="muted">Proposed 3-month plan.</p><button onclick="premiumInfo()">VIEW PLAN</button></div>
+<div class="card"><div class="icon">🥇</div><h3>Yearly</h3><h2>₹399</h2><p class="muted">Proposed yearly plan.</p><button onclick="premiumInfo()">VIEW PLAN</button></div>
+</div>
+<div class="notice">Ye proposed prices hain. Abhi payment gateway connected nahi hai, isliye koi payment charge nahi hogi aur Premium status automatically activate nahi hoga.</div>
+</section>
+
 </main>
 
-<footer><strong class="logo">COVE <span>GAMERZ</span></strong><br>Play. Compete. Create.<br>© <span id="year"></span> Cove Gamerz</footer>
-
-<div class="modal" id="gameModal" role="dialog" aria-modal="true">
-<div class="modal-box">
-<div class="modal-head"><h2 id="modalTitle">Game</h2><button class="close" onclick="closeGame()">CLOSE ✕</button></div>
-<div id="gameContent"></div>
-</div></div>
+<footer>© 2026 Cove Gamerz | Play responsibly.</footer>
 
 <script>
-/* Public browser key only. Never paste a Supabase Secret/service_role key here. */
+/* SUPABASE CONFIG */
 const SUPABASE_URL="https://juiszmrjjgllrblpdisq.supabase.co";
 const SUPABASE_KEY="sb_publishable_83QNB8pE4497gzx104hQUw_YKPsi_Nh";
-const $=id=>document.getElementById(id);
-let db=null,currentUser=null,currentProfile=null,activeFilter="All";
-let reactionTimer=null,speedTimer=null;
-const builtInGames=[
-{id:"tic",name:"Tic Tac Toe",category:"Puzzle",icon:"⭕",desc:"Play against the computer."},
-{id:"2048",name:"2048 Puzzle",category:"Puzzle",icon:"🔢",desc:"Combine numbers to reach 2048."},
-{id:"memory",name:"Memory Match",category:"Puzzle",icon:"🧠",desc:"Find matching pairs."},
-{id:"speed",name:"Speed Tap",category:"Arcade",icon:"⚡",desc:"Tap as many times as you can."},
-{id:"crystal",name:"Crystal Hunt",category:"Skill",icon:"💎",desc:"Find the hidden crystal."},
-{id:"reaction",name:"Reaction Test",category:"Skill",icon:"🚀",desc:"Test your reaction speed."}
-];
-function notify(t){$("message").textContent=t;$("message").classList.remove("hidden");clearTimeout(notify.timer);notify.timer=setTimeout(()=>$("message").classList.add("hidden"),6000);}
-function safeText(tag,text){const e=document.createElement(tag);e.textContent=text??"";return e;}
-function validURL(v){try{const u=new URL(v);return u.protocol==="https:"||u.protocol==="http:";}catch{return false;}}
-function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-if(window.supabase&&SUPABASE_URL.startsWith("https://")&&SUPABASE_KEY.startsWith("sb_publishable_"))db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-else notify("Supabase could not load. Check your internet connection.");
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-function renderGames(){
- const grid=$("gameGrid");grid.replaceChildren();let count=0;
- builtInGames.forEach(g=>{
-  if(activeFilter!=="All"&&g.category!==activeFilter)return;
-  if(!g.name.toLowerCase().includes($("search").value.toLowerCase()))return;
-  count++;const card=document.createElement("article");card.className="game-card";
-  const art=safeText("div",g.icon);art.className="game-art";
-  const info=document.createElement("div");info.className="game-info";
-  info.append(safeText("h3",g.name),safeText("p",g.desc));
-  const meta=document.createElement("div");meta.className="game-meta";
-  const cat=safeText("span",g.category.toUpperCase());cat.className="category";
-  const btn=safeText("button","PLAY");btn.addEventListener("click",()=>openGame(g.id));
-  meta.append(cat,btn);info.append(meta);card.append(art,info);grid.append(card);
- });
- $("noGames").classList.toggle("hidden",count>0);
-}
-$("search").addEventListener("input",renderGames);
-document.querySelectorAll(".filter").forEach(b=>b.addEventListener("click",()=>{
- activeFilter=b.dataset.filter;
- document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("secondary",x!==b));
- renderGames();
-}));
+let currentUser=null,currentProfile=null;
+let gameTimer=null,gameData={};
 
-function saveRecord(name,score){
- let r={};try{r=JSON.parse(localStorage.getItem("coveScores")||"{}");}catch{}
- r[name]=Math.max(Number(r[name]||0),Number(score)||0);
- localStorage.setItem("coveScores",JSON.stringify(r));showScores();
-}
-function showScores(){
- let r={};try{r=JSON.parse(localStorage.getItem("coveScores")||"{}");}catch{}
- const box=$("scoreBoard");box.replaceChildren();
- const entries=Object.entries(r).sort((a,b)=>b[1]-a[1]);
- if(!entries.length){box.append(safeText("p","No scores saved yet."));return;}
- entries.forEach(([n,s])=>{const row=document.createElement("div");row.className="score-row";row.append(safeText("span",n),safeText("span",String(s)));box.append(row);});
-}
-function clearScores(){localStorage.removeItem("coveScores");showScores();}
+function go(id){document.getElementById(id).scrollIntoView({behavior:"smooth"})}
+function msg(id,text){const el=document.getElementById(id);if(el)el.textContent=text}
+function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function safeURL(value){try{const u=new URL(value);return u.protocol==="https:"?u.href:null}catch{return null}}
+function premiumInfo(){alert("Premium plans ki prices proposed hain. Payment abhi enabled nahi hai.")}
+function errorText(e){return e?.message||"Something went wrong."}
 
-function openGame(id){
- closeGame();const g=builtInGames.find(x=>x.id===id);if(!g)return;
- $("modalTitle").textContent=g.name;$("gameContent").replaceChildren();$("gameModal").classList.add("show");
- if(id==="tic")startTic();
- if(id==="2048")start2048();
- if(id==="memory")startMemory();
- if(id==="speed")startSpeed();
- if(id==="crystal")startCrystal();
- if(id==="reaction")startReaction();
+/* AUTHENTICATION */
+async function signUp(){
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
+const username=document.getElementById("username").value.trim();
+if(!email||password.length<6||!username){msg("authStatus","Email, username aur kam se kam 6-character password bharo.");return}
+msg("authStatus","Creating account...");
+const {data,error}=await db.auth.signUp({email,password,options:{data:{username}}});
+if(error){msg("authStatus",error.message);return}
+if(data.session){msg("authStatus","Account created!");await refreshAuth()}
+else{msg("authStatus","Account created. Email confirmation required ho sakta hai. Inbox/spam check karke phir login karo.")}
 }
-function closeGame(){clearInterval(speedTimer);clearTimeout(reactionTimer);$("gameModal").classList.remove("show");}
-$("gameModal").addEventListener("click",e=>{if(e.target===$("gameModal"))closeGame();});
-function gameMsg(t){const p=safeText("p",t);p.className="game-message";$("gameContent").append(p);return p;}
-function gameButton(t,fn){const b=safeText("button",t);b.addEventListener("click",fn);$("gameContent").append(b);return b;}
+async function signIn(){
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
+if(!email||!password){msg("authStatus","Email aur password bharo.");return}
+msg("authStatus","Logging in...");
+const {data,error}=await db.auth.signInWithPassword({email,password});
+if(error){msg("authStatus",error.message);return}
+msg("authStatus","Login successful.");
+await refreshAuth();
+}
+async function signOut(){await db.auth.signOut();await refreshAuth()}
+async function refreshAuth(){
+const {data}=await db.auth.getSession();
+currentUser=data.session?.user||null;
+currentProfile=null;
+if(currentUser){
+const {data:p,error}=await db.from("profiles").select("id,username,role").eq("id",currentUser.id).maybeSingle();
+if(!error)currentProfile=p;
+}
+document.getElementById("loggedOut").classList.toggle("hidden",!!currentUser);
+document.getElementById("loggedIn").classList.toggle("hidden",!currentUser);
+if(currentUser){
+document.getElementById("welcome").textContent="Welcome, "+(currentProfile?.username||currentUser.email);
+document.getElementById("userRole").textContent="Role: "+(currentProfile?.role||"creator");
+}
+await loadCommunityGames();
+await loadCreatorDashboard();
+await loadLeaderboard();
+await loadAdminPanel();
+await loadPayoutHistory();
+}
+db.auth.onAuthStateChange(()=>{setTimeout(refreshAuth,0)});
 
-/* TIC TAC TOE */
-function startTic(){
- let board=Array(9).fill(""),done=false;
- const wrap=document.createElement("div");wrap.className="ttt-grid";
- const msg=gameMsg("You are X. Your turn!");
- function winner(){
-  const lines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-  for(const [a,b,c] of lines)if(board[a]&&board[a]===board[b]&&board[a]===board[c])return board[a];
-  return board.every(Boolean)?"draw":null;
- }
- function draw(){wrap.replaceChildren();board.forEach((v,i)=>{const b=safeText("button",v||" ");b.className="ttt-cell";b.addEventListener("click",()=>move(i));wrap.append(b);});}
- function finish(w){done=true;msg.textContent=w==="draw"?"Draw!":w==="X"?"You win!":"Computer wins!";if(w==="X")saveRecord("Tic Tac Toe",1);}
- function move(i){
-  if(done||board[i])return;board[i]="X";let w=winner();if(w){draw();finish(w);return;}
-  const free=board.map((v,i)=>v?null:i).filter(v=>v!==null);
-  if(free.length)board[free[Math.floor(Math.random()*free.length)]]="O";
-  w=winner();draw();if(w)finish(w);else msg.textContent="Your turn!";
- }
- draw();$("gameContent").append(wrap);gameButton("RESTART",startTic);
+/* GAMES */
+const area=document.getElementById("gameArea"),content=document.getElementById("gameContent"),title=document.getElementById("gameTitle");
+function openGame(name){
+clearInterval(gameTimer);gameData={};area.classList.add("show");
+area.scrollIntoView({behavior:"smooth",block:"center"});
+if(name==="tic")ticGame();
+if(name==="2048")game2048();
+if(name==="memory")memoryGame();
+if(name==="tap")tapGame();
+if(name==="crystal")crystalGame();
+if(name==="reaction")reactionGame();
+}
+function closeGame(){clearInterval(gameTimer);area.classList.remove("show");content.innerHTML="";gameData={}}
+function ticGame(){
+title.textContent="⭕ Tic Tac Toe";
+let b=Array(9).fill(""),turn="X",done=false;
+content.innerHTML='<div class="board" id="ticBoard"></div><p id="ticStatus">Player X turn</p><button onclick="ticGame()">RESTART</button>';
+b.forEach((_,i)=>{
+const btn=document.createElement("button");btn.className="cell";
+btn.onclick=()=>{
+if(done||b[i])return;b[i]=turn;btn.textContent=turn;
+const wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+if(wins.some(w=>w.every(x=>b[x]===turn))){msg("ticStatus",turn+" wins!");done=true}
+else if(b.every(Boolean)){msg("ticStatus","Draw!");done=true}
+else{turn=turn==="X"?"O":"X";msg("ticStatus","Player "+turn+" turn")}
+};
+document.getElementById("ticBoard").appendChild(btn);
+});
+}
+function game2048(){
+title.textContent="🔢 2048";
+let b=Array(16).fill(0),score=0;
+function spawn(){let e=b.map((v,i)=>v===0?i:-1).filter(i=>i>=0);if(e.length)b[e[Math.floor(Math.random()*e.length)]]=Math.random()<.9?2:4}
+function draw(){content.innerHTML='<p>Score: '+score+'</p><div class="tiles">'+b.map(v=>'<div class="tile">'+(v||"")+'</div>').join("")+'</div><p>Use arrow keys or swipe.</p><button onclick="game2048()">RESTART</button>'}
+function move(dir){
+const old=b.join(",");
+for(let line=0;line<4;line++){
+let ids=Array.from({length:4},(_,j)=>dir==="left"?line*4+j:dir==="right"?line*4+3-j:dir==="up"?j*4+line:(3-j)*4+line);
+let vals=ids.map(i=>b[i]).filter(Boolean),out=[];
+for(let j=0;j<vals.length;j++){if(vals[j]===vals[j+1]){out.push(vals[j]*2);score+=vals[j]*2;j++}else out.push(vals[j])}
+while(out.length<4)out.push(0);ids.forEach((id,j)=>b[id]=out[j]);
+}
+if(old!==b.join(""))spawn();draw();
+}
+gameData.move2048=move;spawn();spawn();draw();
+}
+document.onkeydown=e=>{
+if(area.classList.contains("show")&&gameData.move2048&&["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key)){
+e.preventDefault();gameData.move2048(e.key.replace("Arrow","").toLowerCase());
+}
+};
+function memoryGame(){
+title.textContent="🧠 Memory Match";
+const vals=["🍎","🍋","🍇","🍒","⭐","🎮","🚀","💎"],cards=[...vals,...vals].sort(()=>Math.random()-.5);
+let first=-1,lock=false,matched=0,moves=0;
+content.innerHTML='<p id="memStatus">Moves: 0</p><div class="memory" id="memBoard"></div>';
+cards.forEach((v,i)=>{
+const btn=document.createElement("button");btn.className="secondary";btn.textContent="❔";
+btn.onclick=()=>{
+if(lock||btn.dataset.done==="1"||first===i)return;btn.textContent=v;
+if(first<0){first=i;return}
+const prev=first;first=-1;moves++;
+if(cards[prev]===v){
+const buttons=document.querySelectorAll("#memBoard button");
+buttons[prev].dataset.done="1";btn.dataset.done="1";matched++;
+}else{
+lock=true;setTimeout(()=>{document.querySelectorAll("#memBoard button")[prev].textContent="❔";btn.textContent="❔";lock=false},650);
+}
+msg("memStatus",matched===8?"You won in "+moves+" moves!":"Moves: "+moves);
+};
+document.getElementById("memBoard").appendChild(btn);
+});
+}
+function tapGame(){
+title.textContent="⚡ Speed Tap";
+let count=0,seconds=10;
+content.innerHTML='<p id="tapStatus">Tap as many times as possible in 10 seconds.</p><button style="width:90%;height:110px;font-size:24px" id="tapBtn">TAP!</button>';
+document.getElementById("tapBtn").onclick=()=>{if(seconds>0){count++;msg("tapStatus","Taps: "+count+" | Time: "+seconds)}};
+gameTimer=setInterval(()=>{seconds--;if(seconds<=0){clearInterval(gameTimer);msg("tapStatus","Time up! Your score: "+count)}else msg("tapStatus","Taps: "+count+" | Time: "+seconds)},1000);
+}
+function crystalGame(){
+title.textContent="💎 Crystal Hunt";
+let target=Math.floor(Math.random()*16),tries=0;
+content.innerHTML='<p>Find the hidden crystal!</p><div class="tiles" id="crystalBoard"></div><p id="crystalStatus">Choose a box.</p>';
+for(let i=0;i<16;i++){
+const btn=document.createElement("button");btn.className="tile";btn.textContent="?";
+btn.onclick=()=>{
+if(btn.disabled)return;tries++;
+if(i===target){btn.textContent="💎";msg("crystalStatus","You found it in "+tries+" tries!");document.querySelectorAll("#crystalBoard button").forEach(x=>x.disabled=true)}
+else{btn.textContent="❌";btn.disabled=true;msg("crystalStatus","Not here. Try another box!")}
+};
+document.getElementById("crystalBoard").appendChild(btn);
+}
+}
+function reactionGame(){
+title.textContent="⏱️ Reaction Test";
+content.innerHTML='<p id="reactionStatus">Press START. Wait until the button turns green.</p><button id="reactionBtn">START</button>';
+let start=0,waiting=false,ready=false,timeout;
+document.getElementById("reactionBtn").onclick=()=>{
+const btn=document.getElementById("reactionBtn");
+if(!waiting&&!ready){
+waiting=true;btn.textContent="WAIT...";btn.style.background="#d58a22";
+timeout=setTimeout(()=>{ready=true;start=performance.now();btn.textContent="TAP NOW!";btn.style.background="#20d875"},1500+Math.random()*3000);
+}else if(waiting&&!ready){
+clearTimeout(timeout);waiting=false;btn.textContent="TRY AGAIN";btn.style.background="";msg("reactionStatus","Too early! Try again.");
+}else if(ready){
+let ms=Math.round(performance.now()-start);waiting=false;ready=false;btn.textContent="TRY AGAIN";btn.style.background="";msg("reactionStatus","Your reaction time: "+ms+" ms");
+}
+};
 }
 
-/* 2048 */
-function start2048(){
- let a=Array(16).fill(0),over=false;
- const wrap=document.createElement("div");wrap.className="tile-grid";const msg=gameMsg("Join matching numbers!");
- function spawn(){const f=a.map((v,i)=>v?null:i).filter(v=>v!==null);if(f.length)a[f[Math.floor(Math.random()*f.length)]]=Math.random()<.9?2:4;}
- function draw(){wrap.replaceChildren();a.forEach(v=>wrap.append(Object.assign(safeText("div",v?String(v):""),{className:"tile"})));msg.textContent="Highest tile: "+Math.max(...a);}
- function compress(line){let x=line.filter(Bool
+/* COMMUNITY GAMES */
+async function recordPlay(id){
+if(!currentUser)return;
+const {error}=await db.rpc("record_game_play",{p_game_id:id});
+if(error)console.warn("Play record:",error.message);
+}
+async function loadCommunityGames(){
+const box=document.getElementById("communityGames");
+const {data,error}=await db.from("games").select("id,title,description,game_url,play_count,creator_id").eq("status","published").order("play_count",{ascending:false}).limit(30);
+if(error){box.innerHTML='<div class="card muted">Community games could not load. Check Supabase table permissions.</div>';return}
+if(!data?.length){box.innerHTML='<div class="card muted">No approved community games yet. Creators can submit games below.</div>';return}
+box.innerHTML=data.map(g=>'<div class="card"><div class="icon">🕹️</div><h3>'+escapeHTML(g.title)+'</h3><p class="muted">'+escapeHTML(g.description||"Community game")+'</p><p class="muted">Plays: '+(g.play_count||0)+'</p><button onclick="playCommunityGame(\''+g.id+'\')">PLAY GAME</button></div>').join("");
+}
+async function playCommunityGame(id){
+const {data,error}=await db.from("games").select("id,title,game_url").eq("id",id).eq("status","published").single();
+if(error||!data){alert("Game not available.");return}
+const url=safeURL(data.g
