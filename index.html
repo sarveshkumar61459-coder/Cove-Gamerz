@@ -1,4 +1,5 @@
- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -35,6 +36,9 @@ small,.muted{color:var(--muted)}
 footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid #17334b}
 .status{color:#70e6a4}
 a{color:var(--blue)}
+.search-wrap{max-width:600px;margin:12px 0 18px}
+.search-wrap input{margin-bottom:5px}
+.section-note{background:#0b192b;border:1px solid #1b3a55;border-radius:10px;padding:14px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -44,6 +48,7 @@ a{color:var(--blue)}
   <nav>
     <a href="#games">Games</a>
     <a href="#creators">Creators</a>
+    <a href="#leaderboard">Leaderboard</a>
     <a href="#account">Account</a>
     <a href="#premium">Premium</a>
   </nav>
@@ -80,13 +85,59 @@ a{color:var(--blue)}
       <button onclick="openGame('tap')">Play Now</button>
     </div>
   </div>
+
   <div id="gameArea" class="card hidden" style="margin-top:18px">
     <button class="secondary" onclick="closeGame()">Close Game</button>
     <div id="gameContent"></div>
   </div>
+
   <h2>🌟 Community Games</h2>
+  <div class="search-wrap">
+    <input
+      id="communitySearch"
+      type="search"
+      placeholder="🔎 Search games by name or description..."
+      oninput="filterCommunityGames(this.value)"
+      aria-label="Search community games"
+    >
+    <p id="communityCount" class="muted">Loading community games...</p>
+  </div>
+
   <div id="communityGames" class="grid">
     <p class="muted">Loading community games...</p>
+  </div>
+</section>
+
+<section id="creators">
+  <h2>🚀 Creator Studio</h2>
+  <div class="card">
+    <p class="muted">Submit a game link for admin review. Only approved games appear publicly.</p>
+    <label>Game title</label>
+    <input id="gameTitle" placeholder="Enter game name">
+    <label>Description</label>
+    <textarea id="gameDescription" placeholder="Describe your game"></textarea>
+    <label>Game URL (HTTPS link)</label>
+    <input id="gameURL" placeholder="https://example.com/game">
+    <button onclick="submitGame()">Submit Game</button>
+  </div>
+
+  <div class="card" style="margin-top:15px">
+    <h3>My Submissions</h3>
+    <div id="myGames">Login to see your submissions.</div>
+  </div>
+
+  <div class="card" style="margin-top:15px">
+    <h3>Creator Earnings Information</h3>
+    <p class="muted">This is currently a free prototype. No automatic earnings are generated. Any future creator reward rules will be published transparently before real payouts begin.</p>
+  </div>
+</section>
+
+<section id="leaderboard">
+  <h2>🏆 Creator Leaderboard</h2>
+  <div class="section-note">
+    <h3>Coming Soon</h3>
+    <p>Creator rankings will be added after public profile access and verified game-play statistics are safely configured.</p>
+    <p>No earnings or rewards are calculated by this leaderboard yet.</p>
   </div>
 </section>
 
@@ -103,6 +154,7 @@ a{color:var(--blue)}
       <input id="signupUsername" placeholder="Choose username">
       <button onclick="signup()">Create Account</button>
     </div>
+
     <div class="card">
       <h3>Login</h3>
       <label>Email</label>
@@ -113,30 +165,9 @@ a{color:var(--blue)}
       <button class="secondary" onclick="logout()">Logout</button>
     </div>
   </div>
+
   <div id="accountStatus" class="card" style="margin-top:15px">
     <p class="muted">You are not logged in.</p>
-  </div>
-</section>
-
-<section id="creators">
-  <h2>🚀 Creator Studio</h2>
-  <div class="card">
-    <p class="muted">Submit a game link for admin review. Only approved games appear publicly.</p>
-    <label>Game title</label>
-    <input id="gameTitle" placeholder="Enter game name">
-    <label>Description</label>
-    <textarea id="gameDescription" placeholder="Describe your game"></textarea>
-    <label>Game URL (HTTPS link)</label>
-    <input id="gameURL" placeholder="https://example.com/game">
-    <button onclick="submitGame()">Submit Game</button>
-  </div>
-  <div class="card" style="margin-top:15px">
-    <h3>My Submissions</h3>
-    <div id="myGames">Login to see your submissions.</div>
-  </div>
-  <div class="card" style="margin-top:15px">
-    <h3>Creator Earnings Information</h3>
-    <p class="muted">This is currently a free prototype. No automatic earnings are generated. Any future creator reward rules will be published transparently before real payouts begin.</p>
   </div>
 </section>
 
@@ -188,20 +219,25 @@ const SUPABASE_KEY = "sb_publishable_83QNB8pE4497gzx104hQUw_YKPsi_Nh";
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 let currentUser = null;
 let currentProfile = null;
+let communityGamesCache = [];
 
 function message(text){
   alert(text);
 }
+
 function escapeHTML(value){
   return String(value ?? "").replace(/[&<>"']/g, c => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   })[c]);
 }
+
 function safeURL(value){
   try{
     const u = new URL(value);
     return u.protocol === "https:" ? u.href : null;
-  }catch(e){ return null; }
+  }catch(e){
+    return null;
+  }
 }
 
 async function signup(){
@@ -227,6 +263,7 @@ async function login(){
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
   const {error} = await db.auth.signInWithPassword({email,password});
+
   if(error) return message(error.message);
   await refreshAuth();
   message("Login successful!");
@@ -235,6 +272,7 @@ async function login(){
 async function logout(){
   const {error} = await db.auth.signOut();
   if(error) return message(error.message);
+
   currentUser = null;
   currentProfile = null;
   await refreshAuth();
@@ -251,11 +289,14 @@ async function refreshAuth(){
       .select("id,username,role")
       .eq("id",currentUser.id)
       .maybeSingle();
+
     currentProfile = profile;
   }
+
   renderAccount();
   await loadCommunityGames();
   await loadMyGames();
+
   if(currentProfile?.role === "admin"){
     document.getElementById("admin").classList.remove("hidden");
     await loadAdmin();
@@ -266,10 +307,12 @@ async function refreshAuth(){
 
 function renderAccount(){
   const el = document.getElementById("accountStatus");
+
   if(!currentUser){
     el.innerHTML = "<p class='muted'>You are not logged in.</p>";
     return;
   }
+
   el.innerHTML = `<h3>Welcome, ${escapeHTML(currentProfile?.username || currentUser.email)}</h3>
   <p class="status">Logged in</p>
   <p class="muted">Role: ${escapeHTML(currentProfile?.role || "creator")}</p>`;
@@ -277,11 +320,14 @@ function renderAccount(){
 
 async function submitGame(){
   if(!currentUser) return message("Please login first.");
+
   const title = document.getElementById("gameTitle").value.trim();
   const description = document.getElementById("gameDescription").value.trim();
   const url = safeURL(document.getElementById("gameURL").value.trim());
 
-  if(!title || !url) return message("Enter a title and a valid HTTPS game link.");
+  if(!title || !url){
+    return message("Enter a title and a valid HTTPS game link.");
+  }
 
   const {error} = await db.from("games").insert({
     creator_id:currentUser.id,
@@ -291,6 +337,7 @@ async function submitGame(){
   });
 
   if(error) return message(error.message);
+
   message("Game submitted for admin review!");
   document.getElementById("gameTitle").value = "";
   document.getElementById("gameDescription").value = "";
@@ -298,24 +345,32 @@ async function submitGame(){
   await loadMyGames();
 }
 
-async function loadCommunityGames(){
+/* COMMUNITY GAMES SEARCH */
+function renderCommunityGames(query = ""){
   const el = document.getElementById("communityGames");
-  const {data,error} = await db.from("games")
-    .select("id,title,description,game_url")
-    .eq("status","published")
-    .order("created_at",{ascending:false})
-    .limit(30);
+  const count = document.getElementById("communityCount");
+  const term = query.trim().toLowerCase();
 
-  if(error){
-    el.innerHTML = "<p class='muted'>Community games could not be loaded.</p>";
-    return;
-  }
-  if(!data?.length){
+  const filtered = communityGamesCache.filter(g =>
+    String(g.title || "").toLowerCase().includes(term) ||
+    String(g.description || "").toLowerCase().includes(term)
+  );
+
+  count.textContent = `${filtered.length} of ${communityGamesCache.length} community games`;
+
+  if(!communityGamesCache.length){
     el.innerHTML = "<p class='muted'>No community games published yet. Be the first creator!</p>";
     return;
   }
-  el.innerHTML = data.map(g => {
+
+  if(!filtered.length){
+    el.innerHTML = "<p class='muted'>No games match your search. Try another name.</p>";
+    return;
+  }
+
+  el.innerHTML = filtered.map(g => {
     const url = safeURL(g.game_url);
+
     return `<div class="card">
       <h3>${escapeHTML(g.title)}</h3>
       <p class="muted">${escapeHTML(g.description || "")}</p>
@@ -325,12 +380,39 @@ async function loadCommunityGames(){
   }).join("");
 }
 
+function filterCommunityGames(query){
+  renderCommunityGames(query);
+}
+
+async function loadCommunityGames(){
+  const el = document.getElementById("communityGames");
+  const count = document.getElementById("communityCount");
+
+  const {data,error} = await db.from("games")
+    .select("id,title,description,game_url")
+    .eq("status","published")
+    .order("created_at",{ascending:false})
+    .limit(30);
+
+  if(error){
+    communityGamesCache = [];
+    el.innerHTML = "<p class='muted'>Community games could not be loaded.</p>";
+    count.textContent = "Games unavailable";
+    return;
+  }
+
+  communityGamesCache = data || [];
+  renderCommunityGames(document.getElementById("communitySearch")?.value || "");
+}
+
 async function loadMyGames(){
   const el = document.getElementById("myGames");
+
   if(!currentUser){
     el.textContent = "Login to see your submissions.";
     return;
   }
+
   const {data,error} = await db.from("games")
     .select("title,status,created_at")
     .eq("creator_id",currentUser.id)
@@ -340,10 +422,12 @@ async function loadMyGames(){
     el.textContent = error.message;
     return;
   }
+
   if(!data?.length){
     el.textContent = "You have not submitted any games yet.";
     return;
   }
+
   el.innerHTML = data.map(g => `
     <p><b>${escapeHTML(g.title)}</b> — ${escapeHTML(g.status)}</p>
   `).join("");
@@ -351,6 +435,7 @@ async function loadMyGames(){
 
 async function loadAdmin(){
   if(currentProfile?.role !== "admin") return;
+
   const el = document.getElementById("adminGames");
   const {data,error} = await db.from("games")
     .select("id,title,description,game_url,status,creator_id")
@@ -374,37 +459,34 @@ async function loadAdmin(){
       </div>
     `).join("");
   }
+
   await loadAdminPayouts();
 }
 
 async function moderateGame(id,status){
-  if(currentProfile?.role !== "admin") return message("Admin access required.");
+  if(currentProfile?.role !== "admin"){
+    return message("Admin access required.");
+  }
+
   const {error} = await db.from("games")
     .update({status})
     .eq("id",id);
+
   if(error) return message(error.message);
+
   message("Game status updated.");
   await loadAdmin();
   await loadCommunityGames();
 }
 
+/* Existing payout review function retained; no payout form or payment processing is enabled. */
 async function requestPayout(){
-  if(!currentUser) return message("Please login first.");
-  const amount = Number(document.getElementById("payoutAmount").value);
-  if(!Number.isFinite(amount) || amount <= 0) return message("Enter a valid amount.");
-
-  const {error} = await db.from("payout_requests").insert({
-    creator_id:currentUser.id,
-    requested_amount:amount,
-    status:"pending"
-  });
-  if(error) return message(error.message);
-  message("Request recorded for review. This does not transfer money.");
-  document.getElementById("payoutAmount").value = "";
+  return message("Payout requests are not enabled in this prototype.");
 }
 
 async function loadAdminPayouts(){
   const el = document.getElementById("adminPayouts");
+
   const {data,error} = await db.from("payout_requests")
     .select("id,creator_id,requested_amount,status")
     .eq("status","pending")
@@ -414,10 +496,12 @@ async function loadAdminPayouts(){
     el.textContent = error.message;
     return;
   }
+
   if(!data?.length){
     el.textContent = "No pending payout requests.";
     return;
   }
+
   el.innerHTML = data.map(p => `
     <div class="card" style="margin:10px 0">
       <p>Creator ID: ${escapeHTML(p.creator_id)}</p>
@@ -429,42 +513,73 @@ async function loadAdminPayouts(){
 }
 
 async function reviewPayout(id,status){
-  if(currentProfile?.role !== "admin") return message("Admin access required.");
+  if(currentProfile?.role !== "admin"){
+    return message("Admin access required.");
+  }
+
   const {error} = await db.from("payout_requests")
     .update({status})
     .eq("id",id);
+
   if(error) return message(error.message);
+
   message("Request status updated. No money has been transferred.");
   await loadAdminPayouts();
 }
 
 function shareSite(){
   const url = location.href;
+
   if(navigator.share){
-    navigator.share({title:"Cove Gamerz",text:"Play and discover games on Cove Gamerz!",url});
+    navigator.share({
+      title:"Cove Gamerz",
+      text:"Play and discover games on Cove Gamerz!",
+      url
+    }).catch(()=>{});
+  }else if(navigator.clipboard){
+    navigator.clipboard.writeText(url)
+      .then(()=>message("Website link copied."))
+      .catch(()=>message("Could not copy link."));
   }else{
-    navigator.clipboard.writeText(url).then(()=>message("Website link copied."));
+    message("Please copy the website link from your browser.");
   }
 }
+
 function shareGame(title,url){
   const name = decodeURIComponent(title);
   const link = decodeURIComponent(url);
+
+  if(!link){
+    return message("Game link is not available.");
+  }
+
   if(navigator.share){
-    navigator.share({title:name,text:"Play this game on Cove Gamerz",url:link});
+    navigator.share({
+      title:name,
+      text:"Play this game on Cove Gamerz",
+      url:link
+    }).catch(()=>{});
+  }else if(navigator.clipboard){
+    navigator.clipboard.writeText(link)
+      .then(()=>message("Game link copied."))
+      .catch(()=>message("Could not copy game link."));
   }else{
-    navigator.clipboard.writeText(link).then(()=>message("Game link copied."));
+    message("Game link: " + link);
   }
 }
 
 function openGame(type){
   document.getElementById("gameArea").classList.remove("hidden");
   const box = document.getElementById("gameContent");
+
   if(type==="tic") ticTacToe(box);
   if(type==="guess") numberGuess(box);
   if(type==="memory") memoryGame(box);
   if(type==="tap") speedTap(box);
+
   document.getElementById("gameArea").scrollIntoView({behavior:"smooth"});
 }
+
 function closeGame(){
   document.getElementById("gameArea").classList.add("hidden");
   document.getElementById("gameContent").innerHTML = "";
@@ -473,92 +588,67 @@ function closeGame(){
 function ticTacToe(box){
   let board = Array(9).fill("");
   let turn = "X";
-  const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  let finished = false;
+
+  const wins = [
+    [0,1,2],[3,4,5],[6,7,8],
+    [0,3,6],[1,4,7],[2,5,8],
+    [0,4,8],[2,4,6]
+  ];
+
   function draw(){
     box.innerHTML = `<h3>Tic Tac Toe</h3><p>Turn: ${turn}</p>
     <div style="display:grid;grid-template-columns:repeat(3,75px);gap:5px">
     ${board.map((v,i)=>`<button style="height:65px;font-size:24px" onclick="ticMove(${i})">${v}</button>`).join("")}
     </div><p id="ticStatus"></p><button onclick="openGame('tic')">Restart</button>`;
   }
+
   window.ticMove = i => {
-    if(board[i]) return;
+    if(finished || board[i]) return;
+
     board[i] = turn;
     const win = wins.some(line=>line.every(n=>board[n]===turn));
-    draw();
-    if(win) box.innerHTML += `<h3>${turn} wins!</h3>`;
-    else if(board.every(Boolean)) box.innerHTML += "<h3>Draw!</h3>";
-    else turn = turn==="X"?"O":"X";
+
+    if(win){
+      finished = true;
+      draw();
+      box.innerHTML += `<h3>${turn} wins!</h3>`;
+    }else if(board.every(Boolean)){
+      finished = true;
+      draw();
+      box.innerHTML += "<h3>Draw!</h3>";
+    }else{
+      turn = turn==="X"?"O":"X";
+      draw();
+    }
   };
+
   draw();
 }
 
 function numberGuess(box){
   const answer = Math.floor(Math.random()*20)+1;
   let attempts = 0;
+
   box.innerHTML = `<h3>Number Guess</h3><p>Guess a number from 1 to 20.</p>
   <input id="guessInput" type="number" min="1" max="20">
   <button onclick="checkGuess()">Check</button><p id="guessResult"></p>`;
+
   window.checkGuess = () => {
     const n = Number(document.getElementById("guessInput").value);
-    if(n<1 || n>20) return message("Enter a number from 1 to 20.");
+
+    if(!Number.isInteger(n) || n<1 || n>20){
+      return message("Enter a whole number from 1 to 20.");
+    }
+
     attempts++;
+
     document.getElementById("guessResult").textContent =
-      n===answer ? `Correct! Attempts: ${attempts}` : n<answer ? "Try a higher number." : "Try a lower number.";
+      n===answer ? `Correct! Attempts: ${attempts}` :
+      n<answer ? "Try a higher number." : "Try a lower number.";
   };
 }
 
 function memoryGame(box){
   const values = ["🎮","⭐","🚀","🔥","🎮","⭐","🚀","🔥"];
-  values.sort(()=>Math.random()-.5);
-  let opened=[],matched=[];
-  box.innerHTML = `<h3>Memory Match</h3><div id="memoryGrid" style="display:grid;grid-template-columns:repeat(4,65px);gap:7px"></div><p id="memoryStatus">Find all pairs.</p>`;
-  const grid = document.getElementById("memoryGrid");
-  function draw(){
-    grid.innerHTML = values.map((v,i)=>`
-      <button style="height:60px;font-size:22px" onclick="flipCard(${i})">
-      ${matched.includes(i)||opened.includes(i)?v:"?"}</button>`).join("");
-  }
-  window.flipCard = i => {
-    if(matched.includes(i)||opened.includes(i)||opened.length===2) return;
-    opened.push(i);draw();
-    if(opened.length===2){
-      if(values[opened[0]]===values[opened[1]]){
-        matched.push(...opened);opened=[];
-        document.getElementById("memoryStatus").textContent = matched.length===8?"You won!":"Good match!";
-        draw();
-      }else{
-        setTimeout(()=>{
-          opened=[];draw();
-        },700);
-      }
-    }
-  };
-  draw();
-}
-
-function speedTap(box){
-  let count=0,active=false;
-  box.innerHTML = `<h3>Speed Tap</h3><p>Tap as many times as possible in 10 seconds.</p>
-  <h2 id="tapCount">0</h2><button id="tapButton" onclick="tapNow()">Start</button><p id="tapStatus"></p>`;
-  window.tapNow = () => {
-    if(!active){
-      active=true;count=0;
-      document.getElementById("tapButton").textContent="TAP!";
-      document.getElementById("tapStatus").textContent="Go!";
-      setTimeout(()=>{
-        active=false;
-        document.getElementById("tapButton").textContent="Start Again";
-        document.getElementById("tapStatus").textContent=`Finished! Your score: ${count}`;
-      },10000);
-    }else{
-      count++;
-      document.getElementById("tapCount").textContent=count;
-    }
-  };
-}
-
-db.auth.onAuthStateChange(()=>setTimeout(refreshAuth,0));
-refreshAuth();
-</script>
-</body>
-</html>
+  values.sort(()=>Math.random
